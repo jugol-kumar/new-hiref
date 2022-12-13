@@ -1,0 +1,25 @@
+.left-header .nav-item{
+    transition: 0.1s all ease;
+    border-bottom: 3px solid var(--bs-white);
+}
+.left-header .nav-item:hover{
+    border-bottom: 3px solid;
+    border-color: var(--bs-btn-bg);
+}
+
+.left-header .menu_active{
+    border-bottom: 3px solid;
+    border-color: var(--bs-btn-bg);
+}
+
+.navbar .dropdown-menu {
+    position: absolute;
+    left: -110px;
+}
+#navbar-default .dropdown-toggle:after{
+    content: " " !important;
+}
+#navbar-default .dropdown-toggle i{
+    font-size: 23px;
+    font-weight: bold;
+}
