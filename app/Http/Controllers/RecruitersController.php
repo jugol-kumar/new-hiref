@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\Company;
 use App\Models\Country;
+use App\Models\Division;
+use App\Models\EducationLabel;
 use App\Models\Job;
 use App\Models\Recruiter;
 use App\Models\Skill;
@@ -139,12 +141,13 @@ class RecruitersController extends Controller
     public function createJob(){
 
         return view( 'recruiters.jobs.create', with(
-        ['categories' => Category::select('id', 'name')->get(),
-            'countries' => Country::select('currency', 'currency_name', 'currency_symbol', 'name', 'id')->get(),
+        [
+            'states'     => Division::all(),
+            'categories' => Category::select('id', 'name')->get(),
+            'countries'  => Country::select('currency', 'currency_name', 'currency_symbol', 'name', 'id')->get(),
+            'companies'  => Company::where('user_id', Auth::id())->with('photos')->get(),
 
-            'companies' => Company::where('user_id', Auth::id())->with('photos')->get(),
-
-            ]));
+        ]));
     }
 
     public function getSubCat($id){
@@ -205,6 +208,8 @@ class RecruitersController extends Controller
         $data['fultime_remote'] = filled($request->fultime_remote);
         $data['is_published'] = filled($request->is_published);
         $data['is_featured'] = filled($request->is_featured);
+        $data['state_id'] = $request->state_id;
+        $data['city_id'] = $request->city_id;
 
 
         $data['user_id'] = Auth::id();

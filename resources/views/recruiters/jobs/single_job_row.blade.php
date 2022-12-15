@@ -30,36 +30,36 @@
             </div>
         </div>
     </td>
-    <td class="border-top-0">11,200</td>
+    <td class="border-top-0">{{ $value->min_salary }} - {{ $value->max_salary }} LPA</td>
     <td class="border-top-0">
-        <span class="text-warning">4.5<i class="mdi mdi-star"></i></span>(3,250)
+        no apply
     </td>
     <td class="border-top-0">
-        <span class="badge bg-{{  $value->status ? 'primary' : 'warning' }}">{{ $value->status ? 'Published' : 'Un-Published' }}</span>
+        <span class="badge bg-{{  $value->is_published ? 'primary' : 'warning' }}">{{ $value->is_published ? 'Published' : 'Un-Published' }}</span>
     </td>
     <td class="text-muted border-top-0">
-                                <span class="dropdown dropstart">
-                                    <a class="btn-icon btn btn-ghost btn-sm rounded-circle " href="#" role="button" id="courseDropdown"
-                                       data-bs-toggle="dropdown"  data-bs-offset="-20,20" aria-expanded="false">
-                                        <i class="fe fe-more-vertical"></i>
-                                    </a>
-                                    <span class="dropdown-menu" aria-labelledby="courseDropdown">
-                                        <span class="dropdown-header">Setting </span>
-                                        <a class="dropdown-item" href="{{ route('recruiter.editJob', $value->slug) }}"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
+        <span class="dropdown dropstart">
+            <a class="btn-icon btn btn-ghost btn-sm rounded-circle " href="#" role="button" id="courseDropdown"
+               data-bs-toggle="dropdown"  data-bs-offset="-20,20" aria-expanded="false">
+                <i class="fe fe-more-vertical"></i>
+            </a>
+            <span class="dropdown-menu" aria-labelledby="courseDropdown">
+                <span class="dropdown-header">Setting </span>
+                <a class="dropdown-item" href="{{ route('recruiter.editJob', $value->slug) }}"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
 
-                                        <button  class="dropdown-item" type="button"
-                                                 onclick="deleteData({{ $value->id }})"
-                                        >
-                                            <i class="fe fe-trash  dropdown-item-icon"></i>  <span>Delete</span>
-                                        </button>
-                                        <form id="delete-form-{{ $value->id }}"
-                                              method="POST"
-                                              action="{{ route('recruiter.deleteJob', $value->id) }}"
-                                              style="display: none">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </span>
-                                </span>
+                <button  class="dropdown-item" type="button"
+                         onclick="deleteData({{ $value->id }})"
+                >
+                    <i class="fe fe-trash  dropdown-item-icon"></i>  <span>Delete</span>
+                </button>
+                <form id="delete-form-{{ $value->id }}"
+                      method="POST"
+                      action="{{ route('recruiter.deleteJob', $value->id) }}"
+                      style="display: none">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            </span>
+        </span>
     </td>
 </tr>

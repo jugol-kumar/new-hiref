@@ -39,8 +39,8 @@
                     <thead class="table-light">
                     <tr>
                         <th scope="col" class="border-0">Jobs</th>
-                        <th scope="col" class="border-0">Students</th>
-                        <th scope="col" class="border-0">Rating</th>
+                        <th scope="col" class="border-0">Salary</th>
+                        <th scope="col" class="border-0">Applied</th>
                         <th scope="col" class="border-0">Status</th>
                         <th scope="col" class="border-0"></th>
                     </tr>

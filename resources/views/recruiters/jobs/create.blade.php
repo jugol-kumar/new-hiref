@@ -248,6 +248,36 @@
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <label class="form-label">Preferred State</label>
+                                                                <select class="selectpicker"
+                                                                        data-live-search="true"
+                                                                        name="state_id"
+                                                                        onchange="getCityByState(this)" data-width="100%">
+                                                                    <option value="">Select Preferred State</option>
+                                                                    @foreach($states as $state)
+                                                                        <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('types')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+
+                                                            <div class="col" id="city-card" style="display: none">
+                                                                <label class="form-label">Preferred City</label>
+                                                                <select name="city_id" class="selectpicker"
+                                                                        data-live-search="true"
+                                                                        data-width="100%"  id="city_id" >
+                                                                    <option selected disabled  value="">Select city</option>
+                                                                </select>
+                                                                @error('child_category_id')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
@@ -261,7 +291,7 @@
 
                                                 <div class="mb-3 d-flex justify-content-between">
                                                     <div class="form-check form-switch">
-                                                        <input name="is_remote" class="form-check-input" type="checkbox" role="switch" checked="">
+                                                        <input name="is_remote" class="form-check-input" type="checkbox" role="switch">
                                                         <label class="form-check-label">Is Remote</label>
 
                                                         @error('is_remote')
@@ -270,7 +300,7 @@
                                                     </div>
 
                                                     <div class="form-check form-switch">
-                                                        <input name="fultime_remote" class="form-check-input" type="checkbox" role="switch" checked="">
+                                                        <input name="fultime_remote" class="form-check-input" type="checkbox" role="switch">
                                                         <label class="form-check-label">Is Full-time Remote</label>
 
                                                         @error('fultime_remote')
@@ -279,7 +309,7 @@
                                                     </div>
 
                                                     <div class="form-check form-switch">
-                                                        <input name="is_published" class="form-check-input" type="checkbox" role="switch" checked="">
+                                                        <input name="is_published" class="form-check-input" type="checkbox" role="switch">
                                                         <label class="form-check-label">Publication Status</label>
 
                                                         @error('is_published')
@@ -287,7 +317,7 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-check form-switch">
-                                                        <input name="is_featured" class="form-check-input" type="checkbox" role="switch" checked="">
+                                                        <input name="is_featured" class="form-check-input" type="checkbox" role="switch">
                                                         <label class="form-check-label">Featured Status</label>
 
                                                         @error('is_featured')
@@ -520,6 +550,29 @@
         // The DOM element you wish to replace with Tagify
         var input = document.querySelector('input[name=skills]');
         new Tagify(input)
+
+
+        function getCityByState(event){
+            let stateId = event.value;
+            let city = $("#city_id");
+            if (stateId) {
+                $.ajax({
+                    url: `<?php echo e(route('seeker.getCities', '')); ?>/${stateId}`,
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success:function(res){
+                        city.empty();
+                        $("#city-card").show();
+                        city.append('<option selected disabled value="">'+'Select Districts'+'</option>');
+                        $.each(res.districts, function (key, value) {
+                            city.append('<option value="'+value.id+'" >'+value.name+'</option>');
+                        })
+                        city.selectpicker('refresh');
+                    }
+                })
+            }
+        }
+
 
     </script>
 
