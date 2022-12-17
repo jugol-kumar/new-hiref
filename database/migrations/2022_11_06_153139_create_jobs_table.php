@@ -40,8 +40,8 @@ return new class extends Migration
             $table->string('location');
             $table->boolean('is_remote');
             $table->boolean('fultime_remote');
-            $table->integer('state_id')->nullable();
-            $table->integer('city_id')->nullable();
+            $table->integer('division_id')->nullable();
+            $table->integer('district_id')->nullable();
             $table->boolean('is_published')->default(0);
             $table->boolean('is_featured')->default(0);
             $table->longText('job_details');

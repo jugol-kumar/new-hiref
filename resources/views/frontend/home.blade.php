@@ -40,6 +40,15 @@
             padding: 20px;
             border-radius: 32px;
         }
+        #countryList{
+            position: relative;
+            right: -305px;
+            top: -25px;
+            max-height: 200px;
+            max-width: 38%;
+            background: white;
+            overflow-y: scroll;
+        }
     </style>
 @endpush
 @section('content')
@@ -64,7 +73,7 @@
                                 <!-- card body -->
                                 <div class="p-md-2 p-4">
                                     <!-- form -->
-                                    <form class="row g-1">
+                                    <form class="row g-1" action="{{ route('client.searchJObs') }}" method="get">
                                         <div class="col-12 col-md-5">
 
                                             <!-- input -->
@@ -78,7 +87,7 @@
                                             </svg>
                                         </span>
                                                 <!-- search -->
-                                                <input type="search" class="form-control  rounded-pill border-0 ps-3 form-focus-none"
+                                                <input type="text" name="job_type" class="form-control  rounded-pill border-0 ps-3 form-focus-none"
                                                        placeholder="Job Title" aria-label="Job Title" aria-describedby="searchJob">
                                             </div>
 
@@ -86,26 +95,31 @@
                                         <div class="col-12 col-md-4">
                                             <!-- inpt group -->
                                             <div class="input-group mb-3 mb-md-0 border-md-0 border rounded-pill">
-                                      <span class="input-group-text bg-transparent border-0 pe-0 ps-md-0" id="location"><svg
-                                              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                              class="bi bi-geo-alt  text-muted" viewBox="0 0 16 16">
-                                          <path
-                                              d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                                          <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                        </svg>
-                                      </span>
+                                                  <span class="input-group-text bg-transparent border-0 pe-0 ps-md-0" id="location">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                          class="bi bi-geo-alt  text-muted" viewBox="0 0 16 16">
+                                                      <path
+                                                          d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                                      <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                                    </svg>
+                                                  </span>
                                                 <!-- search -->
-                                                <input type="search" class="form-control rounded-pill  border-0 ps-3 form-focus-none"
-                                                       placeholder="Location" aria-label="Search Job" aria-describedby="location">
+                                                <input type="text"
+                                                       name="loacation"
+                                                       class="form-control rounded-pill  border-0 ps-3 form-focus-none"
+                                                       placeholder="Location"
+                                                       id="location_search">
                                             </div>
-
                                         </div>
                                         <div class="col-12 col-md-3  text-end d-grid">
                                             <!-- button -->
                                             <button type="submit" class="btn btn-success rounded-pill">Search</button>
                                         </div>
+
                                     </form>
                                 </div>
+                            </div>
+                            <div id="countryList">
                             </div>
                         </div>
 
@@ -463,5 +477,37 @@
             items: 1,
             slideBy: 1,
         });
+
+
+
+        $('#location_search').on('keyup',function(e){
+            let text = e.target.value;
+
+            if (text != null){
+                $.ajax({
+                    url: '{{ route('client.allDistrict') }}',
+                    data: {data: text, _token: '{{csrf_token()}}'},
+                    type: 'POST',
+                    success:function (res){
+                        $('#countryList').empty();
+                        if (res != null){
+                            $('#countryList').fadeIn();
+                            $('#countryList').html(res);
+                        }else{
+                            eTost('Data Not Found...');
+                            $('#countryList').fadeIn();
+                        }
+                    }
+                })
+            }
+        });
+        $(document).on('click','li',function(){
+            $("#location_search").val($(this).text());
+            $('#countryList').fadeOut();
+        });
+        $(document).on('click', function (){
+            $('#countryList').fadeOut();
+        })
+
     </script>
 @endpush

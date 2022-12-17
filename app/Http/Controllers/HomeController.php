@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Course;
+use App\Models\District;
+use App\Models\Division;
 use App\Models\Job;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -23,6 +28,54 @@ class HomeController extends Controller
         return view('frontend.single_job', compact('job'));
     }
 
+    public function allDistrict(Request $request){
+        $query = $request->get('data');
+        $data = District::where('name','LIKE','%'.$query.'%')->get();
+        $output = '<ul class="list-unstyled">';
+        foreach($data as $row){
+            $output .= '<li>'.$row->name.'</li>';
+        }
+        $output .= '</ul>';
+        echo $output;
+    }
+
+    public function getSubCategories($id){
+        $categories = SubCategory::where('category_id', $id)->withCount('jobs')->get();
+        return $categories;
+    }
+
+    public function searchJob(){
+        $type = \request()->input('job_type');
+        $loc  = \request()->input('loacation');
+        $cat  = \request()->input('cat_id');
+        $div  = \request()->input('div_id');
+
+        $categories    = Category::withCount('jobs')->get();
+        $divisions     = Division::withCount('jobs')->get();
+        if ($cat != null){
+            $subCategories = SubCategory::where('category_id', $cat)->withCount('jobs')->get();
+        }else{
+            $subCategories = [];
+        }
+        $jobs = Job::query()->with('district');
+        if ($type != null){
+            $jobs = $jobs->Where('title', 'LIKE', "%{$type}%");
+        }
+        if ($loc != null){
+            $jobs = $jobs->WhereHas('district', function ($client) use($loc) {
+                $client->where('name' , 'LIKE', "%${loc}%");
+            });
+        }
+        if ($div != null){
+            $jobs->where('division_id', $div);
+        }
+        if ($cat != null){
+            $jobs->where('category_id', $cat);
+        }
+
+        $jobs = $jobs->paginate(12)->withQueryString();
+        return view('frontend.filter_jobs', compact('jobs', 'categories', 'divisions', 'subCategories'));
+    }
 
     public function about()
     {

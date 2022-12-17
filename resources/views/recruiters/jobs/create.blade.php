@@ -254,7 +254,7 @@
                                                                 <label class="form-label">Preferred State</label>
                                                                 <select class="selectpicker"
                                                                         data-live-search="true"
-                                                                        name="state_id"
+                                                                        name="division_id"
                                                                         onchange="getCityByState(this)" data-width="100%">
                                                                     <option value="">Select Preferred State</option>
                                                                     @foreach($states as $state)
@@ -268,7 +268,7 @@
 
                                                             <div class="col" id="city-card" style="display: none">
                                                                 <label class="form-label">Preferred City</label>
-                                                                <select name="city_id" class="selectpicker"
+                                                                <select name="district_id" class="selectpicker"
                                                                         data-live-search="true"
                                                                         data-width="100%"  id="city_id" >
                                                                     <option selected disabled  value="">Select city</option>

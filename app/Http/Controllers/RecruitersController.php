@@ -208,8 +208,8 @@ class RecruitersController extends Controller
         $data['fultime_remote'] = filled($request->fultime_remote);
         $data['is_published'] = filled($request->is_published);
         $data['is_featured'] = filled($request->is_featured);
-        $data['state_id'] = $request->state_id;
-        $data['city_id'] = $request->city_id;
+        $data['division_id'] = $request->division_id;
+        $data['district_id'] = $request->district_id;
 
 
         $data['user_id'] = Auth::id();

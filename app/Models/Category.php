@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * @method static where(string $string, int $int)
  * @method static create(array $array)
+ * @method static withCount(string $string)
  */
 class Category extends Model
 {

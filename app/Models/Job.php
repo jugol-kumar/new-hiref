@@ -58,5 +58,8 @@ class Job extends Model
         return $this->belongsTo(ChildCategory::class, 'child_category_id');
     }
 
+    public function district(){
+        return $this->belongsTo(District::class,'district_id');
+    }
 
 }

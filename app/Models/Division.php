@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static findOrFail($id)
+ * @method static withCount(string $string)
  */
 class Division extends Model
 {
@@ -16,6 +17,10 @@ class Division extends Model
 
     public function districts(){
         return $this->hasMany(District::class);
+    }
+
+    public function jobs(){
+        return $this->hasMany(Job::class, 'division_id');
     }
 
 }

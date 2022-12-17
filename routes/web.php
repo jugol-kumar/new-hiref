@@ -50,6 +50,10 @@ Route::controller(HomeController::class)->name('client.')->group(function (){
     Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
     Route::get('recruiters', 'recruiter')->name('recruiter');
     Route::get('seekers', 'seekers')->name('seekers');
+
+    Route::post('all-district', 'allDistrict')->name('allDistrict');
+    Route::get('sub-categories/category-id/{id}', 'getSubCategories')->name('getSubCategories');
+    Route::get('search', 'searchJob')->name('searchJObs');
 });
 
 Route::controller(RecruitersController::class)->prefix('recruiters')->name('recruiter.')->group(function (){

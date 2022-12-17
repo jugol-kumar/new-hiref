@@ -38,4 +38,8 @@ class SubCategory extends Model
         return $this->belongsToMany('App\Models\Mocktest')->withPivot('question')->withTimestamps();
     }
 
+    public function jobs(){
+        return $this->hasMany(SubCategory::class, 'category_id');
+    }
+
 }
