@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-default p-0 px-8">
+<nav class="navbar navbar-expand-lg navbar-default p-0 px-8 w-100 position-fixed zindex-4" style="z-index: 111; box-shadow: 0 20px 20px 0 #e3e3e340">
     <div class="container-fluid px-0">
         <a class="navbar-brand" href="/">
-            <img src="{{ config('app.url')."/storage/".get_setting('header_logo') }}" alt="" style="max-width: 150px; min-width: 150px;"/>
+{{--            <img src="{{ config('app.url')."/storage/".get_setting('header_logo') }}" alt="" style="max-width: 150px; min-width: 150px;"/>--}}
+            <img src="{{ asset('frontend/assets/images/hiref-black.png') }}" alt="" style="max-width: 150px; min-width: 150px;"/>
         </a>
         <!-- Button -->
         <button

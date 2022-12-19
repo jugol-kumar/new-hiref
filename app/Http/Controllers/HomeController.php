@@ -9,6 +9,7 @@ use App\Models\Division;
 use App\Models\Job;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -23,8 +24,11 @@ class HomeController extends Controller
     }
 
     public function singleJob($slug){
+
         $job = Job::with(['companyDetails', 'user'])
             ->where('slug', $slug)->first();
+        $job->show_count += 1;
+        $job->update();
         return view('frontend.single_job', compact('job'));
     }
 

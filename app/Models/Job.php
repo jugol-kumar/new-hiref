@@ -42,6 +42,9 @@ class Job extends Model
     public function creator(){
         return $this->belongsTo(User::class, 'creator');
     }
+    public function creatorDetails(){
+        return $this->belongsTo(User::class, 'creator');
+    }
 
     public function country(){
         return $this->belongsTo(Country::class, 'currency');

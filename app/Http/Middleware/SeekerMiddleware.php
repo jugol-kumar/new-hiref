@@ -18,6 +18,10 @@ class SeekerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        if (!Auth::check()){
+            toast('Please Login First...', 'warning');
+            return back();
+        }
         $user = Auth::user();
         if (Auth::check() && $user->role == 'seekers'){
             if (!$user->is_verified){
@@ -33,8 +37,7 @@ class SeekerMiddleware
             }
         }
 
-
-        toast('Something want wrong, try again', 'warning');
+        toast('No have permission for access, try again', 'warning');
         return back();
     }
 }

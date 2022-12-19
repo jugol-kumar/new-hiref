@@ -5,7 +5,8 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- about company -->
                 <div class="mb-4">
-                    <img src="{{ config("app.url")."/storage/".get_setting('footer_logo')   }}" alt="">
+{{--                    <img src="{{ config("app.url")."/storage/".get_setting('footer_logo')   }}" alt="">--}}
+                    <img src="{{  asset('frontend/assets/images/hiref-white.png')  }}" alt="" style="max-width: 150px; min-width: 150px;">
                     <div class="mt-4">
                         <p>{!! get_setting('app_details') !!}</p>
                         <!-- social media -->

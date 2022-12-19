@@ -23,3 +23,8 @@
     font-size: 23px;
     font-weight: bold;
 }
+
+.text-justify{
+    text-align: justify !important;
+}
+

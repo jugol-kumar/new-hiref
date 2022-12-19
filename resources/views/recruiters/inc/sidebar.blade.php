@@ -32,6 +32,11 @@
             <!-- Navbar header -->
             <span class="navbar-header">Account Settings</span>
             <ul class="list-unstyled ms-n2 mb-0">
+
+                <!-- Nav item -->
+                <li class="nav-item {{ Route::is('chatify') }}">
+                    <a class="nav-link" href="{{ route('chatify') }}"><i class="fe fe-message-circle nav-icon"></i>Greeting</a>
+                </li>
                 <!-- Nav item -->
                 <li class="nav-item {{ Route::is('recruiter.editProfile') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('recruiter.editProfile') }}"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>

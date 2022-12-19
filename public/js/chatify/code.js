@@ -368,17 +368,13 @@ function IDinfo(id, type) {
       data: { _token: access_token, id, type },
       dataType: "JSON",
       success: (data) => {
-
-          console.log("this is user informations")
-          console.log(data.fetch);
-
         // avatar photo
         $(".messenger-infoView")
           .find(".avatar")
-          .css("background-image", 'url("' + data.fetch.photo + '")');
+          .css("background-image", 'url("' + data.user_avatar + '")');
         $(".header-avatar").css(
           "background-image",
-          'url("' + data.fetch.photo + '")'
+          'url("' + data.user_avatar + '")'
         );
         // Show shared and actions
         $(".messenger-infoView-btns .delete-conversation").show();

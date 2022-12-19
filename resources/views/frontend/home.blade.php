@@ -54,7 +54,7 @@
 @section('content')
     <div class="py-lg-14 py-12 bg-cover ">
         <!-- container -->
-        <div class="container ">
+        <div class="container mt-15">
             <!-- row -->
             <div class="row align-items-center">
                 <div class="col-lg-12 col-12">
@@ -87,8 +87,8 @@
                                             </svg>
                                         </span>
                                                 <!-- search -->
-                                                <input type="text" name="job_type" class="form-control  rounded-pill border-0 ps-3 form-focus-none"
-                                                       placeholder="Job Title" aria-label="Job Title" aria-describedby="searchJob">
+                                                <input type="text" name="job_type" class="form-control rounded-pill border-0 ps-3 form-focus-none"
+                                                       placeholder="Job Title">
                                             </div>
 
                                         </div>

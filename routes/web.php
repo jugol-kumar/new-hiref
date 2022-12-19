@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\MessangerController;
 use App\Http\Controllers\RecruitersCompanyController;
 use App\Http\Controllers\RecruitersController;
 use App\Http\Controllers\RecruitersProfileController;
@@ -86,9 +87,6 @@ Route::middleware('guest')->group(function () {
     Route::post('seeker/create', [RegisterController::class, 'registerSeeker'])->name('registerSeeker');
 
     Route::post('login/or/create', [LoginController::class, 'loginOrCreate'])->name('loginOrCreate');
-
-
-
 });
 Route::any('logout', [LoginController::class, 'destroy'])->name('logout');
 
@@ -171,7 +169,7 @@ Route::middleware('auth')->group(function () {
             Route::post('update-social-profile', [RecruitersProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
         });
 
-        Route::prefix('seekers')->name('seeker.')->middleware('seekers')->group(function (){
+        Route::prefix('seekers')->name('seeker.')->middleware('seekers')->withoutMiddleware('auth')->group(function (){
             // otp verification and profile complete for job seeker
             Route::withoutMiddleware('seekers')->group(function (){
                 Route::get('second-step', [SeekerController::class, 'firstStep'])->name('firstStep');
@@ -220,6 +218,9 @@ Route::middleware('auth')->group(function () {
 
             Route::view('social-media-url-profile', 'seekers.profile.socal_profile')->name('socialProfile');
             Route::post('update-social-profile', [SeekerProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
+
+
+            Route::post('send-message', [MessangerController::class, 'send'])->name('sendMessage');
         });
     });
 });

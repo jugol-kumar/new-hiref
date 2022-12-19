@@ -22,16 +22,10 @@
                                 <div>
                                     <h3 class="text-success">{{ $job->title }} ({{ $job->label }} / {{ $job->types }})</h3>
                                     <div>
-                                        <span>at {{ $job->companyDetails->name }} </span>
+                                        at  <a href="#">{{ $job->companyDetails->name }} </a>
                                         <!-- star -->
-                                        <span class="text-dark ms-2 fw-medium">4.5 <svg xmlns="http://www.w3.org/2000/svg" width="10"
-                                                                                        height="10" fill="currentColor" class="bi bi-star-fill text-warning align-baseline"
-                                                                                        viewBox="0 0 16 16">
-                        <path
-                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                      </svg>
-                                            <!-- text -->
-                    </span><span class="ms-0">(131 Reviews)</span>
+                                        <span class="text-dark ms-2 fw-medium">{{ $job->show_count }}</span>
+                                        <span class="ms-0">(Views)</span>
                                     </div>
                                 </div>
                                 <div>
@@ -54,13 +48,13 @@
 
                                     <span class="me-2">
                                                     <i class="fe fe-dollar-sign text-muted"></i>
-                                                    <span class="ms-1 ">12k - 18k</span>
+                                                    <span class="ms-1 ">{{ $job->min_salary }} - {{ $job->max_salary }}</span>
                                                 </span>
                                     <!-- location -->
                                     <span class="me-2">
-                                                    <i class="fe fe-map-pin text-muted"></i>
-                                                    <span class="ms-1 ">{{ $job->location }}</span>
-                                                </span>
+                                        <i class="fe fe-map-pin text-muted"></i>
+                                        <span class="ms-1 ">{{ $job->location }}</span>
+                                    </span>
                                 </div>
                                 <!-- time -->
                                 <div>
@@ -75,8 +69,14 @@
                                     @endforeach
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <button class="btn btn-light-primary btn-sm me-1">Apply Now</button>
-                                    <button class="btn btn-light-success btn-sm"> <i class="mdi mdi-message"></i></button>
+                                    <form method="POST" action="{{ route('seeker.sendMessage', ['_red' => true]) }}">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{  $job->creator }}">
+                                        <input type="hidden" name="job_id" vlaue="{{ $job-> }}">
+                                        <input type="hidden" name="type" value="recruiter">
+                                        <input type="hidden" name="message" value="this is initials message">
+                                        <button type="submit" class="btn btn-light-success btn-sm me-1">Message Recruiter</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -96,9 +96,10 @@
                 <div class="offset-xl-2 col-xl-8 col-md-12 ">
                     <div class="mt-12">
                         <h2 class="mb-4">Similar Jobs</h2>
-                        @forelse($job->category->jobs  as $job)
+                        @forelse($job->category->jobs->where('is_published', 0)  as $job)
                             @include('frontend.inc.job_card')
                         @empty
+                            <h2>No have any jobs like this</h2>
 
                         @endforelse
                     </div>
