@@ -9,9 +9,11 @@ use App\Models\District;
 use App\Models\Division;
 use App\Models\Education;
 use App\Models\EducationLabel;
+use App\Models\MessageDetail;
 use App\Models\SeekerProfile;
 use App\Models\State;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +22,13 @@ use Illuminate\Support\Facades\URL;
 class SeekerController extends Controller
 {
     public function dashboard(){
-        return view('seekers.dashboard');
+
+
+        $chatingJobs = MessageDetail::where('seeker_id', auth()->id())->count();
+        $user        = User::where('id', Auth::id())->with('seeker')->first();
+
+
+        return view('seekers.dashboard', compact('chatingJobs', 'user'));
     }
     public function firstStep(){
         $states =  Division::all();

@@ -68,16 +68,19 @@
                                         <span class="badge me-1 bg-light-success text-success">{{ $skill }}</span>
                                     @endforeach
                                 </div>
-                                <div class="d-flex align-items-center">
-                                    <form method="POST" action="{{ route('seeker.sendMessage', ['_red' => true]) }}">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{  $job->creator }}">
-                                        <input type="hidden" name="job_id" vlaue="{{ $job-> }}">
-                                        <input type="hidden" name="type" value="recruiter">
-                                        <input type="hidden" name="message" value="this is initials message">
-                                        <button type="submit" class="btn btn-light-success btn-sm me-1">Message Recruiter</button>
-                                    </form>
-                                </div>
+                                {{ $job->id }}
+                                @if(Auth::user()->role == \App\Properties::$seeker)
+                                    <div class="d-flex align-items-center">
+                                        <form method="POST" action="{{ route('seeker.sendMessage') }}">
+                                            @csrf
+                                            <input type="hidden" name="rec_id" value="{{  $job->creator }}">
+                                            <input type="hidden" name="job_id" value="{{ $job->id }}">
+                                            <input type="hidden" name="type" value="recruiter">
+                                            <input type="hidden" name="message" value="{{ \App\Properties::$initMessage }}">
+                                            <button type="submit" class="btn btn-light-success btn-sm me-1">Message Recruiter</button>
+                                        </form>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -96,11 +99,10 @@
                 <div class="offset-xl-2 col-xl-8 col-md-12 ">
                     <div class="mt-12">
                         <h2 class="mb-4">Similar Jobs</h2>
-                        @forelse($job->category->jobs->where('is_published', 0)  as $job)
+                        @forelse($job->category->jobs->where('is_published', \App\Properties::$false)  as $job)
                             @include('frontend.inc.job_card')
                         @empty
                             <h2>No have any jobs like this</h2>
-
                         @endforelse
                     </div>
                 </div>

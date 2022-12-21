@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MessageDetail;
 use Chatify\Facades\ChatifyMessenger as Chatify;
 use Chatify\Http\Controllers\MessagesController;
 use Illuminate\Http\Request;
@@ -13,6 +14,14 @@ class MessangerController extends MessagesController
 {
     public function send(Request $request)
     {
+
+        MessageDetail::updateOrCreate([
+            'job_id' => $request->job_id,
+            'recruiter_id' => $request->rec_id,
+            'seeker_id' => Auth::id()
+        ]);
+
+
         // default variables
         $error = (object)[
             'status' => 0,
@@ -54,8 +63,8 @@ class MessangerController extends MessagesController
                 'id' => $messageID,
                 'type' => $request['type'],
                 'from_id' => Auth::user()->id,
-                'to_id' => $request['id'],
-                'job_id' => $request[''],
+                'to_id' => $request['rec_id'],
+                'job_id' => $request['job_id'],
                 'body' => htmlentities(trim($request['message']), ENT_QUOTES, 'UTF-8'),
                 'attachment' => ($attachment) ? json_encode((object)[
                     'new_name' => $attachment,
@@ -74,6 +83,6 @@ class MessangerController extends MessagesController
             ]);
         }
 
-        return redirect()->route('user', $request->id);
+        return redirect()->route('user', $request->rec_id);
     }
 }

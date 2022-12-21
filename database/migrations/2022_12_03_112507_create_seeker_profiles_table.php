@@ -42,6 +42,8 @@ return new class extends Migration
 
             $table->string('resume')->nullable();
 
+            $table->integer('view_jobs')->nullable()->default(0);
+
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
-                <a href="{{ route('recruiter.dashboard') }}"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span> </a>
+                <a href="{{ auth()->user()->role == \App\Properties::$recruiter ? route('recruiter.dashboard') : route('seeker.dashboard') }}"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#"><i class="fas fa-cog settings-btn"></i></a>
@@ -76,7 +76,7 @@
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="{{ route('recruiter.dashboard') }}"><i class="fas fa-home"></i></a>
+                    <a href="{{  auth()->user()->role == \App\Properties::$recruiter ? route('recruiter.dashboard') : route('seeker.dashboard') }}"><i class="fas fa-home"></i></a>
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>

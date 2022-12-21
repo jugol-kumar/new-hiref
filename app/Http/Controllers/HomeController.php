@@ -8,6 +8,7 @@ use App\Models\District;
 use App\Models\Division;
 use App\Models\Job;
 use App\Models\SubCategory;
+use App\Properties;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -29,6 +30,12 @@ class HomeController extends Controller
             ->where('slug', $slug)->first();
         $job->show_count += 1;
         $job->update();
+
+        if (Auth::user()->role == Properties::$seeker){
+            Auth::user()->seeker->view_jobs += 1;
+            Auth::user()->seeker->update();
+        }
+
         return view('frontend.single_job', compact('job'));
     }
 
