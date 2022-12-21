@@ -17,7 +17,7 @@
                 <div class="card mb-4">
                     <div class="card-body text-center p-0 counter_card">
                         <h4 class="mt-3">Viewed Jobs</h4>
-                        <p>{{ $user->seeker?->view_jobs }}</p>
+                        <p>{{ $user->seeker?->view_jobs ?? 0}}</p>
                     </div>
                 </div>
             </div>

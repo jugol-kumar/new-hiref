@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\ChildCategory;
+use App\Models\ChMessage;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\Job;
+use App\Models\MessageDetail;
+use App\Models\MessageInfo;
 use App\Models\Skill;
 use App\Models\SubCategory;
 use App\Models\Tag;
@@ -178,4 +181,15 @@ class JobController extends Controller
         $job->delete();
         return back();
     }
+
+    public function jobMessages($id){
+        $message = MessageDetail::where('job_id', $id)->with(['seeker', 'recruter'])->get();
+
+
+        return inertia('Backend/Jobs/ShowMessages', [
+            'messages' => $message,
+        ]);
+    }
+
+
 }

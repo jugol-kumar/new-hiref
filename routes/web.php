@@ -116,6 +116,7 @@ Route::middleware('auth')->group(function () {
 
             Route::resource('jobs', JobController::class);
             Route::post('child-categories-by-category-id', [JobController::class, 'allSubcategory'])->name('allSubCategory');
+            Route::get('job-messages/{id}', [JobController::class, 'jobMessages'])->name('jobMessages');
 
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');

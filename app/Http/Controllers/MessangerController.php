@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MessageDetail;
+use App\Models\MessageInfo;
 use Chatify\Facades\ChatifyMessenger as Chatify;
 use Chatify\Http\Controllers\MessagesController;
 use Illuminate\Http\Request;
@@ -57,9 +58,13 @@ class MessangerController extends MessagesController
         }
 
         if (!$error->status) {
+
+
+//            return $request;
+
             // send to database
             $messageID = mt_rand(9, 999999999) + time();
-            Chatify::newMessage([
+            $messageInfo = Chatify::newMessage([
                 'id' => $messageID,
                 'type' => $request['type'],
                 'from_id' => Auth::user()->id,
@@ -72,6 +77,14 @@ class MessangerController extends MessagesController
                 ]) : null,
             ]);
 
+
+            MessageInfo::create([
+               'message_id' => $messageID,
+                'recruiter_id' => $request['rec_id'],
+                'seeker_id' => Auth::id(),
+                'job_id' => $request['job_id']
+            ]);
+
             // fetch message to send it with the response
             $messageData = Chatify::fetchMessage($messageID);
 
@@ -79,6 +92,7 @@ class MessangerController extends MessagesController
             Chatify::push("private-chatify.".$request['id'], 'messaging', [
                 'from_id' => Auth::user()->id,
                 'to_id' => $request['id'],
+                'job_id' => $request['job_id'],
                 'message' => Chatify::messageCard($messageData, 'default')
             ]);
         }

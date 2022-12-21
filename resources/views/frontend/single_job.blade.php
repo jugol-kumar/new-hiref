@@ -68,8 +68,8 @@
                                         <span class="badge me-1 bg-light-success text-success">{{ $skill }}</span>
                                     @endforeach
                                 </div>
-                                {{ $job->id }}
-                                @if(Auth::user()->role == \App\Properties::$seeker)
+
+                                @if(Auth::check() && Auth::user()->role == \App\Properties::$seeker)
                                     <div class="d-flex align-items-center">
                                         <form method="POST" action="{{ route('seeker.sendMessage') }}">
                                             @csrf

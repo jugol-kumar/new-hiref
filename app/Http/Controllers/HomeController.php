@@ -31,7 +31,7 @@ class HomeController extends Controller
         $job->show_count += 1;
         $job->update();
 
-        if (Auth::user()->role == Properties::$seeker){
+        if (Auth::check() && Auth::user()->role == Properties::$seeker){
             Auth::user()->seeker->view_jobs += 1;
             Auth::user()->seeker->update();
         }

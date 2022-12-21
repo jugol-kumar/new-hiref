@@ -40,7 +40,7 @@
 
                         <span class="d-flex align-items-baseline">
                             <vue-feather type="globe" size="15"/>
-                            <a :href="job.job.company.website" class="text-underline ms-1" target="_blank">{{ job.job.company.website }}</a>
+                            <a :href="job.job.company.website" class="text-underline ms-1" target="_blank">{{ job.job.company.website.substring(0,25)+".."}}</a>
                         </span>
                     </h3>
                     <div>
@@ -79,16 +79,19 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                         </div>
                         <div class="dropdown-menu dropdown-menu-start">
-                            <span class="dropdown-item"
-                                  @click="showJob(job.job.id)">
+                            <a class="dropdown-item" :href="`${this.$page.props.MAIN_URL}/single-job/${job.job.slug}`" target="_blank">
                                 <Icon title="eye"/>
                                <span class="ms-1">Show</span>
-                            </span>
-                            <span class="dropdown-item"
+                            </a>
+<!--                            <span class="dropdown-item"
                                   @click="editJob(job.job.id)">
                                 <Icon title="pencil"/>
                                 <span class="ms-1">Edit</span>
-                            </span>
+                            </span>-->
+                            <Link class="dropdown-item" :href="`${this.$page.props.ADMIN_URL}/job-messages/${job.job.id}`">
+                                <Icon title="bell"/>
+                               <span class="ms-1">Message Status</span>
+                            </Link>
                             <span class="dropdown-item"
                                 @click="deleteJob(job.job.id)">
                                 <Icon title="trash"/>

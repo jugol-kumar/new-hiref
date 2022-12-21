@@ -12,4 +12,15 @@ class MessageDetail extends Model
 
     protected $guarded = ['id'];
 
+
+
+    public function recruter(){
+        return $this->belongsTo(User::class, 'recruiter_id');
+    }
+
+    public function seeker(){
+        return $this->belongsTo(User::class, 'seeker_id');
+    }
+
+
 }

@@ -43,6 +43,9 @@ class SeekerProfile extends Model
         return $this->belongsTo(Education::class, 'education_id');
     }
 
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
 
 }
