@@ -115,7 +115,7 @@
                             </Link>
                         </li>
                         <li @click="toggleSubMenu('creators')">
-                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/sub_categories`">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/seekers`">
                                 <Icon title="circle" width="24" height="24" />
                                 <span class="menu-item text-truncate">Seekers</span>
                             </Link>
