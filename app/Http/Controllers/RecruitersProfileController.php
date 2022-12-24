@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,8 @@ class RecruitersProfileController extends Controller
 
     public function editProfile()
     {
-        return view('recruiters.profile.edit_profile');
+        $user = User::findOrFail(Auth::id())->load('recruiter');
+        return view('recruiters.profile.edit_profile', compact('user'));
     }
 
     public function changeProfilePicture(Request $request){

@@ -22,11 +22,8 @@ use Illuminate\Support\Facades\URL;
 class SeekerController extends Controller
 {
     public function dashboard(){
-
-
         $chatingJobs = MessageDetail::where('seeker_id', auth()->id())->count();
         $user        = User::where('id', Auth::id())->with('seeker')->first();
-
 
         return view('seekers.dashboard', compact('chatingJobs', 'user'));
     }
@@ -35,7 +32,9 @@ class SeekerController extends Controller
         $categories = Category::all();
         $degrees = EducationLabel::all();
 
-        return view('seekers.stapes.personal_details', compact('states', 'categories', 'degrees'));
+        $user = User::findOrFail(Auth::id())->load('seeker');
+
+        return view('seekers.stapes.personal_details', compact('states', 'categories', 'degrees', 'user'));
     }
     public function subCatById($id){
         return SubCategory::where('category_id', $id)->with('child_categories')->get();
@@ -97,6 +96,7 @@ class SeekerController extends Controller
 
     public function secondStapeSave(Request $request): bool
     {
+
         $user = Auth::user();
         $seeker = SeekerProfile::where('user_id', Auth::id())->first();
 
@@ -107,7 +107,7 @@ class SeekerController extends Controller
         }
 
         $seeker->declined_date = $request->declined_date;
-        $seeker->experience = $request->experience;
+        $seeker->is_experienced = $request->is_experienced;
         $seeker->gender = $request->gender;
         $seeker->update();
         return true;
@@ -140,7 +140,9 @@ class SeekerController extends Controller
 
     public function profileReview(){
         $districts = District::all()->load('upozilas');
-        return view('seekers.stapes.profile_bio', compact('districts'));
+        $user        = User::findOrFail(Auth::id())->load(['seeker', 'seeker.division', 'seeker.district', 'seeker.educaiton', 'seeker.category', 'seeker.education_level', 'seeker.category']);
+
+        return view('seekers.stapes.profile_bio', compact('districts', 'user'));
     }
 
     public function updateBio(Request $request){

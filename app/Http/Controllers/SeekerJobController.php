@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChildCategory;
 use App\Models\MessageDetail;
+use App\Models\SubCategory;
 use App\Models\User;
 use App\Properties;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class SeekerJobController extends Controller
@@ -51,13 +55,30 @@ class SeekerJobController extends Controller
     }
 
     public function singleSeeker($id){
-//        return  User::findOrFail($id)->load(['seeker', 'seeker.division', 'seeker.district', 'seeker.educaiton', 'seeker.category', 'seeker.education_level']);
-
         $chatingJobs = MessageDetail::where('seeker_id', $id)->count();
+        $user        = User::findOrFail($id)->load(['seeker', 'seeker.division', 'seeker.district', 'seeker.educaiton', 'seeker.category', 'seeker.education_level', 'seeker.category']);
+
+        $data = json_decode($user->seeker->subcategories);
+
+        $subCat = [];
+        $cCat = [];
+        foreach ($data as $datum) {
+            $cat = explode(',', $datum);
+            $subCat[] = $cat[0];
+            $cCat[] = $cat[1];
+        }
+
+        $subCats = SubCategory::whereIn('id', array_unique($subCat))->get();
+        $cCats = ChildCategory::whereIn('id', array_unique($cCat))->get();
+
 
          return inertia("Backend/Seekers/Show", [
-             'seeker' => User::findOrFail($id)->load(['seeker', 'seeker.division', 'seeker.district', 'seeker.educaiton', 'seeker.category', 'seeker.education_level']),
+             'seeker' => $user,
              'chat_jobs' => $chatingJobs,
+             'subCats' => $subCats,
+             'cCat' => $cCats,
+             'resume' => Storage::url($user->seeker->resume),
+             'skills' => json_decode(json_decode($user->seeker->skills))
          ]);
     }
 

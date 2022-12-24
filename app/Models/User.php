@@ -51,6 +51,7 @@ class User extends Authenticatable
         'twitter_url',
         'youtube_url',
         'linkedin_url',
+        'portfolio_url',
         'zoom_email',
         'jwt_token',
         'certificate',

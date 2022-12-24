@@ -35,6 +35,9 @@
             </div>
 
             <div class="row">
+                <div class="print-error-msg text-danger text-center">
+                    <ul></ul>
+                </div>
                 <div class="col-10 mx-auto">
                     <form id="personal_details">
                         @csrf
@@ -48,18 +51,34 @@
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <label class="form-label">First Name</label>
-                                        <input type="text" name="first_name" class="form-control" placeholder="Enter First Name">
+                                        <input type="text" name="first_name" class="form-control"
+                                               @if($user->first_name == null)
+                                                    placeholder="Enter First Name"
+                                               @else
+                                                   value="{{ $user->first_name }}"
+                                               @endif
+                                        >
                                     </div>
 
                                     <div class="col">
                                         <label class="form-label">Last Name</label>
-                                        <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name">
+                                        <input type="text" name="last_name" class="form-control"
+                                               @if($user->first_name == null)
+                                                placeholder="Enter Last Name"
+                                               @else
+                                                value="{{ $user->first_name }}"
+                                               @endif >
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <label class="form-label">Email Address</label>
-                                        <input type="email" name="email" class="form-control" placeholder="Enter Last Name">
+                                        <input type="email" name="email" class="form-control"
+                                               @if($user->email == null)
+                                               placeholder="e.g example@hiref.com"
+                                               @else
+                                               value="{{ $user->email }}"
+                                            @endif >
                                     </div>
 
                                     <div class="col">
@@ -89,14 +108,18 @@
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <label class="form-label">Full Address</label>
-                                        <textarea type="text" name="full_address" class="form-control" placeholder="Enter First Name"></textarea>
+                                        <textarea type="text" name="full_address" class="form-control" >
+                                            {{ trim($user->address) }}
+                                        </textarea>
                                     </div>
                                 </div>
 
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <label class="form-label">About Yourself</label>
-                                        <textarea type="text" name="about_bio" class="form-control" rows="8" placeholder="Please say something about your self"></textarea>
+                                        <textarea type="text" name="about_bio" class="form-control" rows="8" placeholder="Please say something about your self">
+                                            {{ trim($user->about) }}
+                                        </textarea>
                                         <small>Describe yourself about 300 words</small>
                                     </div>
                                 </div>
@@ -109,8 +132,6 @@
                     </form>
                 </div>
             </div>
-
-
         </div>
     </div>
 @endsection
@@ -137,6 +158,18 @@
                 success:function(res)
                 {
                     window.location.replace(res.url);
+                    $('#id_label_multiple').empty();
+                },
+                error:function (res){
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: res.responseJSON.message,
+                    })
+                    $(".print-error-msg").find("ul").empty();
+                    $.each(res.responseJSON.errors,function(field_name,error){
+                        $(".print-error-msg").find("ul").append('<li>'+error+'</li>');
+                    })
                 }
             })
         });

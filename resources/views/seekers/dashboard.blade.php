@@ -84,17 +84,17 @@
                         <td class="align-middle border-top-0">34</td>
                         <td class="align-middle border-top-0">$3,145.23</td>
                         <td class="text-muted align-middle border-top-0">
-											<span class="dropdown dropstart">
-												<a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#" role="button" id="courseDropdown1"
-                                                   data-bs-toggle="dropdown" data-bs-offset="-20,20" aria-expanded="false">
-													<i class="fe fe-more-vertical"></i>
-												</a>
-												<span class="dropdown-menu" aria-labelledby="courseDropdown1">
-													<span class="dropdown-header">Setting </span>
-													<a class="dropdown-item" href="#"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
-													<a class="dropdown-item" href="#"><i class="fe fe-trash dropdown-item-icon"></i>Remove</a>
-												</span>
-											</span>
+                            <span class="dropdown dropstart">
+                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#" role="button" id="courseDropdown1"
+                                   data-bs-toggle="dropdown" data-bs-offset="-20,20" aria-expanded="false">
+                                    <i class="fe fe-more-vertical"></i>
+                                </a>
+                                <span class="dropdown-menu" aria-labelledby="courseDropdown1">
+                                    <span class="dropdown-header">Setting </span>
+                                    <a class="dropdown-item" href="#"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="fe fe-trash dropdown-item-icon"></i>Remove</a>
+                                </span>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -111,17 +111,17 @@
                         <td class="align-middle">30</td>
                         <td class="align-middle">$2,611.82</td>
                         <td class="text-muted align-middle">
-											<span class="dropdown dropstart">
-												<a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#" role="button" id="courseDropdown2"
-                                                   data-bs-toggle="dropdown" data-bs-offset="-20,20" aria-expanded="false">
-													<i class="fe fe-more-vertical"></i>
-												</a>
-												<span class="dropdown-menu" aria-labelledby="courseDropdown2">
-													<span class="dropdown-header">Setting </span>
-													<a class="dropdown-item" href="#"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
-													<a class="dropdown-item" href="#"><i class="fe fe-trash dropdown-item-icon"></i>Remove</a>
-												</span>
-											</span>
+                            <span class="dropdown dropstart">
+                                <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#" role="button" id="courseDropdown2"
+                                   data-bs-toggle="dropdown" data-bs-offset="-20,20" aria-expanded="false">
+                                    <i class="fe fe-more-vertical"></i>
+                                </a>
+                                <span class="dropdown-menu" aria-labelledby="courseDropdown2">
+                                    <span class="dropdown-header">Setting </span>
+                                    <a class="dropdown-item" href="#"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
+                                    <a class="dropdown-item" href="#"><i class="fe fe-trash dropdown-item-icon"></i>Remove</a>
+                                </span>
+                            </span>
                         </td>
                     </tr>
                     <tr>

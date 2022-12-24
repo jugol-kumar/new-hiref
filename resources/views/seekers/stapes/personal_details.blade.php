@@ -111,9 +111,9 @@
                                                     <label class="form-label">Job Type</label>
                                                     <select name="types" class="selectpicker" data-width="100%">
                                                         <option value="">Select Type</option>
-                                                        <option value="Full Time">Full Time</option>
-                                                        <option value="Part Time">Part Time</option>
-                                                        <option value="Contract">Contract</option>
+                                                        <option value="Full Time" {{ $user?->seeker?->types == 'Full Time' ? 'selected' : '' }}>Full Time</option>
+                                                        <option value="Part Time" {{ $user?->seeker?->types == 'Part Time' ? 'selected' : '' }}>Part Time</option>
+                                                        <option value="Contract" {{ $user?->seeker?->types == 'Contract' ? 'selected' : '' }}>Contract</option>
                                                         <!--                                                        <option value="Seasonal">Seasonal</option>
                                                                                                             <option value="Freelance">Freelance</option>
                                                                                                             <option value="Internship">Internship</option>

@@ -27,6 +27,7 @@ return new class extends Migration
 
             $table->date('declined_date')->nullable();
             $table->text('experience')->nullable();
+            $table->string('is_experienced')->nullable();
             $table->string('gender')->nullable();
 
             $table->date('start_date')->nullable();
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->string('university')->nullable();
 
             $table->string('resume')->nullable();
+            $table->longText('skills')->nullable();
 
             $table->integer('view_jobs')->nullable()->default(0);
 

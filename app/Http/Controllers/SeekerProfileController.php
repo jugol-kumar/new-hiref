@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Category;
+use App\Models\Division;
+use App\Models\EducationLabel;
+use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +16,10 @@ use Illuminate\Support\Facades\Storage;
 class SeekerProfileController extends Controller
 {
 
-    public function editProfile()
-    {
-        return view('seekers.profile.edit_profile');
-    }
+
 
     public function showProfile(){
         $user = User::where('id', Auth::id())->with('seeker', 'seeker.category', 'seeker.division', 'seeker.district', 'seeker.education_level', 'seeker.educaiton')->first();
-
         return view('seekers.profile.show_profile', compact('user'));
     }
 
@@ -42,6 +42,24 @@ class SeekerProfileController extends Controller
         return back();
 
     }
+
+    public function editProfile(){
+
+        $states        =  Division::all();
+        $categories    = Category::all();
+        $subCategories = SubCategory::with('child_categories')->get();
+        $degrees       = EducationLabel::all();
+        $user          = User::findOrFail(Auth::id())->load('seeker');
+
+        return view('seekers.profile.edit_profile',[
+            'user'          => $user,
+            'states'        => $states,
+            'categories'    => $categories,
+            'subCategories' => $subCategories,
+            'degrees'       => $degrees
+        ]);
+    }
+
 
     public function editPersonalInfo(Request $request){
         $request->validate([
@@ -130,6 +148,24 @@ class SeekerProfileController extends Controller
         return back();
     }
 
+    public function updateSkills(Request $request){
+
+        Auth::user()->seeker->update([
+            'skills' => json_encode($request->tags)
+        ]);
+
+        return response()->json(['success' => "Skills updated successful"],  200);
+    }
+
+    public function updateProtfolio(Request $request){
+
+        Auth::user()->update([
+            'portfolio_url' => $request->portfolio_url
+        ]);
+
+        return response()->json(['success' => "Portfolio updated successful"],  200);
+
+    }
 
     public function uploadResume(){
         return view('seekers.profile.upload_resume');

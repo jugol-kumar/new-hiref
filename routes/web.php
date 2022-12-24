@@ -214,8 +214,10 @@ Route::middleware('auth')->group(function () {
             Route::post('change-profile-picture', [SeekerProfileController::class, 'changeProfilePicture'])->name('changeProfilePicture');
             Route::post('update-profile-information', [SeekerProfileController::class, 'editPersonalInfo'])->name('editPersonalInfo');
             Route::get('edit-profile', [SeekerProfileController::class, 'editProfile'])->name('editProfile');
-
+            Route::post('update-skills', [SeekerProfileController::class,'updateSkills'])->name('updateSkills');
+            Route::post('update-portfolieo', [SeekerProfileController::class, 'updateProtfolio'])->name('updateProtfolio');
             Route::get('show-profile', [SeekerProfileController::class,'showProfile'])->name('showProfile');
+
 
             Route::get('security-page', [SeekerProfileController::class, 'security'])->name('security');
             Route::post('update-email', [SeekerProfileController::class, 'updateEmail'])->name('changeEmail');

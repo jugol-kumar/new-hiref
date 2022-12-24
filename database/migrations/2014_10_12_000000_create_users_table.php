@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('twitter_url', 191)->nullable();
             $table->string('youtube_url', 191)->nullable();
             $table->string('linkedin_url', 191)->nullable();
+            $table->string('portfolio_url', 191)->nullable();
             $table->string('zoom_email', 200)->nullable();
             $table->text('jwt_token')->nullable();
             $table->integer('sms_otp')->nullable();

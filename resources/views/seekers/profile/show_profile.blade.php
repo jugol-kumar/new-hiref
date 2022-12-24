@@ -8,6 +8,11 @@
         <div class="container">
             <div class="col-md-6 mx-auto">
                 <div class="card">
+                    <div class="card-header bg-transparent border-0">
+                        <a href="{{ route('seeker.editProfile') }}" class="btn btn-icon rounded-circle btn-primary float-end" title="Edit Profile">
+                            <i class="mdi mdi-account-edit"></i>
+                        </a>
+                    </div>
                     <div class="card-body">
                         <div class="d-flex align-items-start justify-content-between">
                             <div>
@@ -73,20 +78,34 @@
                         </div>
                         <hr class="my-4">
                         <div>
-                            <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>My Skaills</h2>
+                            <div class="d-flex align-items-start justify-content-between">
+                                <h2 class="d-flex align-items-center text-black-50 mb-5">
+                                    <span class="badge-dot bg-success me-3"></span>
+                                    My Skaills
+                                </h2>
 
-                            @php($skills = ['laravel', 'php', 'html', 'css', 'javascript', 'java', 'vue js', 'react js'])
+                                <a href="#" class="btn btn-icon rounded-circle btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#courseModal" title="Add New Skills">
+                                    <i class="mdi mdi-plus"></i>
+                                </a>
+                            </div>
 
-                            @foreach($skills as $skill)
-                                <span class="badge bg-light-secondary text-black-50">{{ $skill }}</span>
+                            @foreach(json_decode(json_decode($user->seeker->skills)) as $skill)
+                                <span class="badge bg-light-secondary text-black-50">{{ $skill->value }}</span>
                             @endforeach
                         </div>
                         <hr class="my-4">
                         <div>
-                            <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>Protfollue Link</h2>
-
+                            <div class="d-flex align-items-start justify-content-between">
+                                <h2 class="d-flex align-items-center text-black-50 mb-5">
+                                    <span class="badge-dot bg-success me-3"></span>
+                                    Protfollue Link
+                                </h2>
+                                <a href="#" class="btn btn-icon rounded-circle btn-primary btn-sm"  data-bs-toggle="modal" data-bs-target="#protfollue" title="Add New Skills">
+                                    <i class="mdi mdi-plus"></i>
+                                </a>
+                            </div>
                             <i class="fe fe-globe"></i>
-                            <a class="text-decoration-underline" href="#">https://facebook.com/profile</a>
+                            <a class="text-decoration-underline" href="{{ $user->portfolio_url }}" target="_blank">{{ $user->portfolio_url }}</a>
 
                         </div>
                     </div>
@@ -94,4 +113,105 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Course Modal -->
+<div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>I want to add or remove my skills</h3>
+                    <form id="sillsForm">
+                        <label class="form-label">Hash Tag</label>
+                        <input name='tags' placeholder="Add New Skills" autofocus value="{{json_decode($user->seeker->skills) }}">
+                        @error('tags')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <button type="submit" class="btn btn-sm btn-primary mt-2">Save Now</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+
+    <!-- protfollue Modal -->
+    <div class="modal fade" id="protfollue" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="title">This is my protfollue address</h3>
+                            <form id="protfolioForm">
+                                <div class="form-group">
+                                    <label class="form-label">Website Link</label>
+                                    <input name='portfolio_url' class="form-control" value="{{ $user->portfolio_url }}"/>
+                                    <button type="submit" class="btn btn-sm btn-primary mt-2">Save Now</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 @endsection
+@push('js')
+    <script>
+
+
+        $('#sillsForm').on('submit', function(event){
+            event.preventDefault();
+            $.ajax({
+                url: `{{ route('seeker.updateSkills') }}`,
+                method:"POST",
+                data:new FormData(this),
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success:function(res)
+                {
+                    Toast.fire({
+                        icon: 'success',
+                        title: res.success
+                    })
+                    $("#courseModal").modal('hide')
+                },
+                error:function (res){
+                    console.log("err")
+                    console.log(res);
+                }
+            })
+        });
+
+
+        $('#protfolioForm').on('submit', function(event){
+            event.preventDefault();
+            $.ajax({
+                url: `{{ route('seeker.updateProtfolio') }}`,
+                method:"POST",
+                data:new FormData(this),
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success:function(res)
+                {
+                    Toast.fire({
+                        icon: 'success',
+                        title: res.success
+                    })
+                    $("#protfollue").modal('hide')
+                },
+                error:function (res){
+                    console.log("err")
+                    console.log(res);
+                }
+            })
+        });
+    </script>
+@endpush

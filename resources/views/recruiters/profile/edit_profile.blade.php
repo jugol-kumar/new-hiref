@@ -1,120 +1,201 @@
 @extends('recruiters.layout.master')
 @section('title', get_setting('name')." Recruiters Edit Profile")
 @section('recruiter_content')
+
     <div class="col-lg-9 col-md-8 col-12">
-                <!-- Card -->
-                <div class="card">
-                    <!-- Card header -->
-                    <div class="card-header">
-                        <h3 class="mb-0">Profile Details</h3>
-                        <p class="mb-0">
-                            You have full control to manage your own account setting.
-                        </p>
-                    </div>
-                    <!-- Card body -->
-                    <div class="card-body">
-                        <form action="{{ route('recruiter.changeProfilePicture') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="d-lg-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center mb-4 mb-lg-0">
-                                    <div class="logoSection">
-                                        <div class="icon-shape icon-xxl border rounded position-relative">
-                                            <span class="position-absolute imageShow"> <i class="bi bi-image fs-3  text-muted"></i></span>
-                                            <input name="profile_pic" class="form-control border-0 opacity-0 uploadFile" type="file" >
-                                            @error('profile_pic')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
+        <div class="bg-light-primary py-lg-2 bg-cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mx-auto">
+                    <form id="personal_details">
+                        @csrf
+                        <div class="card mb-3 ">
+                            <div class="card-header border-bottom px-4 py-3">
+                                <h4 class="mb-0">Edit Here</h4>
+                            </div>
+                            <!-- Card body -->
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <div class="d-flex align-items-center mb-4 mb-lg-0 justify-content-between">
+                                        <div class="ms-3">
+                                            <h4 class="mb-0">Click Image For Change Your avatar</h4>
+                                            <p class="mb-0">
+                                                Choose PNG or JPG file picture for set your profile picture.
+                                            </p>
+                                        </div>
+                                        <div class="logoSection pe-13">
+                                            <div class="icon-shape icon-xxl border rounded-circle position-relative">
+                                                <span class="position-absolute imageShow"> <i class="bi bi-image fs-3  text-muted"></i></span>
+                                                <input name="profile_pic" class="form-control border-0 opacity-0 uploadFile" type="file" >
+                                                @error('profile_pic')
+                                                <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="ms-3">
-                                        <h4 class="mb-0">Click Image For Change Your avatar</h4>
-                                        <p class="mb-0">
-                                            Choose PNG or JPG file picture for set your profile picture.
-                                        </p>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex align-items-center mb-4 mb-lg-0 justify-content-between">
+                                        <div class="ms-3">
+                                            <h4 class="mb-0">My gender</h4>
+                                        </div>
+                                        <div class="">
+                                            <label>
+                                                <input type="radio" checked name="gender" value="male">
+                                                <div  class="maleFemale btn-sık">
+                                                    <span>Male</span>
+                                                </div>
+                                            </label>
+                                            <label>
+                                                <input  type="radio"  name="gender" value="female">
+                                                <div class="maleFemale btn-sık">
+                                                    <span>Female</span>
+                                                </div>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <button type="submit" class="btn btn-outline-white btn-sm">Update</button>
+
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" name="first_name" class="form-control"
+                                               @if($user->first_name != null)
+                                                   value="{{ $user->first_name }}"
+                                               @else
+                                                placeholder="Enter First Name">
+                                               @endif
+                                    </div>
+
+                                    <div class="col">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" name="last_name" class="form-control"
+                                               @if($user->last_name != null)
+                                               value="{{ $user->last_name }}"
+                                               @else
+                                               placeholder="Enter Last Name"
+                                               @endif
+                                        >
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" name="email" class="form-control"
+                                               @if($user->email != null)
+                                                   value="{{ $user->email }}"
+                                               @else
+                                               placeholder="Enter Last Name"
+                                               @endif>
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Division</label>
+                                        <select id="designation" class="selectpicker" data-width="100%" name="designation">
+                                            <option selected disabled value="">Select Your Position On Your Company</option>
+                                            <option value="COO" {{ $user->recruiter->designation ==  'COO' ? 'selected' : '' }}>COO</option>
+                                            <option value="CMO" {{ $user->recruiter->designation ==  'CMO' ? 'selected' : '' }}>CMO</option>
+                                            <option value="CTO"  {{ $user->recruiter->designation ==  'CTO' ? 'selected' : '' }}>CTO</option>
+                                            <option value="Founder/CEO"  {{ $user->recruiter->designation ==  'Founder/CEO' ? 'selected' : '' }}>Founder/CEO</option>
+                                            <option value="HR"  {{ $user->recruiter->designation ==  'HR' ? 'selected' : '' }}>HR</option>
+                                            <option value="OTHER"  {{ $user->recruiter->designation ==  'OTHER' ? 'selected' : '' }}>OTHER</option>
+                                        </select>
+                                        @error('title')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <label class="form-label">Company Full Name</label>
+                                        <input type="text" name="c_full_name" class="form-control"
+                                               @if($user->recruiter->company_name != null)
+                                               value="{{ $user->recruiter->company_name }}"
+                                               @else
+                                               placeholder="Company Full Name"
+                                               @endif>
+                                    </div>
+
+                                    <div class="col">
+                                        <label class="form-label">Company Short Name</label>
+                                        <input type="text" name="c_short_name" class="form-control"
+                                               @if($user->recruiter->company_sname != null)
+                                               value="{{ $user->recruiter->company_sname }}"
+                                               @else
+                                               placeholder="Company Short Name"
+                                               @endif>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <label class="form-label">Hot Industry</label>
+                                        <input type="text" name="hot_industry" class="form-control"
+                                               @if($user->recruiter->hot_industry != null)
+                                               value="{{ $user->recruiter->hot_industry }}"
+                                               @else
+                                               placeholder="Hot Industry"
+                                               @endif>
+                                    </div>
+
+                                    <div class="col">
+                                        <label class="form-label">Employee Size</label>
+                                        <input type="text" name="employee_size" class="form-control"
+                                               @if($user->recruiter->emp_size != null)
+                                               value="{{ $user->recruiter->emp_size }}"
+                                               @else
+                                               placeholder="Employee Size"
+                                               @endif>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Company Full Address</label>
+                                    <textarea name="full_address" class="form-control">
+                                         {{ $user->recruiter->company_address }}
+                                    </textarea>
                                 </div>
                             </div>
-                        </form>
-
-                        <hr class="my-5" />
-                        <div>
-                            <h4 class="mb-0">Personal Details</h4>
-                            <p class="mb-4">
-                                Edit your personal information and address.
-                            </p>
-                            <!-- Form -->
-                            <form class="row" action="{{ route('recruiter.editPersonalInfo') }}" method="post">
-                                @csrf
-                                <!-- First name -->
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label class="form-label" for="fname">First Name</label>
-                                    <input type="text" name="fname" class="form-control" value="{{ Auth::user()->name}}" required />
-                                </div>
-                                <!-- Last name -->
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label class="form-label" for="lname">Last Name</label>
-                                    <input type="text" name="lname" class="form-control" placeholder="Last Name" required />
-                                </div>
-                                <!-- Birthday -->
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label class="form-label" for="birth">Birthday</label>
-                                    <input class="form-control flatpickr" type="text" value="{{ Auth::user()->dob }}" id="birth"
-                                           name="dob" />
-                                </div>
-                                <!-- Address -->
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label class="form-label" for="address2">Address Line 2</label>
-                                    <input type="text" name="address2" class="form-control" value="{{ Auth::user()->address }}" required />
-                                </div>
-                                <!-- State -->
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label for="designation"  class="form-label" >Designation</label>
-                                    <select name="designation" class="selectpicker" data-width="100%" name="designation">
-                                        <option selected disabled value="">Select Your Position On Your Company</option>
-                                        <option value="COO">COO</option>
-                                        <option value="CMO">CMO</option>
-                                        <option value="CTO">CTO</option>
-                                        <option value="Founder/CEO">Founder/CEO</option>
-                                        <option value="HR">HR</option>
-                                        <option value="OTHER">OTHER</option>
-                                    </select>
-                                    <span class="text-danger errormessage alert-designation" style="display: none"></span>
-                                </div>
-                                <!-- State -->
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label for="gender"  class="form-label" >Gender</label>
-                                    <select name="gender" class="selectpicker" data-width="100%" name="designation">
-                                        <option selected disabled value="">Select Your Gender</option>
-                                        <option value="MALE">MALE</option>
-                                        <option value="FEMALE">FEMALE</option>
-                                        <option value="OTHER">OTHER</option>
-                                    </select>
-                                    <span class="text-danger errormessage alert-designation" style="display: none"></span>
-                                </div>
-                                <div class="mb-3 col-12">
-                                    <label for="">About Me</label>
-                                    <textarea name="about_me" class="form-control" rows="4"></textarea>
-                                </div>
-
-                                <div class="col-12">
-                                    <!-- Button -->
-                                    <button class="btn btn-primary" type="submit">
-                                        Update Profile
-                                    </button>
-                                </div>
-                            </form>
                         </div>
-                    </div>
+                        <!-- Button -->
+                        <button type="submit" class="btn btn-primary">
+                            Update Details
+                        </button>
+                    </form>
                 </div>
             </div>
+
+
+        </div>
+    </div>
+    </div>
 @endsection
 
 
 @push('js')
     <script>
+        $('#personal_details').on('submit', function(event){
+            event.preventDefault();
+            $.ajax({
+                url: `{{ route('recruiter.updateBio') }}`,
+                method:"POST",
+                data:new FormData(this),
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success:function(res)
+                {
+                    Toast.fire({
+                        icon: 'success',
+                        title: "Details Update Successfuly Done..."
+                    })
+                }
+            })
+        });
+
+
+
         $(function() {
             $(".uploadFile").closest(".logoSection").find("i").remove();
             $(".uploadFile").closest(".logoSection").find('.imageShow').css({

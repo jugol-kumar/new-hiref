@@ -148,83 +148,102 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row match-height">
         <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>Job Preference</h2>
+                    <h2 class="d-flex align-items-center text-black-50 mb-1">Job Preference</h2>
                     <div class="d-flex align-items-center justify-content-between">
                         <h3 class="text-capitalize">{{ seeker.category }}</h3>
                         <h5>{{ seeker.seeker?.exp_min_sal }} LPA- {{ seeker.seeker?.exp_max_sal }}LPA</h5>
                     </div>
                     <p class="mb-0 pb-0">{{ seeker.seeker?.types }}</p>
                     <p class="my-0 py-0">{{ seeker.seeker?.division.name }}, {{ seeker.seeker?.district.name }}</p>
+                    <hr class="my-1">
+                    <div class="d-flex flex-column">
+                        <div class="">
+                            Job Category : <span class="badge border-success text-success">{{ seeker.seeker.category.name }}</span>
+                        </div>
+                        <div class="">
+                            Sub Categories: <span class="badge border-warning text-warning" v-for="cat in subCats">{{ cat.name }}</span>
+                        </div>
+                        <div>
+                            Child Categories: <span class="badge border-danger text-danger" v-for="cat in cCat">{{ cat.name }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-7">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>Working Experience</h2>
-
-                    <div class="d-flex align-items-center justify-content-between">
+                    <h2 class="d-flex align-items-center text-black-50 mb-1">Working Experience</h2>
+                    <div class="d-flex align-items-center justify-content-start">
                         <h3 class="text-capitalize">{{ seeker.company_name }}</h3>
                         <h5>{{ date(seeker.seeker?.start_date) }} - {{ date(seeker.seeker?.end_date) }}</h5>
                     </div>
                     <p class="mb-0 pb-0">{{ seeker.seeker?.designation }}</p>
-
-                    <p class="mt-3">{{ seeker.seeker?.experience }}</p>
+                    <p class="mt-1">{{ seeker.seeker?.experience }}</p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
+
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between">
-                        <div>
-                            <h2 class="card-title">{{ seeker.name }}</h2>
-                            <p>{{ seeker.seeker?.designation }} | {{ seeker.seeker?.company_name }}</p>
+                    <h2 class="d-flex align-items-center text-black-50 mb-1">Education</h2>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h3 class="text-capitalize">{{ seeker.seeker?.university }}</h3>
+                        <h5>{{ date(seeker.seeker?.uni_start_date) }} - {{ date(seeker.seeker?.uni_end_date) }}</h5>
+                    </div>
+                    <p class="mb-0 pb-0">{{ seeker.seeker?.education_level?.label }} / {{ seeker.seeker?.educaiton?.education_name }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="d-flex align-items-center text-black-50 mb-1">
+                        Curriculum Vitae / Resume
+                    </h2>
+                    <div class="panel panel-default bootcards-file">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <a href="#">
+                                    <vue-feather type="file-text"/>
+                                </a>
+                                <h4 class="list-group-item-heading">
+                                    <a :href="resume" target="_blank">{{ seeker.name+"CV-Resume.PDF" }}</a>
+                                </h4>
+                            </div>
                         </div>
-                        <img class="avatar rounded-circle" :src="seeker.photo" alt="">
-                    </div>
-                    <hr class="my-4">
-
-                    <div>
-                        <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>Working Experience</h2>
-
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h3 class="text-capitalize">{{ seeker.company_name }}</h3>
-                            <h5>{{ date(seeker.seeker?.start_date) }} - {{ date(seeker.seeker?.end_date) }}</h5>
+                        <div class="panel-footer">
+                            <a :href="resume" target="_blank" class="btn btn-primary mt-1">
+                                Download
+                            </a>
                         </div>
-                        <p class="mb-0 pb-0">{{ seeker.seeker?.designation }}</p>
-
-                        <p class="mt-3">{{ seeker.seeker?.experience }}</p>
                     </div>
-                    <hr class="my-4">
-
-                    <div>
-                        <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>Education</h2>
-
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h3 class="text-capitalize">{{ seeker.seeker?.university }}</h3>
-                            <h5>{{ seeker.seeker?.uni_start_date }} - {{ seeker.seeker?.uni_end_date }}</h5>
-                        </div>
-                        <p class="mb-0 pb-0">{{ seeker.seeker?.education_level?.label }} / {{ seeker.seeker?.educaiton?.education_name }}</p>
-                    </div>
-                    <hr class="my-4">
-                    <div>
-                        <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>My Skaills</h2>
-
-                        <span class="badge bg-light-secondary text-black-50"></span>
-                    </div>
-                    <hr class="my-4">
-                    <div>
-                        <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>Protfollue Link</h2>
-                        <i class="fe fe-globe"></i>
-                        <a class="text-decoration-underline" href="#">https://facebook.com/profile</a>
-                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="d-flex align-items-center text-black-50 mb-1">
+                        Skills
+                    </h2>
+                    <span class="badge bg-dark text-white" style="margin-right: 2px;" v-for="skill in skills">{{ skill.value }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="d-flex align-items-center text-black-50 mb-1">
+                        Protfollue
+                    </h2>
+                    <a :href="seeker.portfolio_url" target="_blank">{{ seeker.portfolio_url }}</a>
                 </div>
             </div>
         </div>
@@ -236,6 +255,11 @@ import moment from 'moment'
     let props = defineProps({
         seeker:Object,
         chat_jobs:'',
+        resume:'',
+        download:'',
+        subCats:[],
+        cCat:[],
+        skills:[]
     });
 
 let date = (date) =>{
