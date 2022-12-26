@@ -223,20 +223,22 @@
         <div class="container">
             <h1 class="text-center display-3">Trending Job Categories</h1>
             <div class="row mt-5">
-                @for($i = 0; $i<= 6; $i++)
+                @forelse($categories->take(5) as $cat)
                 <div class="col-md-3 col-6 mb-5">
                     <a href="">
                         <div class="card category-card-shadow rounded-5 category-card-hover">
                             <div class="card-body py-6">
                                 <div class="d-flex align-items-center justify-content-center flex-column">
-                                    <p class="fw-semibold fs-4 text-capitalize text-black">It Engineers</p>
-                                    <p class="text-black-50">552k+ candates</p>
+                                    <p class="fw-semibold fs-4 text-capitalize text-black">{{ $cat->name }}</p>
+                                    <p class="text-black-50">{{ $cat->jobs->count() }}+ jobs</p>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
-                @endfor
+                @empty
+                    <h2>no have category</h2>
+                @endforelse
                 <div class="col-md-3 col-6 mb-5">
                     <a href="">
                         <div class="card category-card-shadow rounded-5 category-card-hover">

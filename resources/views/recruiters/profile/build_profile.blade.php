@@ -3,53 +3,6 @@
 
 @push('css')
 
-    <style>
-        .maleFemale:hover {
-            cursor: pointer !important;
-        }
-
-        .maleFemale {
-            font-size: 15px;
-            height: 40px;
-            width: 100px;
-            border: 1px solid #ebebeb;
-            text-align: center;
-        }
-        .btn-sık {
-            min-width: 150px;
-            border-radius: 4px;
-        }
-
-        input[type="radio"] {
-            position: absolute;
-            visibility: hidden;
-        }
-        input[type="radio"] + div {
-            position: relative;
-        }
-        input[type="radio"]:checked + div {
-            background-color:  #754ffe;
-        }
-        input[type="radio"]:checked + div>span {
-            color: white;
-        }
-        input[type="radio"] + div>span {
-            position: relative;
-            top: 25%;}
-
-
-
-        input[type="radio"]:checked + div::before {
-            font-family: FontAwesome;
-            content: "\f08d";
-            position: absolute;
-            bottom: 31px;
-            font-size: 21px;
-            color: white;
-            right: -5px;
-        }
-    </style>
-
 
 @endpush
 

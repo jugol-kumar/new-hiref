@@ -397,6 +397,17 @@
                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label for="recipient-name" class="col-form-label">Job Status</label>
+                                                    <select class="selectpicker" data-width="100%" name="job_status">
+                                                        <option value="lived" {{ $job->lived == 'lived' ? 'selected' : '' }}>Lived</option>
+                                                        <option value="lived" {{ $job->lived == 'joined' ? 'selected' : '' }}>Joined</option>
+                                                        <option value="cancel" {{ $job->lived == 'cancel' ? 'selected' : '' }}>Cancel</option>
+                                                        <option value="draft" {{ $job->lived == 'draft' ? 'selected' : '' }}>Draft</option>
+                                                        <option value="pending" {{ $job->lived == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                        <option value="deleted" {{ $job->lived == 'deleted' ? 'selected' : '' }}>Deleted</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-between mb-22">

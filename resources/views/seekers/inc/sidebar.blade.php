@@ -44,10 +44,6 @@
                     <a class="nav-link" href="{{ route('chatify') }}"><i class="fe fe-message-circle nav-icon"></i>Greeting</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is('seeker.switchProfile') }}">
-                    <a class="nav-link" href="{{ route('seeker.switchProfile') }}"><i class="fe fe-refresh-ccw nav-icon"></i>Switch</a>
-                </li>
-                <!-- Nav item -->
                 <li class="nav-item {{ Route::is('seeker.contactUs') }}">
                     <a class="nav-link" href="{{ route('seeker.contactUs') }}"><i class="fe fe-send nav-icon"></i>Contact Us</a>
                 </li>
@@ -56,6 +52,10 @@
                     <a class="nav-link" href="{{ route('logout') }}"><i class="fe fe-power nav-icon"></i>Sign Out</a>
                 </li>
                 {{--
+                <!-- Nav item -->
+                <li class="nav-item {{ Route::is('seeker.switchProfile') }}">
+                    <a class="nav-link" href="{{ route('seeker.switchProfile') }}"><i class="fe fe-refresh-ccw nav-icon"></i>Switch</a>
+                </li>
                 <!-- Nav item -->
                 <li class="nav-item">
                     <a class="nav-link" href="notifications.html"><i class="fe fe-bell nav-icon"></i>Notifications</a>

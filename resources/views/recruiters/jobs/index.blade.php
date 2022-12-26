@@ -35,13 +35,14 @@
             --}}
             <!-- Table -->
             <div class="table-responsive border-0 overflow-y-hidden">
-                <table class="table mb-0 text-nowrap">
+                <table class="table mb-0 text-nowrap table-responsive">
                     <thead class="table-light">
                     <tr>
                         <th scope="col" class="border-0">Jobs</th>
                         <th scope="col" class="border-0">Salary</th>
                         <th scope="col" class="border-0">Applied</th>
-                        <th scope="col" class="border-0">Status</th>
+                        <th scope="col" class="border-0">P_status</th>
+                        <th scope="col" class="border-0">J_status</th>
                         <th scope="col" class="border-0"></th>
                     </tr>
                     </thead>

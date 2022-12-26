@@ -42,16 +42,16 @@
                     <a class="nav-link" href="{{ route('recruiter.editProfile') }}"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is('recruiter.security') ? 'active' : '' }}">
-                    <a class="nav-link " href="{{ route('recruiter.security') }}"><i class="fe fe-user nav-icon"></i>Security</a>
+                <li class="nav-item {{ Route::is('recruiter.saveJobs') ? 'active' : '' }}">
+                    <a class="nav-link " href="{{ route('recruiter.saveJobs') }}"><i class="fe fe-bookmark nav-icon"></i>Save Jobs</a>
                 </li>
                 <!-- Nav item -->
+                {{--
                 <li class="nav-item {{ Route::is('recruiter.socialProfile') ? 'active' : ''}}">
                     <a class="nav-link" href="{{ route('recruiter.socialProfile') }}"><i class="fe fe-refresh-cw nav-icon"></i>Social
                         Profiles</a>
                 </li>
-                {{--
-                <li class="nav-item">
+                {{-ss="nav-item">
                     <a class="nav-link" href="delete-profile.html"><i class="fe fe-trash nav-icon"></i>Delete
                         Profile</a>
                 </li>

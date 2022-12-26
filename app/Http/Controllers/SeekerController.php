@@ -9,7 +9,9 @@ use App\Models\District;
 use App\Models\Division;
 use App\Models\Education;
 use App\Models\EducationLabel;
+use App\Models\Job;
 use App\Models\MessageDetail;
+use App\Models\SaveJob;
 use App\Models\SeekerProfile;
 use App\Models\State;
 use App\Models\SubCategory;
@@ -24,8 +26,10 @@ class SeekerController extends Controller
     public function dashboard(){
         $chatingJobs = MessageDetail::where('seeker_id', auth()->id())->count();
         $user        = User::where('id', Auth::id())->with('seeker')->first();
+        $saveJobs    = SaveJob::where('user_id', Auth::id())->count();
+        $jobs        = Job::where('lived', 'lived')->latest()->withCount('messageDetails')->get();
 
-        return view('seekers.dashboard', compact('chatingJobs', 'user'));
+        return view('seekers.dashboard', compact('chatingJobs', 'user', 'saveJobs', 'jobs'));
     }
     public function firstStep(){
         $states =  Division::all();

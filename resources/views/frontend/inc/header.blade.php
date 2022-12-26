@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-default p-0 px-8 w-100 position-fixed zindex-4" style="z-index: 111; box-shadow: 0 20px 20px 0 #e3e3e340">
-    <div class="container-fluid px-0">
+    <div class="container-fluid px-0 py-2 mb-n2">
         <a class="navbar-brand" href="/">
 {{--            <img src="{{ config('app.url')."/storage/".get_setting('header_logo') }}" alt="" style="max-width: 150px; min-width: 150px;"/>--}}
             <img src="{{ asset('frontend/assets/images/hiref-black.png') }}" alt="" style="max-width: 150px; min-width: 150px;"/>
@@ -376,6 +376,11 @@
                                         </ul>
                                     @elseif(Auth::check() && Auth::user()->role == 'recruiters')
                                         <ul class="list-unstyled">
+                                            <li>
+                                                <a href="{{ route('recruiter.dashboard') }}" class="dropdown-item">
+                                                    <i class="fe fe-monitor me-2"></i>Dashboard
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a href="{{ route('recruiter.editProfile') }}" class="dropdown-item">
                                                     <i class="fe fe-user me-2"></i>Profile

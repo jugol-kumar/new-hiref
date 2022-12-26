@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\District;
 use App\Models\Division;
 use App\Models\Job;
+use App\Models\SaveJob;
 use App\Models\SubCategory;
 use App\Properties;
 use Illuminate\Http\Request;
@@ -21,21 +22,19 @@ class HomeController extends Controller
             ->where('is_published', 1)
             ->orderBy('created_at', 'DESC')
             ->paginate(10);
-        return view('frontend.home', compact('jobs'));
+        $categories = Category::latest()->get();
+        return view('frontend.home', compact('jobs', 'categories'));
     }
 
     public function singleJob($slug){
-
-        $job = Job::with(['companyDetails', 'user'])
+        $job = Job::with(['companyDetails', 'user'])->withCount('messageDetails')
             ->where('slug', $slug)->first();
         $job->show_count += 1;
         $job->update();
-
         if (Auth::check() && Auth::user()->role == Properties::$seeker){
             Auth::user()->seeker->view_jobs += 1;
             Auth::user()->seeker->update();
         }
-
         return view('frontend.single_job', compact('job'));
     }
 
@@ -68,7 +67,9 @@ class HomeController extends Controller
         }else{
             $subCategories = [];
         }
-        $jobs = Job::query()->with('district');
+
+        $jobs = Job::query()->with('district')->withCount('messageDetails');
+
         if ($type != null){
             $jobs = $jobs->Where('title', 'LIKE', "%{$type}%");
         }
@@ -85,7 +86,21 @@ class HomeController extends Controller
         }
 
         $jobs = $jobs->paginate(12)->withQueryString();
+
         return view('frontend.filter_jobs', compact('jobs', 'categories', 'divisions', 'subCategories'));
+    }
+
+    public function saveJob($slug, $id){
+        if ($id){
+            SaveJob::create([
+                'job_id' => $id,
+                'user_id' => Auth::id()
+            ]);
+            toast('Job Saved Your Profile', 'success');
+            return back();
+        }
+        toast('Something Want Wrong. Try Again', 'error');
+        return back();
     }
 
     public function about()

@@ -32,34 +32,110 @@
     </td>
     <td class="border-top-0">{{ $value->min_salary }} - {{ $value->max_salary }} LPA</td>
     <td class="border-top-0">
-        no apply
+        @if(!isset($save))
+        {{ $value->message_details_count ?? 'no apply'}}
+        @else
+            {{ $value->messageDetails->count() ?? 'no apply' }}
+        @endif
     </td>
     <td class="border-top-0">
         <span class="badge bg-{{  $value->is_published ? 'primary' : 'warning' }}">{{ $value->is_published ? 'Published' : 'Un-Published' }}</span>
     </td>
-    <td class="text-muted border-top-0">
+    <td class="border-top-0">
+        @if($value->lived == 'lived')
+            <span class="badge bg-primary text-uppercase">{{ $value->lived }}</span>
+        @elseif($value->lived == 'joined')
+            <span class="badge bg-success text-uppercase">{{ $value->lived }}</span>
+        @elseif($value->lived == 'cancel')
+            <span class="badge bg-secondary text-uppercase">{{ $value->lived }}</span>
+        @elseif($value->lived == 'draft')
+            <span class="badge bg-info text-uppercase">{{ $value->lived }}</span>
+        @elseif($value->lived == 'pending')
+            <span class="badge bg-warning text-uppercase">{{ $value->lived }}</span>
+        @elseif($value->lived == 'deleted')
+            <span class="badge bg-danger text-uppercase">{{ $value->lived }}</span>
+        @endif
+    </td>
+    @if(!isset($see))
+        <td class="text-muted border-top-0">
         <span class="dropdown dropstart">
             <a class="btn-icon btn btn-ghost btn-sm rounded-circle " href="#" role="button" id="courseDropdown"
                data-bs-toggle="dropdown"  data-bs-offset="-20,20" aria-expanded="false">
                 <i class="fe fe-more-vertical"></i>
             </a>
             <span class="dropdown-menu" aria-labelledby="courseDropdown">
-                <span class="dropdown-header">Setting </span>
-                <a class="dropdown-item" href="{{ route('recruiter.editJob', $value->slug) }}"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
+                @if(!isset($save))
+                    <span class="dropdown-header">Setting </span>
+                    <button class="dropdown-item"
+                            data-bs-toggle="modal"
+                            data-bs-target="#protfollue">
+                        <i class="fe fe-check-circle dropdown-item-icon"></i>
+                        Change Status
+                    </button>
+                    <a class="dropdown-item" href="{{ route('recruiter.editJob', $value->slug) }}"><i class="fe fe-edit dropdown-item-icon"></i>Edit</a>
 
-                <button  class="dropdown-item" type="button"
-                         onclick="deleteData({{ $value->id }})"
-                >
-                    <i class="fe fe-trash  dropdown-item-icon"></i>  <span>Delete</span>
-                </button>
-                <form id="delete-form-{{ $value->id }}"
-                      method="POST"
-                      action="{{ route('recruiter.deleteJob', $value->id) }}"
-                      style="display: none">
-                    @csrf
-                    @method('DELETE')
-                </form>
+                    <button  class="dropdown-item" type="button"
+                                 onclick="deleteData({{ $value->id }})"
+                        >
+                        <i class="fe fe-trash  dropdown-item-icon"></i>  <span>Delete</span>
+                    </button>
+
+                    <form id="delete-form-{{ $value->id }}"
+                          method="POST"
+                          action="{{ route('recruiter.deleteJob', $value->id) }}"
+                          style="display: none">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                @else
+                    <span class="dropdown-header">Setting </span>
+                    <button  class="dropdown-item" type="button"
+                             onclick="removeSaveJob({{ $item->id }})"
+                    >
+                        <i class="fe fe-trash  dropdown-item-icon"></i>  <span>Remove</span>
+                    </button>
+
+                    <form id="remvoe-form-{{ $item->id }}"
+                          method="POST"
+                          action="{{ route('removeSaveJOb', $item->id) }}"
+                          style="display: none">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                @endif
             </span>
         </span>
     </td>
+    @endif
 </tr>
+
+<!-- protfollue Modal -->
+<div class="modal fade" id="protfollue" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Want to change status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('recruiter.updateJobStatus') }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <input type="hidden" name="job_id" value="{{ $value->id }}">
+                        <label for="recipient-name" class="col-form-label">Job Status</label>
+                        <select class="selectpicker" data-width="100%" name="job_status">
+                            <option value="lived" {{ $value->lived == 'lived' ? 'selected' : '' }}>Lived</option>
+                            <option value="joined" {{ $value->lived == 'joined' ? 'selected' : '' }}>Joined</option>
+                            <option value="cancel" {{ $value->lived == 'cancel' ? 'selected' : '' }}>Cancel</option>
+                            <option value="draft" {{ $value->lived == 'draft' ? 'selected' : '' }}>Draft</option>
+                            <option value="pending" {{ $value->lived == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="deleted" {{ $value->lived == 'deleted' ? 'selected' : '' }}>Deleted</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Change status</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -11,6 +11,7 @@ use App\Models\Division;
 use App\Models\EducationLabel;
 use App\Models\Job;
 use App\Models\Recruiter;
+use App\Models\SaveJob;
 use App\Models\Skill;
 use App\Models\SubCategory;
 use App\Models\Tag;
@@ -86,10 +87,7 @@ class RecruitersController extends Controller
 
     public function verificationWorkEmail(){
         $mail = base64_decode(\request()->input('_token'));
-
         $rec = Recruiter::where('work_mail', $mail)->first();
-
-
         if ($rec){
             $rec->work_mail_verified_at = Carbon::now();
             $rec->status = Properties::$waiting;
@@ -130,12 +128,28 @@ class RecruitersController extends Controller
 
 
     public function allJobs(){
-
-        $jobs = Job::where('creator', Auth::id())->with(['category', 'companyDetails.photos'])->paginate(10);
-
-//        return $jobs;
+        $jobs = Job::where('creator', Auth::id())
+            ->latest()
+            ->withCount('messageDetails')
+            ->with(['category', 'companyDetails.photos'])
+            ->paginate(10);
 
         return view('recruiters.jobs.index', compact('jobs'));
+    }
+
+    public function saveJobs(){
+        $jobs = SaveJob::where('user_id', Auth::id())
+            ->latest()
+            ->with(['job','job.category', 'job.companyDetails.photos'])
+            ->paginate(10);
+
+        $save = true;
+        return view('recruiters.jobs.save_jobs', compact('jobs' , 'save'));
+    }
+    public function removeSaveJOb($id){
+        SaveJob::findOrFail($id)->delete();
+        toast('Successfully remove save job', 'success');
+        return back();
     }
 
     public function createJob(){
@@ -149,6 +163,15 @@ class RecruitersController extends Controller
 
         ]));
     }
+
+    public function updateJobStatus(Request $request){
+        $job = Job::findOrFail($request->job_id);
+        $job->lived = $request->job_status;
+        $job->save();
+        toast('Successfully status changed...', 'success');
+        return back();
+    }
+
 
     public function getSubCat($id){
         $sub_categories = SubCategory::where('category_id', $id)->get();
@@ -210,6 +233,7 @@ class RecruitersController extends Controller
         $data['is_featured'] = filled($request->is_featured);
         $data['division_id'] = $request->division_id;
         $data['district_id'] = $request->district_id;
+        $data['lived'] = $request->job_status;
 
 
         $data['user_id'] = Auth::id();
@@ -292,6 +316,7 @@ class RecruitersController extends Controller
         $data['fultime_remote'] = filled($request->fultime_remote);
         $data['is_published'] = filled($request->is_published);
         $data['is_featured'] = filled($request->is_featured);
+        $data['lived'] = $request->job_status;
 
 
         $data['user_id'] = Auth::id();
@@ -316,7 +341,7 @@ class RecruitersController extends Controller
 
     public function deleteJob($id){
 
-        Job::findOrFail($id)->delete();
+        Job::findOrFail($id)->update(['lived' => 'deleted']);
         toast('Successfully delete job', 'success');
         return redirect()->route('recruiter.allJobs');
 

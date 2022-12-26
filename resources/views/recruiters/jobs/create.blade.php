@@ -426,6 +426,15 @@
                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label for="recipient-name" class="col-form-label">Job Status</label>
+                                                    <select class="selectpicker" data-width="100%" name="job_status">
+                                                        <option value="lived" selected>Lived</option>
+                                                        <option value="joined">Joined</option>
+                                                        <option value="draft">Draft</option>
+                                                        <option value="pending">Pending</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-between mb-22">

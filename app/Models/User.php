@@ -147,6 +147,10 @@ class User extends Authenticatable
         return $this->hasMany(ChMessage::class, 'to_id');
     }
 
+    public function saveJobs(){
+        return $this->hasMany(SaveJob::class, 'user_id');
+    }
+
     public function profileComplete(){
         $status = 0;
         $this->name                           != null ? $status += 5 : $status += 0;

@@ -1,20 +1,22 @@
 @extends('recruiters.layout.master')
-@section('title', get_setting('name')." Recruiters Dashboard")
+@section('title', get_setting('name')." Recruiters Dashboard")@push('css')
+    <style>
+        .counter_card{
+            background: linear-gradient(45deg, #5dffd9, #c4fff6);
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px 0px #a1a1a1;
+        }
+    </style>
+@endpush
 @section('recruiter_content')
     <div class="col-lg-9 col-md-8 col-12">
         <div class="row">
             <div class="col-lg-4 col-md-12 col-12">
                 <!-- Card -->
                 <div class="card mb-4">
-                    <div class="p-4">
-                        <span class="fs-6 text-uppercase fw-semi-bold">Total Joined Employee</span>
-                        <h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">
-                            0
-                        </h2>
-                        <span class="d-flex justify-content-between align-items-center">
-                            <span>In this month</span>
-                            <span class="badge bg-success ms-2">0</span>
-                        </span>
+                    <div class="card-body text-center p-0 counter_card">
+                        <h4 class="mt-3">Chats</h4>
+                        <p>{{ $totalChats ?? 0 }}</p>
                     </div>
                 </div>
             </div>
@@ -22,30 +24,18 @@
             <div class="col-lg-4 col-md-12 col-12">
                 <!-- Card -->
                 <div class="card mb-4">
-                    <div class="p-4">
-                        <span class="fs-6 text-uppercase fw-semi-bold">Total posted jobs</span>
-                        <h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">
-                            {{ $totalJobs ?? 0 }} +
-                        </h2>
-                        <span class="d-flex justify-content-between align-items-center">
-                            <span>In this month</span>
-                            <span class="badge bg-info ms-2">{{ $inMonthJobs ?? 0 }}+</span>
-                        </span>
+                    <div class="card-body text-center p-0 counter_card">
+                        <h4 class="mt-3">Total Jobs</h4>
+                        <p>{{ $jobs->count() ?? 0 }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 col-12">
                 <!-- Card -->
                 <div class="card mb-4">
-                    <div class="p-4">
-                        <span class="fs-6 text-uppercase fw-semi-bold">Communication Employee</span>
-                        <h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">
-                            0
-                        </h2>
-                        <span class="d-flex justify-content-between align-items-center">
-                            <span>In this month</span>
-                            <span class="badge bg-warning ms-2">0+</span>
-                        </span>
+                    <div class="card-body text-center p-0 counter_card">
+                        <h4 class="mt-3">Saved Jobs</h4>
+                        <p>{{ $saveJobs ?? 0 }}</p>
                     </div>
                 </div>
             </div>
@@ -86,13 +76,13 @@
                     <tr>
                         <th scope="col" class="border-0">Jobs</th>
                         <th scope="col" class="border-0">Students</th>
-                        <th scope="col" class="border-0">Rating</th>
+                        <th scope="col" class="border-0">Applied</th>
                         <th scope="col" class="border-0">Status</th>
                         <th scope="col" class="border-0"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($jobs as $key => $value)
+                    @foreach($jobs->take(10) as $key => $value)
                         @include('recruiters.jobs.single_job_row')
                     @endforeach
                     </tbody>

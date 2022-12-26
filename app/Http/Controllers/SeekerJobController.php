@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ChildCategory;
 use App\Models\MessageDetail;
+use App\Models\SaveJob;
 use App\Models\SubCategory;
 use App\Models\User;
 use App\Properties;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +17,16 @@ use Illuminate\Support\Facades\URL;
 class SeekerJobController extends Controller
 {
     public function allSaveJobs(){
-        return view('seekers.jobs.save_jobs');
+
+
+        $jobs = SaveJob::where('user_id', Auth::id())
+            ->latest()
+            ->with(['job','job.category', 'job.companyDetails.photos'])
+            ->paginate(10);
+
+        $save = true;
+
+        return view('seekers.jobs.save_jobs', compact('jobs', 'save'));
     }
 
 

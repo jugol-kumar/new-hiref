@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Job;
+use App\Models\MessageDetail;
+use App\Models\MessageInfo;
+use App\Models\SaveJob;
 use App\Models\User;
 use App\Models\Transaction;
 use Carbon\Carbon;
@@ -52,11 +55,9 @@ class DashboardController extends Controller
 
     public function recruiters()
     {
-        $jobs = Job::where('creator', Auth::id())->latest()->take(10)->get();
-        $totalJobs = Job::count();
-        $inMonthJobs = Job::whereMonth('created_at', Carbon::now()->month)->count();
-
-
-        return view('recruiters.dashboard', compact('jobs', 'totalJobs', 'inMonthJobs'));
+        $jobs = Job::where('creator', Auth::id())->latest()->withCount('messageDetails')->get();
+        $totalChats = MessageDetail::where('recruiter_id', Auth::id())->count('seeker_id');
+        $saveJobs = SaveJob::where('user_id', Auth::id())->count();
+        return view('recruiters.dashboard', compact('jobs', 'totalChats', 'saveJobs'));
     }
 }

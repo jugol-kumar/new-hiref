@@ -23,26 +23,18 @@
                             </h3>
                             <div>
                                 <span>at <a href="#">{{ $job->companyDetails->name }} </a></span>
-                                <!-- star -->
-                                <span class="text-dark ms-2 fw-medium">4.5
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                         width="10"
-                                         height="10" fill="currentColor"
-                                         class="bi bi-star-fill text-warning align-baseline"
-                                         viewBox="0 0 16 16">
-                                      <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                                    </svg>
-                                </span>
-                                <span class="ms-0">(131 Reviews)</span>
+                                <span class="ms-0">({{ $job->message_details_count ?? 0 }}) Applied</span>
                             </div>
                         </div>
                         <div>
-                            <!-- bookmark -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-bookmark text-muted bookmark" viewBox="0 0 16 16">
-                                <path
-                                    d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                            </svg>
+                            @if(auth()->user()?->saveJobs->where('job_id', $job->id)->count() > 0)
+                                <i class="text-black-50 mdi mdi-bookmark-check fs-2"></i>
+                            @else
+                                <a href="{{ route('save.job', ['slug' =>$job->slug, 'id' => $job->id]) }}">
+                                    <i class="text-black-50 mdi mdi-bookmark-outline fs-2" disabled="true"></i>
+                                </a>
+                            @endif
+                                <!-- bookmark -->
                         </div>
 
                     </div>
@@ -51,20 +43,20 @@
                         <div class="mb-2 mb-md-0">
                             <!-- year -->
                             <span class="me-2">
-                                                    <i class="fe fe-briefcase text-muted"></i>
-                                                    <span class="ms-1 ">{{ $job->min_experience }} - {{ $job->max_experience }} {{ $job->experience_type }}</span>
-                                                </span>
+                                <i class="fe fe-briefcase text-muted"></i>
+                                <span class="ms-1 ">{{ $job->min_experience }} - {{ $job->max_experience }} {{ $job->experience_type }}</span>
+                            </span>
                             <!-- salary -->
 
                             <span class="me-2">
-                                                    <i class="fe fe-dollar-sign text-muted"></i>
-                                                    <span class="ms-1 ">12k - 18k</span>
-                                                </span>
+                                <i class="fe fe-dollar-sign text-muted"></i>
+                                <span class="ms-1 ">{{ $job->min_salary }} - {{ $job->max_salary }} LPA</span>
+                            </span>
                             <!-- location -->
                             <span class="me-2">
-                                                    <i class="fe fe-map-pin text-muted"></i>
-                                                    <span class="ms-1 ">{{ $job->location }}</span>
-                                                </span>
+                                <i class="fe fe-map-pin text-muted"></i>
+                                <span class="ms-1 ">{{ $job->location }}</span>
+                            </span>
                         </div>
                         <!-- time -->
                         <div>

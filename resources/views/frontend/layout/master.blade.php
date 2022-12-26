@@ -10,7 +10,7 @@
     <meta name="_token" content="{{csrf_token()}}" />
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset("frontend") }}/assets/images/favicon/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset("/") }}/images/favicon.ico">
 
     <!-- Libs CSS -->
     <link href="{{ asset("frontend") }}/assets/fonts/feather/feather.css" rel="stylesheet">

@@ -65,4 +65,9 @@ class Job extends Model
         return $this->belongsTo(District::class,'district_id');
     }
 
+    public function messageDetails(){
+        return $this->hasMany(MessageDetail::class, 'job_id');
+    }
+
+
 }

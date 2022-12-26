@@ -97,8 +97,6 @@ Route::middleware('auth')->group(function () {
         Route::get('resend-verification-code', [VerificationController::class, 'resVCode'])->name('resVCode');
     });
 
-
-
     Route::prefix('student')->middleware('is_student')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'student'])->name('dashboard');
     });
@@ -147,12 +145,13 @@ Route::middleware('auth')->group(function () {
 
             Route::get('dashboard', [DashboardController::class, 'recruiters'])->name('dashboard');
 
-            Route::get('jobs/jobs', [RecruitersController::class, 'allJobs'])->name('allJobs');
+            Route::get('jobs', [RecruitersController::class, 'allJobs'])->name('allJobs');
             Route::get('jobs/create-job', [RecruitersController::class, 'createJob'])->name('createJob');
             Route::post('jobs/post-new-job', [RecruitersController::class, 'storeJob'])->name('storeJob');
             Route::delete('jobs/delete-job/{id}', [RecruitersController::class, 'deleteJob'])->name('deleteJob');
             Route::get('jobs/edit-single-job/{job_slug}', [RecruitersController::class, 'editJob'])->name('editJob');
             Route::put('jobs/update-single-job/{id}', [RecruitersController::class, 'updateJob'])->name('updateJob');
+            Route::post('change-job-status', [RecruitersController::class, 'updateJobStatus'])->name('updateJobStatus');
 
             Route::get('sub-category/by-category-id/{id}', [RecruitersController::class, 'getSubCat'])->name('getSubCat');
             Route::get('child-category/by-sub-category-id/{id}', [RecruitersController::class, 'getChildCat'])->name('getChildCat');
@@ -161,6 +160,7 @@ Route::middleware('auth')->group(function () {
             Route::post('company/save-new-companies', [RecruitersCompanyController::class, 'saveCompany'])->name('saveCompany');
             Route::delete('company/delete-single-companies/{id}', [RecruitersCompanyController::class, 'deleteCompany'])->name('deleteCompany');
 
+            Route::get('save-jobs', [RecruitersController::class, 'saveJobs'])->name('saveJobs');
 
             Route::post('change-profile-picture', [RecruitersProfileController::class, 'changeProfilePicture'])->name('changeProfilePicture');
             Route::post('update-profile-information', [RecruitersProfileController::class, 'editPersonalInfo'])->name('editPersonalInfo');
@@ -230,6 +230,9 @@ Route::middleware('auth')->group(function () {
             Route::post('send-message', [MessangerController::class, 'send'])->name('sendMessage');
         });
     });
+
+    Route::get('save-job/{slug}/{id}', [HomeController::class,'saveJob'])->name('save.job');
+    Route::delete('remove-save-jobs/{id}', [RecruitersController::class, 'removeSaveJOb'])->name('removeSaveJOb');
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
