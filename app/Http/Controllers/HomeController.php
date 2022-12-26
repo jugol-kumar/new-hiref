@@ -68,7 +68,12 @@ class HomeController extends Controller
             $subCategories = [];
         }
 
-        $jobs = Job::query()->with('district')->withCount('messageDetails');
+        $jobs = Job::query()
+            ->where('is_published', Properties::$true)
+            ->where('lived', Properties::$lived)
+            ->orderBy('is_featured', Properties::$desc)
+            ->with('district')
+            ->withCount('messageDetails');
 
         if ($type != null){
             $jobs = $jobs->Where('title', 'LIKE', "%{$type}%");

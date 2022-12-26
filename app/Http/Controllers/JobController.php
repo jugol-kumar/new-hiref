@@ -14,6 +14,8 @@ use App\Models\MessageInfo;
 use App\Models\Skill;
 use App\Models\SubCategory;
 use App\Models\Tag;
+use App\Models\User;
+use App\Properties;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -31,7 +33,8 @@ class JobController extends Controller
     {
         return inertia('Backend/Jobs/Jobs', [
             'jobs' => Job::query()
-                ->with(['company','company.photos', 'user', 'creator', 'country', 'category', 'sub_category', 'child_category' ])
+                ->with(['company','company.photos', 'user', 'creator', 'country', 'category', 'sub_category', 'child_category'])
+                ->withCount('messageDetails')
                 ->when(Request::input('search'), function ($query, $search) {
                     $query->where('name', 'like', "%{$search}%");
                 })
@@ -68,6 +71,7 @@ class JobController extends Controller
                 })->select('id', 'name', 'sub_category_id')->get(),
             'countries' => Country::select('currency', 'currency_name', 'currency_symbol', 'id')->get(),
 
+            'recruiters' => User::query()->where('role' , Properties::$recruiter)->get(),
             'companies' => Company::with('photos')->get(),
 
             'subbycat_url' => URL::route('subbycat'),
@@ -178,7 +182,8 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        $job->delete();
+        $job->lived = Properties::$lived;
+        $job->save();
         return back();
     }
 

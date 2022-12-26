@@ -199,20 +199,20 @@
                                 <label>Recruiter / Creator</label>
                                 <v-select
                                     v-model="createForm.creator"
-                                    :options="props.companies"
+                                    :options="props.recruiters"
                                     placeholder="Search Creator"
-                                    :reduce="company => company.id"
+                                    :reduce="rec => rec.id"
                                     class="form-control"
                                     label="name">
                                     <template v-slot:option="option">
                                         <li class="list-group-item d-flex align-items-start px-0">
                                             <div class="avatar me-75">
-                                                <img :src="`${this.$page.props.MAIN_URL}/storage/${option.photos[0].filename}`" alt="" width="38" height="38">
+                                                <img :src="`${option.photo}`" alt="" width="38" height="38">
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between w-100">
                                                 <div class="me-1 d-flex flex-column">
                                                     <strong class="mb-25">{{ option.name }}</strong>
-                                                    <span >pe@vogeiz.net</span>
+                                                    <span >{{ option.email }}</span>
                                                 </div>
                                             </div>
                                         </li>
@@ -304,6 +304,7 @@ let props = defineProps({
     create_url:String,
     countries:[],
     companies:Object,
+    recruiters:[],
     errors:Object
 });
 

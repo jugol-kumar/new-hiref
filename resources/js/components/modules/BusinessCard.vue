@@ -35,11 +35,11 @@
 
 
                                     <div class="dropdown-menu dropdown-menu-start">
-                                    <span class="dropdown-item"
+<!--                                    <span class="dropdown-item"
                                          @click="showCompany(props.about.id)">
                                         <Icon title="eye"/>
                                        <span class="ms-1">Show</span>
-                                    </span>
+                                    </span>-->
                                    <span class="dropdown-item"
                                          @click="editCompany(props.about.id)">
                                         <Icon title="pencil"/>

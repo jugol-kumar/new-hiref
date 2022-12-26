@@ -65,8 +65,7 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-8 ps-xl-75 ps-0">
-                            <div
-                                class="d-flex align-items-center justify-content-center justify-content-lg-end flex-lg-nowrap flex-wrap">
+                            <div class="d-flex align-items-center justify-content-center justify-content-lg-end flex-lg-nowrap flex-wrap">
                                 <div class="select-search-area">
                                     <label>Search:<input v-model="search" type="search" class="form-control"
                                                          placeholder="Type here for search"></label>
@@ -77,14 +76,14 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row match-height">
                 <div class="col-md-6" v-for="company in companies.data" :key="company.id">
                     <business-card :about="company"
-                                   @showCompany="showSingleItem"
                                    @deleteCompany="deleteItem"
                                    @editCompany="showSingleItem"/>
                 </div>
             </div>
+<!--            @showCompany="showSingleItem"-->
 
             <div class="card">
                 <Pagination :links="companies.links" :from="companies.from" :to="companies.to"

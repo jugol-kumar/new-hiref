@@ -16,6 +16,7 @@ use App\Models\SeekerProfile;
 use App\Models\State;
 use App\Models\SubCategory;
 use App\Models\User;
+use App\Properties;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -24,10 +25,14 @@ use Illuminate\Support\Facades\URL;
 class SeekerController extends Controller
 {
     public function dashboard(){
-        $chatingJobs = MessageDetail::where('seeker_id', auth()->id())->count();
+        $chatingJobs = MessageDetail::where('seeker_id', Auth::id())->count();
         $user        = User::where('id', Auth::id())->with('seeker')->first();
         $saveJobs    = SaveJob::where('user_id', Auth::id())->count();
-        $jobs        = Job::where('lived', 'lived')->latest()->withCount('messageDetails')->get();
+        $jobs        = Job::where('lived', Properties::$lived)
+                            ->where('is_published', Properties::$true)
+                            ->latest()
+                            ->withCount('messageDetails')
+                            ->get();
 
         return view('seekers.dashboard', compact('chatingJobs', 'user', 'saveJobs', 'jobs'));
     }
