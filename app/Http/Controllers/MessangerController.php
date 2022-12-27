@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Models\MessageDetail;
 use App\Models\MessageInfo;
 use Chatify\Facades\ChatifyMessenger as Chatify;
@@ -9,6 +10,7 @@ use Chatify\Http\Controllers\MessagesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class MessangerController extends MessagesController
@@ -22,7 +24,10 @@ class MessangerController extends MessagesController
             'seeker_id' => Auth::id()
         ]);
 
+        $job = Job::findOrFail($request->job_id);
+//        $mainMessage = html_entity_decode('<a href="'.URL::route('client.single_job', $job->slug).'">'.URL::route('client.single_job', $job->slug).'</a>');
 
+        $mainMessage = "This is your initials message. Hi im ".\auth()->user()->name.". I Will Apply For ".$job->title." this is your job title";
         // default variables
         $error = (object)[
             'status' => 0,
@@ -70,7 +75,7 @@ class MessangerController extends MessagesController
                 'from_id' => Auth::user()->id,
                 'to_id' => $request['rec_id'],
                 'job_id' => $request['job_id'],
-                'body' => htmlentities(trim($request['message']), ENT_QUOTES, 'UTF-8'),
+                'body' => htmlentities(trim($mainMessage), ENT_QUOTES, 'UTF-8'),
                 'attachment' => ($attachment) ? json_encode((object)[
                     'new_name' => $attachment,
                     'old_name' => htmlentities(trim($attachment_title), ENT_QUOTES, 'UTF-8'),

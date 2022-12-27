@@ -157,6 +157,12 @@
                 </li>
 
 
+                <li class=" nav-item">
+                    <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/blogs`">
+                        <Icon title="disc" width="24" height="24" />
+                        <span class="menu-title text-truncate">Blog</span>
+                    </Link>
+                </li>
 <!--
                 <li class=" nav-item">
                     <Link preserve-scroll class="d-flex align-items-center" href="/panel/transactions">

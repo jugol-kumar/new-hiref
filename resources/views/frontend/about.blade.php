@@ -1,319 +1,189 @@
 @extends('frontend.layout.master')
 @section('title', 'About Hiref')
+
+@push('css')
+    <style>
+        .before-footer{
+            background-image: url("{{ asset('frontend/assets/images/footer_banner.png') }}") !important;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            min-height: 500px;
+        }
+    </style>
+@endpush
+
 @section('content')
 
-{{--    <!-- Page Content -->
-    <div class="py-10 bg-white">
+   <!-- Page Content -->
+    <div class="pt-18 bg-white">
         <div class="container">
+
+
             <div class="row">
-                <div class="offset-lg-2 col-lg-8 col-md-12 col-12 mb-12">
+                <div class="col-lg-12 col-md-12 col-12 mb-12">
                     <!-- caption-->
-                    <h1 class="display-2 fw-bold mb-3">Hi there, we’re <span class="text-primary">{{ config("app.name") }}</span></h1>
-                    <!-- para -->
-                    <p class="h2 mb-3 ">We’re building the best next-generation interactive bootstrap based UI Kit design tool for
-                        developers, engineers, Full-Stack developer, and digital agency.</p>
-                    <p class="mb-0 h4 text-body lh-lg">{{ config("app.name") }} provide clean and consistent page designs to help you to create beautiful
-                        looking contents. Geek is feature-rich components and beautifully designed pages that help you create the
-                        best possible website and web application projects.</p>
-                </div>
-            </div>
-            <!-- gallery -->
-            <div class="gallery mb-12">
-                <!-- gallery-item -->
-                <figure class="gallery__item gallery__item--1 mb-0">
-                    <img src="{{ asset("frontend") }}/assets/images/about/geeksui-img-1.jpg" alt="Gallery image 1" class="gallery__img rounded-3">
-                </figure>
-                <!-- gallery-item -->
-                <figure class="gallery__item gallery__item--2 mb-0">
-                    <img src="{{ asset("frontend") }}/assets/images/about/geeksui-img-2.jpg" alt="Gallery image 2" class="gallery__img rounded-3">
-                </figure>
-                <!-- gallery-item -->
-                <figure class="gallery__item gallery__item--3 mb-0">
-                    <img src="{{ asset("frontend") }}/assets/images/about/geeksui-img-3.jpg" alt="Gallery image 3" class="gallery__img rounded-3">
-                </figure>
-                <!-- gallery-item -->
-                <figure class="gallery__item gallery__item--4 mb-0">
-                    <img src="{{ asset("frontend") }}/assets/images/about/geeksui-img-4.jpg" alt="Gallery image 4" class="gallery__img rounded-3">
-                </figure>
-                <!-- gallery-item -->
-                <figure class="gallery__item gallery__item--5 mb-0">
-                    <img src="{{ asset("frontend") }}/assets/images/about/geeksui-img-5.jpg" alt="Gallery image 5" class="gallery__img rounded-3">
-                </figure>
-                <!-- gallery-item -->
-                <figure class="gallery__item gallery__item--6 mb-0">
-                    <img src="{{ asset("frontend") }}/assets/images/about/geeksui-img-6.jpg" alt="Gallery image 6" class="gallery__img rounded-3">
-                </figure>
-            </div>
-            <div class="row">
-                <!-- row -->
-                <div class="col-md-6 offset-right-md-6">
-                    <!-- heading -->
-                    <h1 class="display-4 fw-bold mb-3">Our global reach</h1>
-                    <!-- para -->
-                    <p class="lead">{{ config("app.name") }} is the leading global marketplace for teaching and learning, connecting millions of
-                        students to the skills they need to succeed.</p>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- counter -->
-                    <div class="border-top pt-4 mt-6 mb-5">
-                        <h1 class="display-3 fw-bold mb-0">20M</h1>
-                        <p class="text-uppercase text-muted">Learners</p>
+                    <h1 class="display-2 fw-bold mb-3 text-center">About <span class="text-success">{{ config("app.name") }}</span></h1>
+                    <div class="row mt-10">
+                        <div class="col-md-4">
+                            <img src="https://www.hirect.in/_nuxt/img/img1.6d8ac03.png" class="rounded-4" style="max-width: 100%; min-height: 100%;" alt="">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <img src="https://www.hirect.in/_nuxt/img/img2.a9bce8e.png" class="rounded-4" style="max-width: 100%;" alt="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <img src="https://www.hirect.in/_nuxt/img/img3.246bed6.png" class="rounded-4" style="max-width: 100%;" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <img src="https://www.hirect.in/_nuxt/img/img4.75b77d7.png" class="rounded-4" style="max-width: 100%;min-height: 100%;" alt="">
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- counter -->
-                    <div class="border-top pt-4 mt-6 mb-5">
-                        <h1 class="display-3 fw-bold mb-0">57K</h1>
-                        <p class="text-uppercase text-muted">Instructors</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- counter -->
-                    <div class="border-top pt-4 mt-6 mb-5">
-                        <h1 class="display-3 fw-bold mb-0">21K</h1>
-                        <p class="text-uppercase text-muted">Courses</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <!-- counter -->
-                    <div class="border-top pt-4 mt-6 mb-5">
-                        <h1 class="display-3 fw-bold mb-0">380M</h1>
-                        <p class="text-uppercase text-muted">Course enrollments</p>
-                    </div>
+
+                    <p class="mt-10 mb-0 h4 text-body lh-lg text-center">
+                        Hirect was founded in 2018 as a direct hiring application.
+
+                        Our vision of virtually connecting the skill-oriented workforce with high-growth startups and SMEs has manifested into our service provisions.
+                        Hirect's AI algorithm helps connect recruiters directly with relevant candidates equipped with desired skills and experience.
+
+                        Our philosophy has always been to simplify the hiring process. Hirect offers direct chat and video call features which
+                        have enabled over 3M job seekers to connect directly with over 190K recruiters on our platform.
+
+                        Our commitment to offering a modern and effective solution to the outdated hiring process has allowed
+                        recruiters and startups to efficiently improve their hiring process by connecting directly with candidates.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
     <!-- features -->
-    <div class="py-lg-16 py-10">
+    <div class="py-lg-8 py-10">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 offset-right-md-6 col-12 mb-6">
+                <div class="col-md-12 offset-right-md-6 col-12 mb-6">
                     <!-- caption -->
-                    <h2 class="display-4 mb-3 fw-bold">Our core values</h2>
-                    <p class="lead">Our core values are the fundamental beliefs of a person or organization {{ config("app.name") }} academy. We help
-                        people understand the difference between right and wrong.</p>
+                    <h2 class="display-2 mb-3 fw-bold text-center">Meet The <span class="text-success">Team</span></h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-12">
-                    <!-- card -->
-                    <div class="card mb-4 mb-lg-0">
-                        <!-- card body -->
-                        <div class="card-body p-5">
-                            <!-- icon -->
-                            <div class="mb-3"><i class="mdi mdi-school-outline mdi-48px text-primary lh-1 "></i></div>
-                            <h3 class="mb-2">Make Education Accessible</h3>
-                            <p class="mb-0">Quis cursus turpis in habitant sagittis amet dolor malesuada ut. Volutpat nunc id
-                                blanvolutpat nunc.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-12">
-                    <!-- card -->
-                    <div class="card mb-4 mb-lg-0">
-                        <!-- card body -->
-                        <div class="card-body p-5">
-                            <!-- icon -->
-                            <div class="mb-3"><i class="mdi mdi-account-group mdi-48px text-primary lh-1 "></i></div>
-                            <h3 class="mb-2">Learn and Grow</h3>
-                            <p class="mb-0">Quis cursus turpis in habitant sagittis amet dolor malesuada ut. Volutpat nunc id
-                                blanvolutpat nunc.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-12">
-                    <!-- card -->
-                    <div class="card mb-4 mb-lg-0">
-                        <!-- card body -->
-                        <div class="card-body p-5">
-                            <!-- icon -->
-                            <div class="mb-3"><i class="mdi mdi-finance mdi-48px text-primary lh-1 "></i></div>
-                            <h3 class="mb-2">Make Education Accessible</h3>
-                            <p class="mb-0">Quis cursus turpis in habitant sagittis amet dolor malesuada ut. Volutpat nunc id
-                                blanvolutpat nunc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team -->
-    <div class="py-lg-16 py-10 bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-right-md-6 col-12 mb-10">
-                    <!-- heading -->
-                    <h2 class="display-4 mb-3 fw-bold">Our Team</h2>
-                    <!-- lead -->
-                    <p class="lead mb-5">Want to work with some of the best global talent and build a tool used by all the
-                        companies you know and love? Join the {{ config("app.name") }} team and help shape the future of design.</p>
-                    <!-- btn -->
-                    <a href="#" class="btn btn-primary">Openings</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-1.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="one">
-                        <!-- text -->
-                        <div id="one" class="d-none">
-                            <h4 class="mb-0 fw-bold">Paul Haney</h4>
-                            <span>CEO </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-2.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="two">
-                        <!-- text -->
-                        <div id="two" class="d-none">
-                            <h4 class="mb-0 fw-bold">Gail Lanier</h4>
-                            <span>Engineering </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-3.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="three">
-                        <!-- text -->
-                        <div id="three" class="d-none">
-                            <h4 class="mb-0 fw-bold">Gail Lanier</h4>
-                            <span>Manager </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-4.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="four">
-                        <!-- text -->
-                        <div id="four" class="d-none">
-                            <h4 class="mb-0 fw-bold">Mary Holler</h4>
-                            <span>Sales</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-5.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="five">
-                        <!-- text -->
-                        <div id="five" class="d-none">
-                            <h4 class="mb-0 fw-bold">Gilbert Farr</h4>
-                            <span>Oprator </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-6.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="six">
-                        <!-- text -->
-                        <div id="six" class="d-none">
-                            <h4 class="mb-0 fw-bold">Charlie Holland</h4>
-                            <span>Designer </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-7.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="seven">
-                        <!-- text -->
-                        <div id="seven" class="d-none">
-                            <h4 class="mb-0 fw-bold">James Butler</h4>
-                            <span>Developer </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-8.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="eight">
-                        <!-- text -->
-                        <div id="eight" class="d-none">
-                            <h4 class="mb-0 fw-bold">Richard Lane</h4>
-                            <span>Insight </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-9.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="eleven">
-                        <!-- text -->
-                        <div id="eleven" class="d-none">
-                            <h4 class="mb-0 fw-bold">Gail Lanier</h4>
-                            <span>Seo</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-10.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="twelve">
-                        <!-- text -->
-                        <div id="twelve" class="d-none">
-                            <h4 class="mb-0 fw-bold">Mary Holler</h4>
-                            <span>Content</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-11.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="thirteen">
-                        <!-- text -->
-                        <div id="thirteen" class="d-none">
-                            <h4 class="mb-0 fw-bold">Gilbert Farr</h4>
-                            <span>Designer </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 col-3">
-                    <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
-                        <!-- avatar -->
-                        <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-12.jpg" alt="" class="imgtooltip img-fluid rounded-circle" data-template="fourteen">
-                        <!-- text -->
-                        <div id="fourteen" class="d-none">
-                            <h4 class="mb-0 fw-bold">James Butler</h4>
-                            <span>Developer </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- cta -->
-    <div class="bg-primary">
-        <div class="container">
-            <!-- row -->
-            <div class="row align-items-center g-0">
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                    <!-- heading -->
-                    <div class="pt-6 pt-lg-0">
-                        <h1 class="text-white display-4 fw-bold pe-lg-8">Join the {{ config("app.name") }} team & shape the future of design
-                        </h1>
-                        <!-- text -->
-                        <p class="text-white-50 mb-4 lead">
-                            If you’re passionate and ready to dive in, we’d love to meet you. We’re committed to supporting our
-                            employee professional development and well-being.
-                        </p>
-                        <!-- btn -->
-                        <a href="#" class="btn btn-dark">View opportunities</a>
-                    </div>
-                </div>
-                <!-- img -->
-                <div class=" col-xl-6 col-lg-6 col-md-12 text-lg-end text-center pt-6">
-                    <img src="{{ asset("frontend") }}/assets/images/hero/hero-img.png" alt="" class="img-fluid">
-                </div>
-            </div>
-        </div>
-    </div>--}}
 
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <div class="row">
+                        @for($i=0; $i <= 7; $i++)
+                            <div class="col-md-3 mb-4">
+                                <div class="card rounded-5 category-card-shadow employee-card">
+                                    <div class="card-body">
+                                        <div class="card-img-top">
+                                            <img src="{{ asset("frontend") }}/assets/images/avatar/avatar-1.jpg" alt="" class="img-fluid rounded-4">
+                                        </div>
+
+                                        <div class="content">
+                                            <h3 class="mt-3 text-center text-capitalize">Raj Das</h3>
+                                            <p class="text-center text-black-50 text-capitalize">position and designations</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- features -->
+    <div class="py-lg-8 py-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 offset-right-md-6 col-12 mb-6">
+                    <!-- caption -->
+                    <h2 class="display-2 mb-3 fw-bold text-center">Milestones</h2>
+                </div>
+            </div>
+
+            <div class="col-md-8 mx-auto">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card bg-transparent shadow-none">
+                            <div class="card-body bg-transparent shadow-none">
+                                <div class="d-flex flex-column align-items-center">
+                                    <i class="mdi mdi-account-search-outline card-icon-style"></i>
+                                    <h4 class="display-2 mt-3 text-success">185k +</h4>
+                                    <p>Verified Recruiters</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-transparent shadow-none">
+                            <div class="card-body bg-transparent shadow-none">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <i class="mdi mdi-briefcase-search-outline card-icon-style"></i>
+                                    <h4 class="display-3 mt-3 text-success text-center">185k +</h4>
+                                    <p>Verified Candidates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   <div class="py-lg-18 pg-12 bg-cover section-bg">
+       <!-- container -->
+       <div class="container">
+           <div class="row">
+               <div class="col-md-6 col-12">
+                   <div class="card bg-transparent border-0 shadow-none">
+                       <div class="card-body p-0">
+                           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28947.37629449789!2d88.71781697811342!3d24.91768872963043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fb7f9eb03e849f%3A0xcfcecd76ce68c05!2sMohadevpur!5e0!3m2!1sen!2sbd!4v1672122353764!5m2!1sen!2sbd"
+                                   height="450"
+                                   style="border:0; width: 100%"
+                                   allowfullscreen=""
+                                   loading="lazy"
+                                   referrerpolicy="no-referrer-when-downgrade"></iframe>
+                       </div>
+                   </div>
+               </div>
+               <div class="offset-1 col-md-5 col-12 d-flex flex-column align-items-start justify-content-center">
+                   <h1 class="display-3 mb-5">Dhaka Office</h1>
+
+                   <div class="d-flex align-items-end">
+                       <i class="fs-2 fw-semibold text-black fw-normal mdi mdi-map-marker-circle"></i>
+                       <p class="ms-3">The Imperial Irish Kingdom, Mo-03 (3rd Floor), Merul Badda, Dhaka 1212</p>
+                   </div>
+                   <div class="d-flex align-items-end">
+                       <i class="fs-2 fw-semibold text-black fw-normal mdi mdi-whatsapp"></i>
+                       <p class="ms-3">++8801723-717933</p>
+                   </div>
+                   <div class="d-flex align-items-end">
+                       <i class="fs-2 fw-semibold text-black fw-normal mdi mdi-at"></i>
+                       <p class="ms-3">jugolkumar23@gmail.com</p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+   <div class="pt-lg-5 pt-5 bg-cover before-footer d-flex align-items-center justify-content-end">
+       <div class="container">
+           <div class="offset-6 col-6 d-flex align-items-center justify-content-center flex-column">
+               <h1 class="display-2 text-white">Get the <span class="text-success">{{ config('app.name') }}</span> App</h1>
+               <p class="text-white">We will send you a link via SMS. To download the app, simply open it.</p>
+               <form action="" class="d-flex align-items-center">
+                   <input type="text" class="form-control rounded-5 w-100 me-3" placeholder="+8801*-********">
+                   <button type="submit" class="btn btn-success rounded-5 text-black">Registration</button>
+               </form>
+           </div>
+       </div>
+   </div>
 
 @endsection

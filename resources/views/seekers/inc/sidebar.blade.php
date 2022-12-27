@@ -36,16 +36,16 @@
                     <a class="nav-link" href="{{ route('seeker.allSaveJobs') }}"><i class="fe fe-bookmark nav-icon"></i>Saved Jobs</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is('seeker.uploadResume') }}">
+<!--                <li class="nav-item {{ Route::is('seeker.uploadResume') }}">
                     <a class="nav-link " href="{{ route('seeker.uploadResume') }}"><i class="fe fe-file nav-icon"></i>Upload Resume</a>
-                </li>
+                </li>-->
                 <!-- Nav item -->
                 <li class="nav-item {{ Route::is('seeker.greetingChat') }}">
                     <a class="nav-link" href="{{ route('chatify') }}"><i class="fe fe-message-circle nav-icon"></i>Greeting</a>
                 </li>
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is('seeker.contactUs') }}">
-                    <a class="nav-link" href="{{ route('seeker.contactUs') }}"><i class="fe fe-send nav-icon"></i>Contact Us</a>
+                <li class="nav-item {{ Route::is('client.contactUs') }}">
+                    <a class="nav-link" href="{{ route('client.contactUs') }}"><i class="fe fe-send nav-icon"></i>Contact Us</a>
                 </li>
                 <!-- Nav item -->
                 <li class="nav-item">

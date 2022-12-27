@@ -3,51 +3,12 @@
 @push('css')
     <link href="{{ asset('frontend/assets/libs/owl_css.min.css') }}" rel="stylesheet"></link>
     <style>
-        .search-shabow{
-            box-shadow: 1px 1px 38px 8px #4d72681c !important;
-        }
-        .card-icon-style{
-            font-size: 38px;
-            padding: 5px;
-            background: #f9f9f9;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            color: #36423d;
-            align-items: center;
-            justify-content: center;
-            border-radius: 100%;
-        }
-        .section-bg{
-            background: #adffe829 !important;
-        }
-        .category-card-shadow{
-            box-shadow: rgb(0 0 0 / 9%) 0 3px 12px !important;
-        }
-        .category-card-hover:hover{
-            transform: scale(1.1);
-            transition: 0.3s all ease;
-        }
         .before-footer{
             background-image: url("{{ asset('frontend/assets/images/footer_banner.png') }}") !important;
             height: 100%;
             background-size: cover;
             background-position: center center;
             min-height: 500px;
-        }
-        .review-image{
-            height: 300px;
-            padding: 20px;
-            border-radius: 32px;
-        }
-        #countryList{
-            position: relative;
-            right: -305px;
-            top: -25px;
-            max-height: 200px;
-            max-width: 38%;
-            background: white;
-            overflow-y: scroll;
         }
     </style>
 @endpush
@@ -133,7 +94,6 @@
                                            <h4 class="mt-3">185k +</h4>
                                            <p class="text-black-50 fw-semibold">Verified Recruiters</p>
                                        </div>
-
                                    </div>
                                </div>
                            </div>
@@ -222,7 +182,7 @@
         <!-- container -->
         <div class="container">
             <h1 class="text-center display-3">Trending Job Categories</h1>
-            <div class="row mt-5">
+            <div class="row mt-5 match-height">
                 @forelse($categories->take(5) as $cat)
                 <div class="col-md-3 col-6 mb-5">
                     <a href="">
@@ -247,7 +207,7 @@
                                     <p class="fw-semibold fs-4 text-capitalize text-black">
                                         <i class="fe fe-chevron-right"></i>
                                     </p>
-                                    <p class="text-black-50">View More</p>
+                                    <a href="{{ route('client.allCategories') }}" class="text-black-50">View More</a>
                                 </div>
                             </div>
                         </div>

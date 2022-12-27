@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\District;
@@ -59,6 +60,7 @@ class HomeController extends Controller
         $loc  = \request()->input('loacation');
         $cat  = \request()->input('cat_id');
         $div  = \request()->input('div_id');
+        $sCat = \request()->input('s_cat_id');
 
         $categories    = Category::withCount('jobs')->get();
         $divisions     = Division::withCount('jobs')->get();
@@ -89,6 +91,9 @@ class HomeController extends Controller
         if ($cat != null){
             $jobs->where('category_id', $cat);
         }
+        if ($sCat != null){
+            $jobs->where('sub_category_id', $sCat);
+        }
 
         $jobs = $jobs->paginate(12)->withQueryString();
 
@@ -108,12 +113,61 @@ class HomeController extends Controller
         return back();
     }
 
+    public function singleBlog($slug){
+        $blog = Blog::where('slug', $slug)
+            ->with(['user', 'category', 'category.blogs','comments.user','comments.replayComments', 'comments' => function($comment){
+                return $comment->where('comment_id', null);
+            }])->first();
+
+        if (Auth::check() && Auth::user()->role != 'admin'){
+            $blog->view_count = $blog->view_count++;
+            $blog->save();
+        }else if (!Auth::check()){
+            $blog->view_count = $blog->view_count + 1;
+            $blog->save();
+        }
+
+        return view('frontend.single_blog', compact('blog'));
+    }
+
+    public function allCategories(){
+        $categories = Category::with('sub_categories')->get();
+//        return $categories;
+        return view('frontend.categories', compact('categories'));
+    }
+
+
     public function about()
     {
         return view('frontend.about');
     }
     public function blog(){
-        return view('frontend.blog');
+        $request = \request();
+        if ($request->searchText != null){
+            $blogs = Blog::where('publication_status', 1)
+                ->where('title', 'like', "%{$request->searchText}%")
+                ->orWhere('description', 'like', "%{$request->searchText}%")
+                ->orWhere('content', 'like', "%{$request->searchText}%")
+                ->with(['user', 'category'])->get();
+        }else{
+            $blogs = Blog::where('publication_status', 1)->with(['user', 'category'])->get();
+        }
+        $text = $request->searchText;
+        return view('frontend.blogs', compact('blogs', 'text'));
+    }
+    public function allApproveBlogs(){
+        $request = \request();
+        if ($request->searchText != null){
+            $blogs = Blog::where('publication_status', 1)
+                ->where('title', 'like', "%{$request->searchText}%")
+                ->orWhere('description', 'like', "%{$request->searchText}%")
+                ->orWhere('content', 'like', "%{$request->searchText}%")
+                ->with(['user', 'category'])->get();
+        }else{
+            $blogs = Blog::where('publication_status', 1)->with(['user', 'category'])->get();
+        }
+        $text = $request->searchText;
+        return view('frontend.blogs', compact('blogs', 'text'));
     }
 
     public function faq()

@@ -12,7 +12,7 @@
 @section('seeker_content')
     <div class="col-lg-9 col-md-8 col-12">
         <div class="row">
-            <div class="col-lg-3 col-md-12 col-12">
+            <div class="col-lg-4 col-md-12 col-12">
                 <!-- Card -->
                 <div class="card mb-4">
                     <div class="card-body text-center p-0 counter_card">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-12 col-12">
+            <div class="col-lg-4 col-md-12 col-12">
                 <!-- Card -->
                 <div class="card mb-4">
                     <div class="card-body text-center p-0 counter_card">
@@ -30,16 +30,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-12 col-12">
-                <!-- Card -->
+<!--            <div class="col-lg-3 col-md-12 col-12">
+                &lt;!&ndash; Card &ndash;&gt;
                 <div class="card mb-4">
                     <div class="card-body text-center p-0 counter_card">
                         <h4 class="mt-3">Send Resume</h4>
                         <p>150</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-12 col-12">
+            </div>-->
+            <div class="col-lg-4 col-md-12 col-12">
                 <!-- Card -->
                 <div class="card mb-4">
                     <div class="card-body text-center p-0 counter_card">

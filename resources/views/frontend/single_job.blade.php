@@ -69,6 +69,7 @@
                                         <span class="badge me-1 bg-light-success text-success">{{ $skill }}</span>
                                     @endforeach
                                 </div>
+                                &gt;
 
                                 @if(Auth::check() && Auth::user()->role == \App\Properties::$seeker)
                                     <div class="d-flex align-items-center">
@@ -77,7 +78,6 @@
                                             <input type="hidden" name="rec_id" value="{{  $job->creator }}">
                                             <input type="hidden" name="job_id" value="{{ $job->id }}">
                                             <input type="hidden" name="type" value="recruiter">
-                                            <input type="hidden" name="message" value="{{ \App\Properties::$initMessage }}">
                                             <button type="submit" class="btn btn-light-success btn-sm me-1">Message Recruiter</button>
                                         </form>
                                     </div>

@@ -368,14 +368,20 @@ function IDinfo(id, type) {
       data: { _token: access_token, id, type },
       dataType: "JSON",
       success: (data) => {
+
+          console.log(data.fetch.photo);
+
         // avatar photo
         $(".messenger-infoView")
           .find(".avatar")
-          .css("background-image", 'url("' + data.user_avatar + '")');
+          // .css("background-image", 'url("' + data.user_avatar + '")');
+          .css("background-image", 'url("' +"http://127.0.0.1:8000"+ data.fetch.photo + '")');
         $(".header-avatar").css(
           "background-image",
-          'url("' + data.user_avatar + '")'
+          // 'url("' + data.user_avatar + '")'
+          'url("' +"http://127.0.0.1:8000"+ data.fetch.photo +'")'
         );
+
         // Show shared and actions
         $(".messenger-infoView-btns .delete-conversation").show();
         $(".messenger-infoView-shared").show();

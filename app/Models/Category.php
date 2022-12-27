@@ -102,4 +102,8 @@ class Category extends Model
         return $this->hasMany(Job::class, 'category_id');
     }
 
+    public function blogs(){
+        return $this->hasMany(Blog::class, 'category_id');
+    }
+
 }

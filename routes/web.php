@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BusinessSettingController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessangerController;
@@ -51,6 +53,9 @@ Route::controller(HomeController::class)->name('client.')->group(function (){
     Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
     Route::get('recruiters', 'recruiter')->name('recruiter');
     Route::get('seekers', 'seekers')->name('seekers');
+    Route::view('contact-us', 'frontend.contact')->name('contactUs');
+
+    Route::get('all-categories', 'allCategories')->name('allCategories');
 
     Route::post('all-district', 'allDistrict')->name('allDistrict');
     Route::get('sub-categories/category-id/{id}', 'getSubCategories')->name('getSubCategories');
@@ -61,19 +66,23 @@ Route::controller(RecruitersController::class)->prefix('recruiters')->name('recr
     Route::post('create', 'create')->name('create');
 });
 
+//
+////Route::get('/', [HomeController::class, 'home']);
+//Route::get('/contact', [HomeController::class, 'contact']);
+//Route::get('/about', [HomeController::class, 'about']);
+//Route::get('/blog', [HomeController::class, 'blog']);
+//Route::get('/faq', [HomeController::class, 'faq']);
+//Route::get('/checkout/{slug}', [HomeController::class, 'checkout']);
+//Route::get('/details/{slug}', [HomeController::class, 'details']);
+//
+//Route::get('pay/paypal', [PayPalPaymentController::class, 'charge'])->middleware('auth')->name('paypal.pay');
+//Route::get('pay/success', [PayPalPaymentController::class, 'success'])->name('paypal.success');
+//Route::get('pay/error', [PayPalPaymentController::class, 'error'])->name('paypal.error');
 
-//Route::get('/', [HomeController::class, 'home']);
-Route::get('/contact', [HomeController::class, 'contact']);
-Route::get('/about', [HomeController::class, 'about']);
-Route::get('/blog', [HomeController::class, 'blog']);
-Route::get('/faq', [HomeController::class, 'faq']);
-Route::get('/checkout/{slug}', [HomeController::class, 'checkout']);
-Route::get('/details/{slug}', [HomeController::class, 'details']);
-
-Route::get('pay/paypal', [PayPalPaymentController::class, 'charge'])->middleware('auth')->name('paypal.pay');
-Route::get('pay/success', [PayPalPaymentController::class, 'success'])->name('paypal.success');
-Route::get('pay/error', [PayPalPaymentController::class, 'error'])->name('paypal.error');
-
+Route::get('blogs', [HomeController::class, 'allApproveBlogs'])->name('all_approve_blogs');
+Route::get('single-blog/{slug}', [HomeController::class, 'singleBlog'])->name('single_blog');
+Route::post('submit-your-comment', [CommentController::class, 'submit_comment'])->name('submit_comment');
+Route::post('replay-comment/submit-your-comment', [CommentController::class, 'replayComment'])->name('replay_comment');
 
 
 Route::middleware('guest')->group(function () {
@@ -119,6 +128,12 @@ Route::middleware('auth')->group(function () {
             Route::get('seekers', [SeekerJobController::class, 'allSeekers'])->name('allSeekers');
             Route::get('view-single-seeker/{id}', [SeekerJobController::class, 'singleSeeker'])->name('singleSeeker');
             Route::delete('delete-seeker/{id}', [SeekerJobController::class, 'deleteSeeker'])->name('deleteSeeker');
+
+            Route::resource('blogs', BlogController::class);
+            Route::post('blogs/update/{id}', [BlogController::class, 'updateBlog'])->name('blogs.update_blog');
+            Route::get('blogs/comments/{slug}', [BlogController::class, 'allComments'])->name('blog.comments');
+            Route::get('blogs/comments/delete/{comment_id}', [CommentController::class, 'deleteBlogComment'])->name('delete.blog_comment');
+
 
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');
@@ -208,7 +223,6 @@ Route::middleware('auth')->group(function () {
             Route::get('upload-resume', [SeekerProfileController::class, 'uploadResume'])->name('uploadResume');
             Route::get('greeting-chat', [SeekerProfileController::class, 'greetingChat'])->name('greetingChat');
             Route::get('switch-to-recruiter', [SeekerProfileController::class, 'switchProfile'])->name('switchProfile');
-            Route::view('contact-us', 'frontend.contact')->name('contactUs');
 
             // seeker profile related routes
             Route::post('change-profile-picture', [SeekerProfileController::class, 'changeProfilePicture'])->name('changeProfilePicture');

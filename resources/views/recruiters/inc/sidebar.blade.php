@@ -46,6 +46,10 @@
                     <a class="nav-link " href="{{ route('recruiter.saveJobs') }}"><i class="fe fe-bookmark nav-icon"></i>Save Jobs</a>
                 </li>
                 <!-- Nav item -->
+                <li class="nav-item {{ Route::is('client.contactUs') }}">
+                    <a class="nav-link" href="{{ route('client.contactUs') }}"><i class="fe fe-send nav-icon"></i>Contact Us</a>
+                </li>
+                <!-- Nav item -->
                 {{--
                 <li class="nav-item {{ Route::is('recruiter.socialProfile') ? 'active' : ''}}">
                     <a class="nav-link" href="{{ route('recruiter.socialProfile') }}"><i class="fe fe-refresh-cw nav-icon"></i>Social
