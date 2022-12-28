@@ -200,7 +200,7 @@
                     <h2>no have category</h2>
                 @endforelse
                 <div class="col-md-3 col-6 mb-5">
-                    <a href="">
+                    <a href="{{  route('client.allCategories')  }}">
                         <div class="card category-card-shadow rounded-5 category-card-hover">
                             <div class="card-body py-6">
                                 <div class="d-flex align-items-center justify-content-center flex-column">

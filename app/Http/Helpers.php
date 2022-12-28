@@ -81,6 +81,10 @@ function sendOtpUser($phone){
     $user->update();
     // $text = "আপনার chaldal.ctpbd.com OTP কোড টি হল  ".$code;
     $text = "Your hiref.info OTP code is ".$code;
-//    $status = sendBulkOtpSms($phone, $text);
+    $status = sendBulkOtpSms($phone, $text);
+    \Illuminate\Support\Facades\Log::info('send status', [
+        'status' => $status,
+        'message' => 'sended'
+    ]);
     return true;
 }

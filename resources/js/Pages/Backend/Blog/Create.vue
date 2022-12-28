@@ -124,6 +124,8 @@ let createNewBlog = () => {
 
 </script>
 
+
+
 <style scopt>
 .vs__dropdown-toggle{
     border:none !important;
@@ -135,10 +137,10 @@ let createNewBlog = () => {
     --vs-dropdown-option--active-color: #000;
 }
 .vs--multiple .vs__selected{
-    color: #000;
+    color: #fff;
 }
 .vs__deselect{
-    fill: #000 !important;
+    fill: #fff !important;
 }
 
 </style>

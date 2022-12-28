@@ -17,15 +17,11 @@ use Illuminate\Support\Facades\URL;
 class SeekerJobController extends Controller
 {
     public function allSaveJobs(){
-
-
         $jobs = SaveJob::where('user_id', Auth::id())
             ->latest()
             ->with(['job','job.category', 'job.companyDetails.photos'])
             ->paginate(10);
-
         $save = true;
-
         return view('seekers.jobs.save_jobs', compact('jobs', 'save'));
     }
 
@@ -62,7 +58,6 @@ class SeekerJobController extends Controller
                 ]),
             'filters' => Request::only(['search', 'perPage']),
         ]);
-
     }
 
     public function singleSeeker($id){
@@ -78,10 +73,8 @@ class SeekerJobController extends Controller
             $subCat[] = $cat[0];
             $cCat[] = $cat[1];
         }
-
         $subCats = SubCategory::whereIn('id', array_unique($subCat))->get();
         $cCats = ChildCategory::whereIn('id', array_unique($cCat))->get();
-
 
          return inertia("Backend/Seekers/Show", [
              'seeker' => $user,

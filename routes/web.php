@@ -7,6 +7,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessangerController;
+use App\Http\Controllers\RecruiterJobController;
 use App\Http\Controllers\RecruitersCompanyController;
 use App\Http\Controllers\RecruitersController;
 use App\Http\Controllers\RecruitersProfileController;
@@ -67,14 +68,14 @@ Route::controller(RecruitersController::class)->prefix('recruiters')->name('recr
 });
 
 //
-////Route::get('/', [HomeController::class, 'home']);
-//Route::get('/contact', [HomeController::class, 'contact']);
-//Route::get('/about', [HomeController::class, 'about']);
-//Route::get('/blog', [HomeController::class, 'blog']);
-//Route::get('/faq', [HomeController::class, 'faq']);
-//Route::get('/checkout/{slug}', [HomeController::class, 'checkout']);
-//Route::get('/details/{slug}', [HomeController::class, 'details']);
-//
+//Route::get('/', [HomeController::class, 'home']);
+Route::get('/contact', [HomeController::class, 'contact']);
+Route::get('/about', [HomeController::class, 'about']);
+Route::get('/blog', [HomeController::class, 'blog']);
+Route::get('/faq', [HomeController::class, 'faq']);
+Route::get('/checkout/{slug}', [HomeController::class, 'checkout']);
+Route::get('/details/{slug}', [HomeController::class, 'details']);
+
 //Route::get('pay/paypal', [PayPalPaymentController::class, 'charge'])->middleware('auth')->name('paypal.pay');
 //Route::get('pay/success', [PayPalPaymentController::class, 'success'])->name('paypal.success');
 //Route::get('pay/error', [PayPalPaymentController::class, 'error'])->name('paypal.error');
@@ -128,6 +129,9 @@ Route::middleware('auth')->group(function () {
             Route::get('seekers', [SeekerJobController::class, 'allSeekers'])->name('allSeekers');
             Route::get('view-single-seeker/{id}', [SeekerJobController::class, 'singleSeeker'])->name('singleSeeker');
             Route::delete('delete-seeker/{id}', [SeekerJobController::class, 'deleteSeeker'])->name('deleteSeeker');
+
+            Route::get('recruiters', [RecruiterJobController::class, 'allRecruiters'])->name('allRecruiters');
+            Route::get('view-single-recruiters/{id}', [RecruiterJobController::class, 'singleRecruiters'])->name('singleRecruiters');
 
             Route::resource('blogs', BlogController::class);
             Route::post('blogs/update/{id}', [BlogController::class, 'updateBlog'])->name('blogs.update_blog');

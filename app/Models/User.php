@@ -151,6 +151,11 @@ class User extends Authenticatable
         return $this->hasMany(SaveJob::class, 'user_id');
     }
 
+    public function jobCreates(){
+        return $this->hasMany(Job::class, 'creator');
+    }
+
+
     public function profileComplete(){
         $status = 0;
         $this->name                           != null ? $status += 5 : $status += 0;
