@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
+
 class RecruiterJobController extends Controller
 {
     public function allRecruiters(){

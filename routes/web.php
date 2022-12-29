@@ -49,6 +49,10 @@ Route::get('/storage', function (){
    Artisan::call('storage:link');
 });
 
+Route::get('/clear', function (){
+    Artisan::call('optimize:clear');
+});
+
 Route::controller(HomeController::class)->name('client.')->group(function (){
     Route::get('', 'home')->name('home');
     Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
