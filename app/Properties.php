@@ -28,6 +28,10 @@ class Properties
     public static $fLogo      = 'footer_logo';
     public static $fIcon      = 'fevicon_logo';
 
+    public static $apiUser    = 'api_user_name';
+    public static $apiPass    = 'api_user_pass';
+    public static $apiUrl     =  'api_url';
+
 
     public static $initMessage = "this is initials message";
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BusinessSetting;
 use App\Models\Country;
 use App\Models\Gallery;
+use App\Properties;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
@@ -30,11 +31,16 @@ class BusinessSettingController extends Controller
                 'phone'       => get_setting('phone'),
                 'email'       => get_setting('email'),
 
+                'api_user_pass'  => get_setting('api_user_pass'),
+                'api_user_name'  => get_setting('api_user_name'),
+                'api_url'        => get_setting('api_url'),
+
                 'instagram_profile'       => get_setting('instagram_profile'),
                 'facebook_profile'        => get_setting('facebook_profile'),
                 'google_drive'            => get_setting('google_drive'),
                 'linkedin_profile'        => get_setting('linkedin_profile'),
-                'twitter_profile'        => get_setting('twitter_profile'),
+                'twitter_profile'         => get_setting('twitter_profile'),
+
             ]
         ]);
     }
@@ -44,7 +50,6 @@ class BusinessSettingController extends Controller
 
 
             foreach (Request::all() as $type => $value){
-
                 $business_settings = BusinessSetting::where('type', $type)->first();
 
                 if ($type == 'name' && $value != null){
