@@ -46,6 +46,7 @@
                     <tr class="">
                         <th class="sorting">About</th>
                         <th class="sorting">Status</th>
+                        <th class="sorting">Profile Status</th>
                         <th class="sorting">Join Date</th>
                         <th class="sorting">Actions</th>
                     </tr>
@@ -96,6 +97,14 @@
                                 </div>
                             </div>
                         </td>
+                        <td>
+                            <span class="badge" :class="{
+                                'bg-gradient-success' : recruiter.recruiter.status == 'approved',
+                                'bg-gradient-danger'  : recruiter.recruiter.status == 'unapproved',
+                                'bg-gradient-warning' : recruiter.recruiter.status == 'waiting',
+                                'bg-gradient-info'    : recruiter.recruiter.status == 'cancel'
+                            }">{{ recruiter.recruiter.status }}</span>
+                        </td>
                         <td>{{ recruiter.created_at }}</td>
                         <td>
                             <div class="btn-group dropup dropdown-icon-wrapper">
@@ -109,6 +118,25 @@
                                         <Icon title="eye"/>
                                         <span class="ms-1">Show</span>
                                     </a>
+
+                                    <span class="dropdown-item" v-if="recruiter.a_status"
+                                          @click="activeStatus(recruiter.id, false)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                       <span class="ms-1">In-Active</span>
+                                    </span>
+
+                                    <span class="dropdown-item" v-else
+                                          @click="activeStatus(recruiter.id, true)">
+                                        <vue-feather type="check"/>
+                                       <span class="ms-1">Active</span>
+                                    </span>
+
+                                    <span class="dropdown-item"
+                                          @click="changeStatus(recruiter.id)">
+                                        <vue-feather type="check-circle"/>
+                                       <span class="ms-1">P Status</span>
+                                    </span>
+
                                     <span class="dropdown-item"
                                           @click="deleteItemModal(recruiter.delete_url)">
                                 <Icon title="trash"/>
@@ -130,7 +158,29 @@
         </div>
         <!-- list and filter end -->
     </section>
-
+    <!-- Modal to add new user starts-->
+    <Modal id="changeProfileSatus" title="Change Profile Status" v-vb-is:modal>
+        <form @submit.prevent="updateStatus(recId)">
+            <div class="modal-body">
+                <label>Status </label>
+                <div class="mb-1">
+                    <v-select v-model="statusForm.status"
+                              @update:modelValue="categorySelected"
+                              label="name"
+                              class="text-capitalize"
+                              placeholder="Select Status"
+                              :options="status"
+                              :reduce="st => st.name"></v-select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit"
+                        class="btn btn-primary waves-effect waves-float waves-light">Submit</button>
+                <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                        aria-label="Close">Cancel</button>
+            </div>
+        </form>
+    </Modal>
 </template>
 
 <script setup>
@@ -146,6 +196,8 @@ import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/inertia-vue3'
 import debounce from "lodash/debounce";
 import Swal from 'sweetalert2'
+let status = [{"name" : "approved"}, {"name" : "unapproved"}, {"name": "cancel"}, {"name" : "waiting"}]
+
 
 let props = defineProps({
     recruiters: [],
@@ -184,6 +236,10 @@ let deleteItemModal = (delete_url) => {
         }
     })
 };
+let statusForm = useForm({
+    status:'',
+    rec_id:recId
+})
 let createForm = useForm({
     name: '',
     photo: null,
@@ -211,7 +267,34 @@ let showItem = (slug) => {
         console.log(err)
     })
 }
+let activeStatus = (id, status) => {
+    axios.get('recruiters/change-activation-status/'+id+"/"+status).then(res =>{
+        $sToast.fire({
+            icon:'success',
+            text:'Actication Status Changed....'
+        });
+    }).catch(err => {
+        console.log(err)
+    })
+}
+let recId = ref({});
+let changeStatus = (id) =>{
+    recId.value = id;
+    document.getElementById('changeProfileSatus').$vb.modal.show()
+}
 
+let updateStatus = (id) =>{
+    Inertia.post('recruiters/change-status?rec_id='+id, statusForm, {
+        onSuccess: ()=>{
+            document.getElementById('changeProfileSatus').$vb.modal.hide()
+
+            $sToast.fire({
+               icon:"success",
+               text:"Profile Status Updated..."
+            });
+        }
+    })
+}
 
 let search = ref(props.filters.search);
 let perPage = ref(props.filters.perPage);

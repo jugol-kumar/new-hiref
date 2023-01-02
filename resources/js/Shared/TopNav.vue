@@ -97,7 +97,7 @@
                     </span>
                     </Link>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                        <Link href="#" class="dropdown-item">
+                        <Link :href="`${this.$page.props.ADMIN_URL}/admin-profile`" class="dropdown-item">
                         <Icon title="user" width="24" height="24" /> Profile
                         </Link>
                         <div class="dropdown-divider"></div>

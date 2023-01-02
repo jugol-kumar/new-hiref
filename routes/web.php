@@ -111,6 +111,7 @@ Route::middleware('auth')->group(function () {
         Route::get('resend-verification-code', [VerificationController::class, 'resVCode'])->name('resVCode');
     });
 
+
     Route::prefix('student')->middleware('is_student')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'student'])->name('dashboard');
     });
@@ -133,9 +134,12 @@ Route::middleware('auth')->group(function () {
             Route::get('seekers', [SeekerJobController::class, 'allSeekers'])->name('allSeekers');
             Route::get('view-single-seeker/{id}', [SeekerJobController::class, 'singleSeeker'])->name('singleSeeker');
             Route::delete('delete-seeker/{id}', [SeekerJobController::class, 'deleteSeeker'])->name('deleteSeeker');
+            Route::get('seeker/change-activation-status/{id}/{status}', [SeekerJobController::class, 'changeAStatus'])->name('changeAStatus');
 
             Route::get('recruiters', [RecruiterJobController::class, 'allRecruiters'])->name('allRecruiters');
             Route::get('view-single-recruiters/{id}', [RecruiterJobController::class, 'singleRecruiters'])->name('singleRecruiters');
+            Route::get('recruiters/change-activation-status/{id}/{status}', [RecruiterJobController::class, 'changeAStatus'])->name('changeAStatus');
+            Route::post('recruiters/change-status', [RecruiterJobController::class, 'changeStatus'])->name('changeStatus');
 
             Route::resource('blogs', BlogController::class);
             Route::post('blogs/update/{id}', [BlogController::class, 'updateBlog'])->name('blogs.update_blog');
@@ -145,6 +149,10 @@ Route::middleware('auth')->group(function () {
 
             Route::get('settings',  [BusinessSettingController::class, 'index'])->name('setting.index');
             Route::post('settings',  [BusinessSettingController::class, 'updateSetting'])->name('setting.update');
+            Route::post('settings/update-logo', [BusinessSettingController::class, 'logoUpdate'])->name('setting.updateLogo');
+
+            Route::get('admin-profile', [UserController::class, 'profile'])->name('adminProfile');
+            Route::post('admin-profile', [UserController::class, 'profile_update'])->name('settingUpdate');
         });
 
         Route::prefix('recruiters')->name('recruiter.')->middleware('recruiters')->group(function(){

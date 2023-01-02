@@ -8,14 +8,13 @@ use App\Models\Gallery;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BusinessSettingController extends Controller
 {
     public function index()
     {
-
         Cache::forever('countries', Country::all());
-
         return inertia('Backend/Setting/Setting', [
             'countries' => Cache::get('countries'),
             'bSettings' =>[
@@ -23,6 +22,7 @@ class BusinessSettingController extends Controller
                 'details'     => get_setting('app_details'),
                 'header_logo' => global_asset(get_setting('header_logo')),
                 'footer_logo' => global_asset(get_setting('footer_logo')),
+                'fevicon_logo'=> global_asset(get_setting('fevicon_logo')),
                 'timezone'    => json_decode(get_setting('timezone')),
                 'country'     => json_decode(get_setting('country')),
 
@@ -41,8 +41,10 @@ class BusinessSettingController extends Controller
 
     public function updateSetting()
     {
-//        try{
+
+
             foreach (Request::all() as $type => $value){
+
                 $business_settings = BusinessSetting::where('type', $type)->first();
 
                 if ($type == 'name' && $value != null){
@@ -62,7 +64,7 @@ class BusinessSettingController extends Controller
                     if ($business_settings != null){
                         Gallery::updateOrCreate([
                            'imageable_id' => $business_settings->id,
-                            'imagable_type' => 'App\\Models\\BusinessSetting',
+                            'imageable_type' => 'App\\Models\\BusinessSetting',
                             'filename' => $value
                         ]);
                     }
@@ -73,7 +75,7 @@ class BusinessSettingController extends Controller
                     if ($business_settings != null){
                         Gallery::updateOrCreate([
                             'imageable_id' => $business_settings->id,
-                            'imagable_type' => 'App\\Models\\BusinessSetting',
+                            'imageable_type' => 'App\\Models\\BusinessSetting',
                             'filename' => $value
                         ]);
                     }
@@ -113,15 +115,43 @@ class BusinessSettingController extends Controller
             ]);
 
             return redirect()->route('setting.index');
+    }
 
-//        }catch (\Exception $exception){
-//
-//            Log::alert('Update Business Settings', [
-//                'message' => $exception->getMessage(),
-//                'time' => now()
-//            ]);
-//        }
+    public function logoUpdate(){
 
+        if (Request::hasFile('header_logo')){
+            $business_settings = BusinessSetting::where('type', 'header_logo')->first();
+            if ($business_settings != null){
+                Storage::disk('public')->delete($business_settings->value);
+            }
+            $value = Request::file('header_logo')->store('settings', 'public');
+            $business_settings->value = $value;
+            $business_settings->save();
+        }
+        if (Request::hasFile('footer_logo')){
+            $business_settings = BusinessSetting::where('type', 'footer_logo')->first();
+            if ($business_settings != null){
+                Storage::disk('public')->delete($business_settings->value);
+            }
+            $value = Request::file('footer_logo')->store('settings', 'public');
+            $business_settings->value = $value;
+            $business_settings->save();
+        }
+        if (Request::hasFile('fevicon_logo')){
+            $business_settings = BusinessSetting::where('type', 'fevicon_logo')->first();
+            if ($business_settings != null){
+                Storage::disk('public')->delete($business_settings->value);
+            }
+            $value = Request::file('fevicon_logo')->store('settings', 'public');
+            $business_settings->value = $value;
+            $business_settings->save();
+        }
 
+        Log::info('Update Business Settings', [
+            'message' => 'Update Successfully Done...!',
+            'time' => now()
+        ]);
+
+        return redirect()->route('setting.index');
     }
 }

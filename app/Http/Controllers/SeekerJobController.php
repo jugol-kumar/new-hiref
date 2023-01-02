@@ -11,18 +11,25 @@ use App\Properties;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class SeekerJobController extends Controller
 {
-    public function allSaveJobs(){
+    public function allSaveJobs()
+    {
         $jobs = SaveJob::where('user_id', Auth::id())
             ->latest()
             ->with(['job','job.category', 'job.companyDetails.photos'])
             ->paginate(10);
         $save = true;
+
+
         return view('seekers.jobs.save_jobs', compact('jobs', 'save'));
+
+
+
     }
 
 
@@ -90,6 +97,13 @@ class SeekerJobController extends Controller
         return $id;
     }
 
+    public function changeAStatus($id, $status){
+        $user = User::findOrFail($id);
+        $user->update([
+            'is_active' => $status == 'true' ? 1 : 0
+        ]);
+        return back();
+    }
 
 
 }

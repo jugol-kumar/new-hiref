@@ -19,6 +19,7 @@ class HomeController extends Controller
 {
     public function home()
     {
+
         $jobs = Job::with(['companyDetails', 'user'])
             ->where('is_published', 1)
             ->orderBy('created_at', 'DESC')

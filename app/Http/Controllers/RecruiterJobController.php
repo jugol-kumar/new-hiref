@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\URL;
 class RecruiterJobController extends Controller
 {
     public function allRecruiters(){
+
         return inertia('Backend/Recruiter/Index', [
             $search = Request::input('search'),
             'recruiters' => User::query()
@@ -68,8 +69,25 @@ class RecruiterJobController extends Controller
     }
 
 
+    public function changeAStatus($id, $status){
+        $user = User::findOrFail($id);
+        $user->update([
+            'is_active' => $status == 'true' ? 1 : 0
+        ]);
+        return back();
+    }
 
 
+    public function changeStatus(){
+        $user = User::findOrFail(Request::input('rec_id'))->load('recruiter');
+
+        $user->recruiter->update([
+            'status' => Request::input('status')
+        ]);
+
+        return back();
+
+    }
 
 
 }

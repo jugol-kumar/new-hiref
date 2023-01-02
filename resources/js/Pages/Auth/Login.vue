@@ -14,7 +14,7 @@
                             <div class="card mb-0">
                                 <div class="card-body">
                                     <a href="/" class="brand-logo">
-                                        <img :src="$page.props.logo"/>
+                                        <img :src="$page.props.logo" style="max-width: 150px; min-width: 150px;"/>
                                     </a>
                                     <h2 class="text-center">Login</h2>
                                     <form class="auth-login-form mt-2" @submit.prevent="submit">

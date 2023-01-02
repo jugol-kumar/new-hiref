@@ -113,6 +113,18 @@
                                         <Icon title="eye"/>
                                         <span class="ms-1">Show</span>
                                     </a>
+
+                                    <span class="dropdown-item" v-if="seeker.a_status"
+                                          @click="activeStatus(seeker.id, false)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                       <span class="ms-1">In-Active</span>
+                                    </span>
+
+                                    <span class="dropdown-item" v-else
+                                          @click="activeStatus(seeker.id, true)">
+                                        <vue-feather type="check"/>
+                                       <span class="ms-1">Active</span>
+                                    </span>
                                     <span class="dropdown-item"
                                           @click="deleteItemModal(seeker.delete_url)">
                                 <Icon title="trash"/>
@@ -216,7 +228,16 @@ let showItem = (slug) => {
     })
 }
 
-
+let activeStatus = (id, status) => {
+    axios.get('seeker/change-activation-status/'+id+"/"+status).then(res =>{
+        $sToast.fire({
+            icon:'success',
+            text:'Actication Status Changed....'
+        });
+    }).catch(err => {
+        console.log(err)
+    })
+}
 let search = ref(props.filters.search);
 let perPage = ref(props.filters.perPage);
 

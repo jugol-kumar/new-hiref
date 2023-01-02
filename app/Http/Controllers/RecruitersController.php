@@ -34,6 +34,18 @@ class RecruitersController extends Controller
     }
 
     public function updateBio(Request $request){
+        $request->validate([
+            'c_full_name' => 'required',
+            'c_short_name' => 'required',
+            'email'        => 'required|email',
+            'emp_size'     => 'required',
+            'first_name'   => 'required',
+            'full_address' => 'nullable',
+            'gender'       => 'required',
+            'hot_industry' => 'required',
+            'last_name'    => 'required'
+        ]);
+
 
         $user = Auth::user();
 

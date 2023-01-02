@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-default p-0 px-8 w-100 position-fixed zindex-4" style="z-index: 111; box-shadow: 0 20px 20px 0 #e3e3e340">
     <div class="container-fluid px-0 py-2 mb-n2">
         <a class="navbar-brand" href="/">
-{{--            <img src="{{ config('app.url')."/storage/".get_setting('header_logo') }}" alt="" style="max-width: 150px; min-width: 150px;"/>--}}
-            <img src="{{ asset('frontend/assets/images/hiref-black.png') }}" alt="" style="max-width: 150px; min-width: 150px;"/>
+            <img src="{{ config('app.url')."/storage/".get_setting(\App\Properties::$hLogo) }}" alt="" style="max-width: 150px; min-width: 150px;"/>
+{{--            <img src="{{ asset('frontend/assets/images/blogo/blogo-black.jpg') }}" alt="" style="max-width: 150px; min-width: 150px;"/>--}}
         </a>
         <!-- Button -->
         <button
@@ -386,11 +386,11 @@
                                                     <i class="fe fe-user me-2"></i>Profile
                                                 </a>
                                             </li>
-                                            <li>
+<!--                                            <li>
                                                 <a class="dropdown-item" href="{{ route('recruiter.security') }}">
                                                     <i class="fe fe-settings me-2"></i>Settings
                                                 </a>
-                                            </li>
+                                            </li>-->
                                         </ul>
                                     @else
                                         <ul class="list-unstyled">

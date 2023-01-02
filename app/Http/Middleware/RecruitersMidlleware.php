@@ -24,6 +24,10 @@ class RecruitersMidlleware
             {
                 return redirect()->route('recruiter.makeProfile');
             }
+            elseif(!$user->is_active)
+            {
+                return redirect()->route('recruiter.profileInactive');
+            }
             elseif($user->getRectorVerificationFiles())
             {
                 return redirect()->route('recruiter.uploadBusinessFile');
@@ -35,10 +39,6 @@ class RecruitersMidlleware
             elseif ($user->cancelVerify())
             {
                 return redirect()->route('recruiter.cancelVerifyRequest');
-            }
-            elseif(!$user->is_active)
-            {
-                return redirect()->route('recruiter.profileInactive');
             }
 //            elseif($user->waitForVerify())
 //            {

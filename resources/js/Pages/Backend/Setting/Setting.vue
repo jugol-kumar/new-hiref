@@ -33,8 +33,14 @@
                                             aria-controls="v-pills-socials"
                                             aria-selected="false">Social Links</button>
 
-                                    <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
-                                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+                                    <button class="nav-link"
+                                            id="v-pills-messages-tab"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-messages"
+                                            type="button" role="tab"
+                                            aria-controls="v-pills-messages"
+                                            aria-selected="false">Apprience</button>
+                                    <Link class="nav-link" :href="`${this.$page.props.ADMIN_URL}/admin-profile`">Profile Settings</Link>
 
                                 </div>
                             </div>
@@ -48,12 +54,6 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <Text v-model="createForm.name" label="App Name" placeholder="App Name" />
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <Image v-model="createForm.header_logo" :showFile="props.bSettings.header_logo" label="Header Logo"/>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <Image v-model="createForm.footer_logo"  :showFile="props.bSettings.footer_logo" label="Footer Logo"/>
                                                         </div>
                                                         <div class="col-12">
                                                             <Textarea v-model="createForm.app_details" label="App About" />
@@ -164,6 +164,40 @@
 
 
                                                         <div class="col-12 mt-2 d-inline-flex align-item-center">
+
+                                                            <!--                                                            <button v-if="!isLoding" type="submit" disabled class="btn btn-primary me-1 waves-effect waves-float waves-light">-->
+                                                            <!--                                                                <div class="spinner-border text-white me-1"  role="status"></div>-->
+                                                            <!--                                                                <span>Submit</span>-->
+                                                            <!--                                                            </button>-->
+
+
+                                                            <button class="btn btn-primary me-1 waves-effect waves-float waves-light">
+                                                                Submit
+                                                            </button>
+                                                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                        <div class="card">
+                                            <h2>Frontend Setup</h2>
+                                            <div class="card-body">
+                                                <form class="form form-vertical" @submit.prevent="updateLogo()">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <Image v-model="logoForm.header_logo" :showFile="props.bSettings.header_logo" label="Header Logo"/>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <Image v-model="logoForm.footer_logo" :showFile="props.bSettings.footer_logo" label="Footer Logo"/>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <Image v-model="logoForm.fevicon_logo" :showFile="props.bSettings.fevicon_logo" label="Favicon"/>
+                                                        </div>
+                                                        <div class="col-12 mt-2 d-inline-flex align-item-center">
                                                             <button v-if="!isLoding" type="submit" disabled class="btn btn-primary me-1 waves-effect waves-float waves-light">
                                                                 <div class="spinner-border text-white me-1"  role="status"></div>
                                                                 <span>Submit</span>
@@ -180,7 +214,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
                                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                                 </div>
                             </div>
@@ -202,12 +235,14 @@ import {ref} from "vue"
 import timezons from "../../../Store/timezone";
 
 const APP_URL = usePage().props.value.ADMIN_URL;
+
 let props = defineProps({
     option:[],
     countries:"",
     errors:"",
     bSettings:""
 })
+
 let countries = props.countries;
 let options = timezons.timesones;
 // let createForm = useForm({
@@ -239,11 +274,36 @@ let createForm = useForm({
     instagram_profile: props.bSettings.instagram_profile ?? '',
 })
 
+let logoForm = useForm({
+    header_logo:'',
+    footer_logo:'',
+    fevicon_logo:'',
+})
+
+
 let isLoding = ref({});
 
 let updateBuisnessSetting = () =>{
-    isLoding.value = false
+    // isLoding.value = false
     createForm.post(APP_URL+"/settings", {
+        onSuccess: (res)=>{
+            // isLoding.value = true
+            $sToast.fire({
+               icon: "success",
+               text: "Business Settings Update Successfully Done.:)",
+            });
+        },
+        onError: (res) =>{
+            $sToast.fire({
+                icon: "error",
+                text: "Business Settings Not Update (:",
+            });
+        }
+    });
+}
+let updateLogo = () =>{
+    isLoding.value = false
+    logoForm.post(APP_URL+"/settings/update-logo", {
         onSuccess: (res)=>{
             isLoding.value = true
             $sToast.fire({

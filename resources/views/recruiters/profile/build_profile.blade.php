@@ -11,16 +11,18 @@
     <div class="bg-light-primary py-lg-14 py-12 bg-cover">
         <div class="container">
             <div class="row">
+                <div class="print-error-msg text-danger text-center">
+                    <ul></ul>
+                </div>
                 <div class="col-7 mx-auto">
                     <form id="personal_details">
                         @csrf
                         <div class="card mb-3 ">
                             <div class="card-header border-bottom px-4 py-3">
-                                <h4 class="mb-0">Need a job ?</h4>
+                                <h4 class="mb-0">Provide your information...</h4>
                             </div>
                             <!-- Card body -->
                             <div class="card-body">
-
                                 <div class="mb-3">
                                     <div class="d-flex align-items-center mb-4 mb-lg-0 justify-content-between">
                                         <div class="ms-3">
@@ -76,10 +78,10 @@
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <label class="form-label">Email Address</label>
-                                        <input type="email" name="email" class="form-control" placeholder="Enter Last Name">
+                                        <input type="email" name="email" class="form-control" placeholder="e.g example@domain.com">
                                     </div>
                                     <div class="col">
-                                        <label class="form-label">Division</label>
+                                        <label class="form-label">Designation</label>
                                         <select id="designation" class="selectpicker" data-width="100%" name="designation">
                                             <option selected disabled value="">Select Your Position On Your Company</option>
                                             <option value="COO">COO</option>
@@ -110,18 +112,18 @@
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <label class="form-label">Hot Industry</label>
-                                        <input type="text" name="emp_size" class="form-control" placeholder="Hot Industry">
+                                        <input type="text" name="hot_industry" class="form-control" placeholder="Hot Industry">
                                     </div>
 
                                     <div class="col">
                                         <label class="form-label">Employee Size</label>
-                                        <input type="text" name="hot_industry" class="form-control" placeholder="Employee Size">
+                                        <input type="text" name="emp_size" class="form-control" placeholder="e.g 10-50 ex">
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Company Full Address</label>
-                                    <textarea name="full_address" class="form-control" placeholder="company full address"></textarea>
+                                    <textarea name="full_address" class="form-control" placeholder="Company full address"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -161,6 +163,16 @@
                 {
                     // console.log(res);
                     window.location.replace(res.url);
+                },
+                error:function (res){
+                    Toast.fire({
+                        icon: 'error',
+                        title: res.responseJSON.message,
+                    })
+                    $(".print-error-msg").find("ul").empty();
+                    $.each(res.responseJSON.errors,function(field_name,error){
+                        $(".print-error-msg").find("ul").append('<li>'+error+'</li>');
+                    })
                 }
             })
         });

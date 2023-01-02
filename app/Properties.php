@@ -24,6 +24,10 @@ class Properties
     public static $asc        = 'asc';
     public static $desc       = 'desc';
 
+    public static $hLogo      = 'header_logo';
+    public static $fLogo      = 'footer_logo';
+    public static $fIcon      = 'fevicon_logo';
+
 
     public static $initMessage = "this is initials message";
 

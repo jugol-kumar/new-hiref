@@ -5,10 +5,10 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- about company -->
                 <div class="mb-4">
-{{--                    <img src="{{ config("app.url")."/storage/".get_setting('footer_logo')   }}" alt="">--}}
-                    <img src="{{  asset('frontend/assets/images/hiref-white.png')  }}" alt="" style="max-width: 150px; min-width: 150px;">
+                    <img src="{{ config("app.url")."/storage/".get_setting(\App\Properties::$fLogo)   }}" alt="" style="max-width: 150px; min-width: 150px;">
+{{--                    <img src="{{  asset('frontend/assets/images/blogo/blogo-white.png')  }}" alt="" style="max-width: 150px; min-width: 150px;">--}}
                     <div class="mt-4">
-                        <p>{!! get_setting('app_details') !!}</p>
+                        <p class="text-white">{!! get_setting('app_details') !!}</p>
                         <!-- social media -->
                         <div class="fs-4 mt-4">
                             <a href="{{ get_setting('facebook_profile') }}" class="mdi mdi-facebook fs-4 text-muted me-2" target="_blank"></a>
