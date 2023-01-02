@@ -113,7 +113,7 @@
                                     <div class="col">
                                         <label class="form-label">Hot Industry</label>
                                         <input type="text" name="hot_industry" class="form-control" placeholder="Hot Industry">
-                                    </div>
+                                    </div>R
 
                                     <div class="col">
                                         <label class="form-label">Employee Size</label>

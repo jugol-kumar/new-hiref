@@ -69,7 +69,6 @@
                                         <span class="badge me-1 bg-light-success text-success">{{ $skill }}</span>
                                     @endforeach
                                 </div>
-                                &gt;
 
                                 @if(Auth::check() && Auth::user()->role == \App\Properties::$seeker)
                                     <div class="d-flex align-items-center">

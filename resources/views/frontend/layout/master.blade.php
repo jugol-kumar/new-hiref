@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="_token" content="{{csrf_token()}}" />
 
+
     <!-- Favicon icon-->
     {{--    <link rel="shortcut icon" type="image/x-icon" href="{{ asset("/") }}/images/favicon.ico">--}}
 
@@ -31,6 +32,8 @@
     <link href="{{ asset("frontend") }}/assets/libs/nouislider/dist/nouislider.min.css" rel="stylesheet">
     <link href="{{ asset("frontend") }}/assets/libs/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
 
+
+
     <style>
         #preeloader{
             backdrop-filter: blur(10px);
@@ -41,12 +44,42 @@
             {{--            background:url({{ asset("frontend/images/load.gif") }}) no-repeat center center;--}}
 {{--            background:url({{ asset("images/loader.svg") }}) no-repeat center center;--}}
         }
+
     </style>
     @stack('css')
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset("frontend") }}/assets/css/theme.min.css">
     <link rel="stylesheet" href="{{ asset("frontend") }}/assets/css/custom.css">
+
+
+    <style>
+        :root{
+            --bs-success: {{ env('TEXT_COLOR') }} !important;
+            --bs-success-rgb: {{ env('BG_COLOR') }} !important;
+        }
+        .section-bg{
+            background: {{ env('BG_LIGHT_COLOR') }} !important;
+        }
+        .btn-success{
+            --bs-btn-bg: var(--bs-success) !important;
+            --bs-btn-color: var(--bs-white);
+            --bs-btn-bg: var(--bs-success);
+            --bs-btn-border-color: var(--bs-success);
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: var(--bs-success);
+            --bs-btn-hover-border-color: var(--bs-success);
+            --bs-btn-focus-shadow-rgb: 60,211,167;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: var(--bs-success);
+            --bs-btn-active-border-color: #139872;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: var(--bs-success);
+            --bs-btn-disabled-border-color: var(--bs-success);
+        }
+    </style>
+
     <title>{{ get_setting('name') }} | @yield('title')</title>
 </head>
 
