@@ -14,6 +14,9 @@ class Education extends Model
 
     protected $guarded = ['id'];
 
+    public function eduLabel(){
+        return $this->belongsTo(EducationLabel::class, 'education_label_id');
+    }
 
 
 }

@@ -5,6 +5,8 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\EducationLavelController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessangerController;
 use App\Http\Controllers\RecruiterJobController;
@@ -123,6 +125,8 @@ Route::middleware('auth')->group(function () {
             Route::resource('categories', CategoryController::class);
             Route::resource('sub_categories', SubCategoryController::class);
             Route::resource('child_categories', ChildCategoryController::class);
+            Route::resource('education-level', EducationLavelController::class);
+            Route::resource('education', EducationController::class);
 
             Route::resource('companies', CompanyController::class);
             Route::post('companies/{id}/update', [CompanyController::class, 'updateCompany']);

@@ -77,6 +77,18 @@
                                 <span class="menu-item text-truncate">Child Categories</span>
                             </Link>
                         </li>
+                        <li @click="toggleSubMenu('Courses')">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/education-level`">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-item text-truncate">Education Level</span>
+                            </Link>
+                        </li>
+                        <li @click="toggleSubMenu('Courses')">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/education`">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-item text-truncate">Education</span>
+                            </Link>
+                        </li>
                         <!--
                         <li @click="toggleSubMenu('Courses')">
                             <Link preserve-scroll class="d-flex align-items-center" href="/panel/questions">
