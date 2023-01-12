@@ -113,11 +113,11 @@
                                     <div class="col">
                                         <label class="form-label">Hot Industry</label>
                                         <input type="text" name="hot_industry" class="form-control" placeholder="Hot Industry">
-                                    </div>
+                                    </div>R
 
                                     <div class="col">
                                         <label class="form-label">Employee Size</label>
-                                        <input type="text" name="emp_size" class="form-control" placeholder="e.g 10-50 ex">
+                                        <input type="text" name="employee_size" class="form-control" placeholder="e.g 10-50 ex">
                                     </div>
                                 </div>
 

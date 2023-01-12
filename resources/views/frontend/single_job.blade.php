@@ -20,9 +20,9 @@
                         <div class="ms-xl-3  w-100 mt-3 mt-xl-0">
                             <div class="d-flex justify-content-between mb-5">
                                 <div>
-                                    <h3 class="text-success">{{ $job->title }} ({{ $job->label }} / {{ $job->types }})</h3>
+                                    <h3 class="text-success text-capitalize">{{ $job->title }} ({{ $job->label }} / {{ $job->types }})</h3>
                                     <div>
-                                        at  <a href="#">{{ $job->companyDetails->name }} </a>
+                                        at  <a class="text-capitalize" href="{{ route('client.singleCompany', ['company_name' => $job->companyDetails?->name, 'id' => $job->companyDetails?->id]) }}">{{ $job->companyDetails->name }} </a>
                                         <!-- star -->
                                         <span class="text-dark ms-2 fw-medium">{{ $job->show_count }}</span>
                                         <span class="ms-0">(Views)</span>
@@ -42,15 +42,15 @@
                                 <div class="mb-2 mb-md-0">
                                     <!-- year -->
                                     <span class="me-2">
-                                                    <i class="fe fe-briefcase text-muted"></i>
-                                                    <span class="ms-1 ">{{ $job->min_experience }} - {{ $job->max_experience }} {{ $job->experience_type }}</span>
-                                                </span>
+                                        <i class="fe fe-briefcase text-muted"></i>
+                                        <span class="ms-1 ">{{ $job->min_experience }} - {{ $job->max_experience }} {{ $job->experience_type }}</span>
+                                    </span>
                                     <!-- salary -->
 
                                     <span class="me-2">
-                                                    <i class="fe fe-dollar-sign text-muted"></i>
-                                                    <span class="ms-1 ">{{ $job->min_salary }} - {{ $job->max_salary }}</span>
-                                                </span>
+                                        <i class="fe fe-dollar-sign text-muted"></i>
+                                        <span class="ms-1 ">{{ $job->min_salary }} - {{ $job->max_salary }}</span>
+                                    </span>
                                     <!-- location -->
                                     <span class="me-2">
                                         <i class="fe fe-map-pin text-muted"></i>
@@ -59,7 +59,7 @@
                                 </div>
                                 <!-- time -->
                                 <div>
-                                    <i class="fe fe-clock text-muted"></i> <span>{{ $job->created_at->diffForhumans() }}</span>
+                                    <i class="fe fe-clock text-muted"></i> <span>{{ getTimeAgo($job->created_at) }}</span>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-2">
@@ -69,7 +69,6 @@
                                         <span class="badge me-1 bg-light-success text-success">{{ $skill }}</span>
                                     @endforeach
                                 </div>
-                                &gt;
 
                                 @if(Auth::check() && Auth::user()->role == \App\Properties::$seeker)
                                     <div class="d-flex align-items-center">

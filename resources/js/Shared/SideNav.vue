@@ -77,6 +77,18 @@
                                 <span class="menu-item text-truncate">Child Categories</span>
                             </Link>
                         </li>
+                        <li @click="toggleSubMenu('Courses')">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/education-level`">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-item text-truncate">Education Level</span>
+                            </Link>
+                        </li>
+                        <li @click="toggleSubMenu('Courses')">
+                            <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/education`">
+                                <Icon title="circle" width="24" height="24" />
+                                <span class="menu-item text-truncate">Education</span>
+                            </Link>
+                        </li>
                         <!--
                         <li @click="toggleSubMenu('Courses')">
                             <Link preserve-scroll class="d-flex align-items-center" href="/panel/questions">
@@ -210,6 +222,7 @@
                 </li>
 -->
 
+
                 <li class="nav-item" v-if="this.$page.props.auth.user.role === 'admin'">
                     <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/settings`">
                         <vue-feather type="settings" />
@@ -217,6 +230,12 @@
                     </Link>
                 </li>
 
+                <li class=" nav-item">
+                    <a preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.MAIN_URL}/log-viewer`" target="_blank">
+                        <Icon title="bar-chart" width="24" height="24" />
+                        <span class="menu-title text-truncate">App Logs</span>
+                    </a>
+                </li>
 
             </ul>
         </div>

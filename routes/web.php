@@ -5,6 +5,9 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\EducationLavelController;
+use App\Http\Controllers\FrontendCompanyController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessangerController;
 use App\Http\Controllers\RecruiterJobController;
@@ -53,18 +56,29 @@ Route::get('/clear', function (){
     Artisan::call('optimize:clear');
 });
 
-Route::controller(HomeController::class)->name('client.')->group(function (){
-    Route::get('', 'home')->name('home');
-    Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
-    Route::get('recruiters', 'recruiter')->name('recruiter');
-    Route::get('seekers', 'seekers')->name('seekers');
-    Route::view('contact-us', 'frontend.contact')->name('contactUs');
+Route::name('client.')->group(function (){
+    Route::controller(HomeController::class)->group(function(){
+        Route::get('', 'home')->name('home');
+        Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
+        Route::get('recruiters', 'recruiter')->name('recruiter');
+        Route::get('seekers', 'seekers')->name('seekers');
+        Route::view('contact-us', 'frontend.contact')->name('contactUs');
 
-    Route::get('all-categories', 'allCategories')->name('allCategories');
+        Route::get('all-categories', 'allCategories')->name('allCategories');
 
-    Route::post('all-district', 'allDistrict')->name('allDistrict');
-    Route::get('sub-categories/category-id/{id}', 'getSubCategories')->name('getSubCategories');
-    Route::get('search', 'searchJob')->name('searchJObs');
+        Route::post('all-district', 'allDistrict')->name('allDistrict');
+        Route::get('sub-categories/category-id/{id}', 'getSubCategories')->name('getSubCategories');
+        Route::get('search', 'searchJob')->name('searchJObs');
+
+        Route::get('job-listing', 'jobList')->name('jobs');
+    });
+
+    Route::controller(FrontendCompanyController::class)->group(function(){
+        Route::get('companies', 'getAllCompanies')->name('allCompanies');
+        Route::get('single-company', 'singleCompany')->name('singleCompany');
+        Route::get('single-company-jobs', 'singleCompanyJobs')->name('singleCompanyJobs');
+    });
+
 });
 
 Route::controller(RecruitersController::class)->prefix('recruiters')->name('recruiter.')->group(function (){
@@ -117,12 +131,14 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('panel')->group(function () {
-        Route::prefix('admin')->group(function(){
+        Route::prefix('admin')->middleware('admin')->group(function(){
             Route::get('dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard');
 
             Route::resource('categories', CategoryController::class);
             Route::resource('sub_categories', SubCategoryController::class);
             Route::resource('child_categories', ChildCategoryController::class);
+            Route::resource('education-level', EducationLavelController::class);
+            Route::resource('education', EducationController::class);
 
             Route::resource('companies', CompanyController::class);
             Route::post('companies/{id}/update', [CompanyController::class, 'updateCompany']);

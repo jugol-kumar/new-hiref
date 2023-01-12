@@ -11,7 +11,7 @@
                     <div class="card-body statistics-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <div class="nav flex-column nav-pills me-3 border" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <Link class="nav-link active"
                                           id="v-pills-home-tab"
                                           data-bs-toggle="pill"
@@ -40,6 +40,14 @@
                                             type="button" role="tab"
                                             aria-controls="v-pills-messages"
                                             aria-selected="false">Apprience</button>
+
+                                    <button class="nav-link"
+                                            id="v-pills-sms_api-tab"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-sms_api"
+                                            type="button" role="tab"
+                                            aria-controls="v-pills-sms_api"
+                                            aria-selected="false">API Setup</button>
                                     <Link class="nav-link" :href="`${this.$page.props.ADMIN_URL}/admin-profile`">Profile Settings</Link>
 
                                 </div>
@@ -181,7 +189,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                         <div class="card">
                                             <h2>Frontend Setup</h2>
@@ -214,7 +221,90 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                                    <div class="tab-pane fade" id="v-pills-sms_api" role="tabpanel" aria-labelledby="v-pills-sms_api-tab">
+                                        <div class="card">
+                                            <h2>SMS API Credentials</h2>
+                                            <div class="card-body">
+                                                <form class="form form-vertical" @submit.prevent="updateBuisnessSetting()">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <Text type="text" v-model="createForm.api_url" label="API URL" placeholder="http://66.45.237.70/api.php" />
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                    <Text type="text" v-model="createForm.api_user_name" label="API User Name" placeholder="e.g user name" />
+                                                                </div>
+
+                                                                <div class="col-12">
+                                                                    <Text type="text" v-model="createForm.api_user_pass" label="Api User Password" placeholder="e.g password" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <table class="table table-bordered table-striped">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>Status</th>
+                                                                        <th>Message</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1101</td>
+                                                                        <td>Success</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1000</td>
+                                                                        <td>Invalid user or Password</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1002</td>
+                                                                        <td>Empty Number</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1003</td>
+                                                                        <td>Invalid message or empty message</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1004</td>
+                                                                        <td>Invalid number</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1005</td>
+                                                                        <td>All Number is Invalid</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1006</td>
+                                                                        <td>insufficient Balance</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1009</td>
+                                                                        <td> Inactive Account</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>1010</td>
+                                                                        <td>Max number limit exceeded</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
+                                                        <div class="col-12 mt-2 d-inline-flex align-item-center">
+                                                            <button v-if="!isLoding" type="submit" disabled class="btn btn-primary me-1 waves-effect waves-float waves-light">
+                                                                <div class="spinner-border text-white me-1"  role="status"></div>
+                                                                <span>Submit</span>
+                                                            </button>
+                                                            <button class="btn btn-primary me-1 waves-effect waves-float waves-light">
+                                                                Submit
+                                                            </button>
+                                                            <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -272,6 +362,10 @@ let createForm = useForm({
     linkedin_profile: props.bSettings.linkedin_profile ?? '',
     twitter_profile: props.bSettings.twitter_profile ?? '',
     instagram_profile: props.bSettings.instagram_profile ?? '',
+
+    api_url: props.bSettings.api_url ?? '',
+    api_user_name: props.bSettings.api_user_name ?? '',
+    api_user_pass: props.bSettings.api_user_pass ?? ''
 })
 
 let logoForm = useForm({

@@ -38,7 +38,7 @@ class RecruitersController extends Controller
             'c_full_name' => 'required',
             'c_short_name' => 'required',
             'email'        => 'required|email',
-            'emp_size'     => 'required',
+            'employee_size'=> 'required',
             'first_name'   => 'required',
             'full_address' => 'nullable',
             'gender'       => 'required',

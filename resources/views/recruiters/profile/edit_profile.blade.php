@@ -6,6 +6,9 @@
         <div class="bg-light-primary py-lg-2 bg-cover">
         <div class="container">
             <div class="row">
+                <div class="print-error-msg text-danger text-center">
+                    <ul></ul>
+                </div>
                 <div class="col-12 mx-auto">
                     <form id="personal_details">
                         @csrf
@@ -189,6 +192,16 @@
                     Toast.fire({
                         icon: 'success',
                         title: "Details Update Successfuly Done..."
+                    })
+                },
+                error:function (res){
+                    Toast.fire({
+                        icon: 'error',
+                        title: res.responseJSON.message,
+                    })
+                    $(".print-error-msg").find("ul").empty();
+                    $.each(res.responseJSON.errors,function(field_name,error){
+                        $(".print-error-msg").find("ul").append('<li>'+error+'</li>');
                     })
                 }
             })

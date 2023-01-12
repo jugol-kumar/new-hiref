@@ -1,3 +1,9 @@
+.text-right{
+    text-align: right !important;
+}
+.text-left{
+    text-align: left !important;
+}
 .left-header .nav-item{
     transition: 0.1s all ease;
     border-bottom: 3px solid var(--bs-white);
@@ -132,3 +138,112 @@ input[type="radio"]:checked + div::before {
 .match-height > [class*=col] > .card {
     flex: 1 1 auto;
 }
+
+.owl-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev{
+    background: #e1e1e1 !important;
+    width: 20px !important;
+    height: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1.5rem !important;
+    border-radius: 50% !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 26px !important;
+    position: absolute;
+}
+
+.owl-carousel .owl-nav button.owl-prev{
+    left: -3%;
+    top: 40%;
+}
+
+.owl-carousel .owl-nav button.owl-next{
+    right: -3%;
+    top: 40%;
+}
+.no-js .owl-carousel, .owl-carousel.owl-loaded{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.job-card-shadow{
+    border: 1px solid #f5f5f5;
+    box-shadow: 0 4px 10px rgb(0 77 255 / 4%);
+}
+.small-badge{
+    padding: 3px !important;
+    font-size: 10px;
+    border-radius: 5px;
+    color: #747474;
+}
+.fs-12{
+    font-size: 12px !important;
+}
+
+
+/*animations box*/
+.animation-box{
+    position: absolute;
+    border-radius: 10px;
+}
+.animate-box-1{
+    width: 80px;
+    height: 80px;
+    background: #3389f5;
+    left: -100px;
+    top: -81px;
+    z-index: -1;
+}
+
+.animate-box-2{
+    width: 100px;
+    height: 100px;
+    background: #3389f5;
+    z-index: -1;
+    left: 5px;
+    top: -128px;
+}
+
+
+.animate-box-3{
+    width: 60px;
+    height: 60px;
+    background: #3389f5;
+    z-index: -1;
+    left: 8px;
+    top:30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -123,7 +123,8 @@
 
                     <span class="me-2">
                         <vue-feather type='dollar-sign' size="15"/>
-                        <span class="ms-1 ">{{ stringSalary(job.job?.min_salary) }} - {{ stringSalary(job.job?.max_salary) }} LPA</span>
+<!--                        <span class="ms-1 ">{{ stringSalary(job.job?.min_salary) }} - {{ stringSalary(job.job?.max_salary) }} LPA</span>-->
+                        <span class="ms-1 ">{{ job.job?.min_salary }} - {{ job.job?.max_salary }} LPA</span>
                     </span>
                     <!-- location -->
                     <span class="me-2">

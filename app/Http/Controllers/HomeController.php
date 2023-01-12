@@ -206,4 +206,10 @@ class HomeController extends Controller
         return view('seekers.seekers');
     }
 
+    public function jobList(){
+        return $this->searchJob();
+    }
+
+
+
 }

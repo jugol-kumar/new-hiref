@@ -25,6 +25,12 @@
                     <li class="nav-item {{ Route::is('client.home') ? 'menu_active' : ''}}">
                         <a class="nav-link p-4" href="/">Home</a>
                     </li>
+                    <li class="nav-item {{ Route::is('client.jobs') ? 'menu_active' : ''}}">
+                        <a class="nav-link py-4" href="{{ route('client.jobs') }}">Jobs</a>
+                    </li>
+                    <li class="nav-item {{ Route::is('client.allCompanies') ? 'menu_active' : ''}}">
+                        <a class="nav-link py-4" href="{{ route('client.allCompanies') }}">Companies</a>
+                    </li>
                     <li class="nav-item {{ Route::is('client.recruiter') ? 'menu_active' : ''}}">
                         <a class="nav-link p-4" href="{{ route("client.recruiter") }}">Recruiters</a>
                     </li>

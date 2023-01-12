@@ -10,12 +10,20 @@
             background-position: center center;
             min-height: 500px;
         }
+        .owl-stage{
+            padding: 2.5rem 0;
+        }
     </style>
 @endpush
 @section('content')
     <div class="py-lg-14 py-12 bg-cover ">
         <!-- container -->
-        <div class="container mt-15">
+        <div class="container mt-15 position-relative">
+
+            <div class="animation-box animate-box-1"></div>
+            <div class="animation-box animate-box-2"></div>
+            <div class="animation-box animate-box-3"></div>
+
             <!-- row -->
             <div class="row align-items-center">
                 <div class="col-lg-12 col-12">
@@ -154,6 +162,34 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="pt-lg-12 pb-lg-12 pt-8 pb-6">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col">
+                    <h1 class="mb-0 display-3 text-center">Influencer's Take on <span class="text-success">{{ config('app.name') }}</span></h1>
+                </div>
+            </div>
+            <div class="position-relative">
+                <div class="owl-carousel owl-theme">
+                    @for($i=0; $i<10; $i++)
+                        <div class="item card">
+                            <img src="{{ asset("assets/img/Woman-riding-a-bike.png") }}" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
     <div class="pt-lg-14 pg-12 bg-cover section-bg">
         <!-- container -->
@@ -425,6 +461,7 @@
 
 
 
+
 @endsection
 
 @push('js')
@@ -440,6 +477,23 @@
             slideBy: 1,
         });
 
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:true,
+            navText:[`<i class="mdi mdi-chevron-left"></i>`, `<i class="mdi mdi-chevron-right"></i>`],
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+        })
 
 
         $('#location_search').on('keyup',function(e){
@@ -471,5 +525,23 @@
             $('#countryList').fadeOut();
         })
 
+
+
+        $('#bestCompany').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+        })
     </script>
 @endpush

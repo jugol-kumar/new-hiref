@@ -23,7 +23,7 @@
 
 @section('content')
     <!-- Page header -->
-    <div class="py-8 bg-light-primary">
+    <div class="py-8 pt-20 bg-light-primary">
         <div class="container">
             <div class="row ">
 
@@ -123,25 +123,7 @@
                         @endforelse
                         <!-- pagination -->
                         @if ($jobs->lastPage() > 1)
-                            <nav aria-label="Page navigation example">
-                            <ul class="pagination  mb-0">
-                                <li class="page-item {{ ($jobs->currentPage() == 1) ? ' disabled' : '' }}">
-                                    <a class="page-link mx-1 rounded" href="{{ $jobs->url(1) }}" tabindex="-1" aria-disabled="true">
-                                        <i class="mdi mdi-chevron-left"></i>
-                                    </a>
-                                </li>
-                                @for ($i = 1; $i <= $jobs->lastPage(); $i++)
-                                    <li class="page-item {{ ($jobs->currentPage() == $i) ? ' active' : '' }}">
-                                        <a class="page-link mx-1 rounded" href="{{ $jobs->url($i) }}"> {{ $i }}</a>
-                                    </li>
-                                @endfor
-                                <li class="page-item {{ ($jobs->currentPage() == $jobs->lastPage()) ? ' disabled' : '' }}">
-                                    <a class="page-link mx-1 rounded" href="{{  $jobs->url($jobs->currentPage()+1) }}">
-                                        <i class="mdi mdi-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                            @include('frontend.inc.paginations', ['paginators' => $jobs])
                         @endif
                     </div>
 
