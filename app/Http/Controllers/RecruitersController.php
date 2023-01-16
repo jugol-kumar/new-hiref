@@ -142,9 +142,11 @@ class RecruitersController extends Controller
     public function allJobs(){
         $jobs = Job::where('creator', Auth::id())
             ->latest()
-            ->withCount('messageDetails')
+//            ->withCount('messageDetails')
+            ->withCount('appliedUsers')
             ->with(['category', 'companyDetails.photos'])
             ->paginate(10);
+
 
         return view('recruiters.jobs.index', compact('jobs'));
     }
@@ -158,6 +160,8 @@ class RecruitersController extends Controller
         $save = true;
         return view('recruiters.jobs.save_jobs', compact('jobs' , 'save'));
     }
+
+
     public function removeSaveJOb($id){
         SaveJob::findOrFail($id)->delete();
         toast('Successfully remove save job', 'success');
@@ -349,14 +353,23 @@ class RecruitersController extends Controller
         return redirect()->route('recruiter.allJobs');
     }
 
-
-
     public function deleteJob($id){
-
         Job::findOrFail($id)->update(['lived' => 'deleted']);
         toast('Successfully delete job', 'success');
         return redirect()->route('recruiter.allJobs');
+    }
+
+    public function appliedSeekers(){
+        $jobId = \request()->input('job-id');
+        if ($jobId){
+            $appliedSeekers = Job::where('id', $jobId)->first();
+            $appliedSeekers->setRelation('appliedUsers', $appliedSeekers->appliedUsers()->paginate(12)->withQueryString());
+            return view('recruiters.jobs.applied_users', compact('appliedSeekers'));
+        }
+        toast('This Job Not Found...', 'error');
+        return back();
 
     }
+
 
 }

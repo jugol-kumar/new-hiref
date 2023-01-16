@@ -29,7 +29,7 @@
                 <div class="col-lg-12 col-12">
                     <div class=" text-center text-md-start ">
                         <!-- heading -->
-                        <h1 class="display-1 fw-semibold  mb-3 text-center">Find your dream job <span class="text-success">{{ config('app.name') }}</span>
+                        <h1 class="display-1 fw-semibold  mb-3 text-center background-before">Find your dream job <span class="text-success">{{ config('app.name') }}</span>
                             that you love to do.</h1>
                         <!-- lead -->
                         <p class="lead text-center">The largest remote work community in the world. Sign up and post a job

@@ -7,7 +7,7 @@
                     <!-- Img -->
                     <img src="{{ config("app.url")."/storage/".$value->photos[0]->filename }}"
                          width="68" height="68"
-                         alt="{{ config("app.name") }}" class="icon-shape border rounded">
+                         alt="{{ config("app.name") }}" class="icon-shape rounded">
                 </div>
                 <!-- text -->
                 <div class="ms-md-3 w-100 mt-3 mt-xl-1">

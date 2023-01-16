@@ -59,7 +59,6 @@ class RecruiterJobController extends Controller
         $saveJobs = SaveJob::where('user_id', Auth::id())->count();
 
 
-
         return inertia("Backend/Recruiter/Show", [
             'recruiter' => $user,
             'chat_jobs' => $totalChats,
@@ -86,7 +85,6 @@ class RecruiterJobController extends Controller
         ]);
 
         return back();
-
     }
 
 

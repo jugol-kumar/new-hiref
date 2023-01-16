@@ -193,6 +193,13 @@ class SeekerController extends Controller
         return view('seekers.stapes.profile_inactive');
     }
 
+    public function allAppliedJobs(){
+
+        $jobs = User::with('appliedJobs')->where('id', Auth::id())->first();
+
+
+        return view('seekers.jobs.applied_jobs', compact('jobs'));
+    }
 
 
 }

@@ -33,9 +33,9 @@
     <td class="border-top-0">{{ $value->min_salary }} - {{ $value->max_salary }} LPA</td>
     <td class="border-top-0">
         @if(!isset($save))
-        {{ $value->message_details_count ?? 'no apply'}}
+            <a href="{{ route('recruiter.appliedSeekers', ['job-id' => $value->id]) }}">{{ $value->applied_users_count ?? 'no apply'}} Applied </a>
         @else
-            {{ $value->messageDetails->count() ?? 'no apply' }}
+            <a href="{{ route('recruiter.appliedSeekers', ['job-id' => $value->id]) }}">{{ $value->applied_users_count->count() ?? 'no apply' }} Applied </a>
         @endif
     </td>
     <td class="border-top-0">

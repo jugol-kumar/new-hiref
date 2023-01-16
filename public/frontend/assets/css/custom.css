@@ -224,7 +224,13 @@ input[type="radio"]:checked + div::before {
 }
 
 
-
+/*.background-before:after{*/
+/*    content: '';*/
+/*    width: 100%;*/
+/*    height: inherit;*/
+/*    background: red;*/
+/*    position: absolute;*/
+/*}*/
 
 
 

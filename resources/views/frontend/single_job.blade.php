@@ -20,7 +20,7 @@
                         <div class="ms-xl-3  w-100 mt-3 mt-xl-0">
                             <div class="d-flex justify-content-between mb-5">
                                 <div>
-                                    <h3 class="text-success text-capitalize">{{ $job->title }} ({{ $job->label }} / {{ $job->types }})</h3>
+                                    <h3 class="text-success text-capitalize">{{ $job->title }} ({{ $job->label }} / {{ $job->types }})</h3> {{ $job->id }}
                                     <div>
                                         at  <a class="text-capitalize" href="{{ route('client.singleCompany', ['company_name' => $job->companyDetails?->name, 'id' => $job->companyDetails?->id]) }}">{{ $job->companyDetails->name }} </a>
                                         <!-- star -->
@@ -66,21 +66,27 @@
                                 <div class="">
                                     Required Skills:
                                     @foreach(json_decode($job->skills) as $skill)
-                                        <span class="badge me-1 bg-light-success text-success">{{ $skill }}</span>
+                                        <span class="border small-badge">{{ $skill }}</span>
                                     @endforeach
                                 </div>
-
-                                @if(Auth::check() && Auth::user()->role == \App\Properties::$seeker)
-                                    <div class="d-flex align-items-center">
-                                        <form method="POST" action="{{ route('seeker.sendMessage') }}">
-                                            @csrf
-                                            <input type="hidden" name="rec_id" value="{{  $job->creator }}">
-                                            <input type="hidden" name="job_id" value="{{ $job->id }}">
-                                            <input type="hidden" name="type" value="recruiter">
-                                            <button type="submit" class="btn btn-light-success btn-sm me-1">Message Recruiter</button>
-                                        </form>
-                                    </div>
-                                @endif
+                                <div class="d-flex align-items-center">
+                                    @if(Auth::check())
+<!--                                    <form method="POST" action="{{ route('seeker.sendMessage') }}">
+                                        @csrf
+                                        <input type="hidden" name="rec_id" value="{{  $job->creator }}">
+                                        <input type="hidden" name="job_id" value="{{ $job->id }}">
+                                        <input type="hidden" name="type" value="recruiter">
+                                        <button type="submit" class="btn btn-light-success btn-sm me-1">Apply Now</button>
+                                    </form>-->
+                                        @if($applyStatus)
+                                            <button type="button" id="alreadyApplied" class="btn btn-light-dark btn-sm me-1 btn-disabled">Already Apply</button>
+                                        @else
+                                            <a href="{{ route('client.applyJob', ['user_id' => auth()->id(), 'job'=> $job->slug, 'job_id' => $job->id]) }}" class="btn btn-light-success">Apply Now</a>
+                                        @endif
+                                    @else
+                                        <button type="button" id="authNotLogin" class="btn btn-light-success btn-sm me-1">Apply Now</button>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -99,7 +105,7 @@
                 <div class="offset-xl-2 col-xl-8 col-md-12 ">
                     <div class="mt-12">
                         <h2 class="mb-4">Similar Jobs</h2>
-                        @forelse($job->category->jobs->where('is_published', \App\Properties::$false)  as $job)
+                        @forelse($job->category->jobs->where('is_published', \App\Properties::$true)  as $job)
                             @include('frontend.inc.job_card')
                         @empty
                             <h2>No have any jobs like this</h2>
@@ -113,3 +119,20 @@
 
 {{--    @include('frontend.inc.chat',  ['reactor' => $job->user])--}}
 @endsection
+
+@push('js')
+    <script>
+        $("#authNotLogin").on("click", ()=>{
+            Toast.fire({
+                icon: 'error',
+                text:"Please Login First As Job Seeker And Apply Here"
+            })
+        })
+        $("#alreadyApplied").on("click", ()=>{
+            Toast.fire({
+                icon: 'warning',
+                text:"Already Applied This Job. Find Another Job Femaler With You"
+            })
+        })
+    </script>
+@endpush

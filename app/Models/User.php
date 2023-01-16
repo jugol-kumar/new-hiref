@@ -155,6 +155,11 @@ class User extends Authenticatable
         return $this->hasMany(Job::class, 'creator');
     }
 
+    public function appliedJobs(){
+        return $this->belongsToMany(Job::class, 'apply_jobs')->withTimestamps();//->wherePivot('user_id', '=' , $this->id);
+    }
+
+
 
     public function profileComplete(){
         $status = 0;

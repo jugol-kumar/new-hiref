@@ -106,7 +106,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="mb-4">
-                        <h2>List of jobs
+                        <h2 class="text-capitalize">List of Companies
                             @if(request()->input('loacation') != null)
                                 in
                                 <span class="text-success">{{ request()->input('loacation') }}</span>

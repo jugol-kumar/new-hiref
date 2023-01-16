@@ -69,5 +69,8 @@ class Job extends Model
         return $this->hasMany(MessageDetail::class, 'job_id');
     }
 
+    public function appliedUsers(){
+        return $this->belongsToMany(User::class, 'apply_jobs')->withTimestamps();//->withPivot('job_id', '=', $this->id);
+    }
 
 }

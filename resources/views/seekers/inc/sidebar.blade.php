@@ -36,6 +36,10 @@
                     <a class="nav-link" href="{{ route('seeker.allSaveJobs') }}"><i class="fe fe-bookmark nav-icon"></i>Saved Jobs</a>
                 </li>
                 <!-- Nav item -->
+                <li class="nav-item {{ Route::is('seeker.allAppliedJobs') }}">
+                    <a class="nav-link" href="{{ route('seeker.allAppliedJobs') }}"><i class="fe fe-check-circle nav-icon"></i>Applied Jobs</a>
+                </li>
+                <!-- Nav item -->
 <!--                <li class="nav-item {{ Route::is('seeker.uploadResume') }}">
                     <a class="nav-link " href="{{ route('seeker.uploadResume') }}"><i class="fe fe-file nav-icon"></i>Upload Resume</a>
                 </li>-->

@@ -55,7 +55,7 @@ class DashboardController extends Controller
 
     public function recruiters()
     {
-        $jobs = Job::where('creator', Auth::id())->latest()->withCount('messageDetails')->get();
+        $jobs = Job::where('creator', Auth::id())->latest()->withCount('appliedUsers')->get();
         $totalChats = MessageDetail::where('recruiter_id', Auth::id())->count('seeker_id');
         $saveJobs = SaveJob::where('user_id', Auth::id())->count();
         return view('recruiters.dashboard', compact('jobs', 'totalChats', 'saveJobs'));

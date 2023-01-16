@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('client_reviews', function (Blueprint $table) {
+        Schema::create('apply_jobs', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Job::class,'job_id')->constrained('jobs')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(\App\Models\User::class,'user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('client_reviews');
+        Schema::dropIfExists('apply_jobs');
     }
 };

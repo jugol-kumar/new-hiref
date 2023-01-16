@@ -5,9 +5,11 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EducationLavelController;
 use App\Http\Controllers\FrontendCompanyController;
+use App\Http\Controllers\FrontendJobController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessangerController;
 use App\Http\Controllers\RecruiterJobController;
@@ -59,7 +61,6 @@ Route::get('/clear', function (){
 Route::name('client.')->group(function (){
     Route::controller(HomeController::class)->group(function(){
         Route::get('', 'home')->name('home');
-        Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
         Route::get('recruiters', 'recruiter')->name('recruiter');
         Route::get('seekers', 'seekers')->name('seekers');
         Route::view('contact-us', 'frontend.contact')->name('contactUs');
@@ -77,6 +78,11 @@ Route::name('client.')->group(function (){
         Route::get('companies', 'getAllCompanies')->name('allCompanies');
         Route::get('single-company', 'singleCompany')->name('singleCompany');
         Route::get('single-company-jobs', 'singleCompanyJobs')->name('singleCompanyJobs');
+    });
+
+    Route::controller(FrontendJobController::class)->group(function (){
+        Route::get('single-job/{job_title_slug}', 'singleJob')->name('single_job');
+        Route::get('apply-job', 'applyJob')->name('applyJob');
     });
 
 });
@@ -199,6 +205,7 @@ Route::middleware('auth')->group(function () {
             Route::get('jobs/edit-single-job/{job_slug}', [RecruitersController::class, 'editJob'])->name('editJob');
             Route::put('jobs/update-single-job/{id}', [RecruitersController::class, 'updateJob'])->name('updateJob');
             Route::post('change-job-status', [RecruitersController::class, 'updateJobStatus'])->name('updateJobStatus');
+            Route::get('get-applied-seekers', [RecruitersController::class, 'appliedSeekers'])->name('appliedSeekers');
 
             Route::get('sub-category/by-category-id/{id}', [RecruitersController::class, 'getSubCat'])->name('getSubCat');
             Route::get('child-category/by-sub-category-id/{id}', [RecruitersController::class, 'getChildCat'])->name('getChildCat');
@@ -252,6 +259,7 @@ Route::middleware('auth')->group(function () {
 
             // seeker sidebar related routes
             Route::get('save-jobs', [SeekerJobController::class, 'allSaveJobs'])->name('allSaveJobs');
+            Route::get('applied-jobs', [SeekerController::class, 'allAppliedJobs'])->name('allAppliedJobs');
             Route::get('upload-resume', [SeekerProfileController::class, 'uploadResume'])->name('uploadResume');
             Route::get('greeting-chat', [SeekerProfileController::class, 'greetingChat'])->name('greetingChat');
             Route::get('switch-to-recruiter', [SeekerProfileController::class, 'switchProfile'])->name('switchProfile');
@@ -286,6 +294,6 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 });
 
 
-Route::get('/test', function (){
-    return view('auth.recruiter_workmail_verification');
-});
+Route::get('/word', [DownloadFileController::class, 'exportWord']);
+Route::get('/excel', [DownloadFileController::class, 'exportExcel']);
+
