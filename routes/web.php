@@ -205,7 +205,16 @@ Route::middleware('auth')->group(function () {
             Route::get('jobs/edit-single-job/{job_slug}', [RecruitersController::class, 'editJob'])->name('editJob');
             Route::put('jobs/update-single-job/{id}', [RecruitersController::class, 'updateJob'])->name('updateJob');
             Route::post('change-job-status', [RecruitersController::class, 'updateJobStatus'])->name('updateJobStatus');
+
             Route::get('get-applied-seekers', [RecruitersController::class, 'appliedSeekers'])->name('appliedSeekers');
+            Route::get('applicand-profile', [RecruitersController::class, 'appliendSeekerProfile'])->name('appliendSeekerProfile');
+
+            Route::get('download-seeker-cv', [DownloadFileController::class, 'downloadSeekerCV'])->name('downloadSeekerCV');
+
+            Route::get('/word',  [DownloadFileController::class, 'exportWord'])->name('exportWord');
+            Route::get('/excel', [DownloadFileController::class, 'exportExcel'])->name('exportExcel');
+            Route::get('/pdf',   [DownloadFileController::class, 'exportPdf'])->name('exportPdf');
+
 
             Route::get('sub-category/by-category-id/{id}', [RecruitersController::class, 'getSubCat'])->name('getSubCat');
             Route::get('child-category/by-sub-category-id/{id}', [RecruitersController::class, 'getChildCat'])->name('getChildCat');
@@ -293,7 +302,4 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
-
-Route::get('/word', [DownloadFileController::class, 'exportWord']);
-Route::get('/excel', [DownloadFileController::class, 'exportExcel']);
 

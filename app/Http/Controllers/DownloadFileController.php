@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
+use App\Models\Job;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -81,15 +84,30 @@ class DownloadFileController extends Controller
         $templateProcessor->setValue('name', Auth::user()->name);
     }
 
+
     public function exportExcel(){
-
-//        Storage::put(public_path(), )
-//            Excel::store(new UsersExport(), public_path());
-
-        return Excel::download(new UsersExport(), 'user-list.xlsx');
+        $job = Job::with('appliedUsers')->find(\request()->input('job_id'));
+        return Excel::download(new UsersExport($job->appliedUsers), now()->format('Y-m-d').'-seeker-list.xlsx');
     }
 
+    public function exportPdf(){
+        $job = Job::with('appliedUsers')->find(\request()->input('job_id'));
+        $pdf = Pdf::loadView('files.pdf_file', compact('job'));
+        return $pdf->download(now()->format('Y-m-d').'-seeker-list.pdf');
+    }
 
+    public function downloadSeekerCV(){
+        $user = User::with("seeker")->find(\request()->input('user_id'));
+        if($user->seeker?->resume != '' && Storage::exists($user->seeker?->resume)){
+            return Storage::disk('public')->download($user->seeker->resume, $user->name.".pdf", [
+                'ResponseContentType' => 'application/pdf',
+            ]);
+        }else{
+            toast('Not have resume', 'error');
+            return back();
+        }
+
+    }
 
 }
 

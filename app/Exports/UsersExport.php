@@ -17,10 +17,18 @@ class UsersExport implements FromView
 ////        return
 //    }
 
+    public $users;
+
+    public function __construct($users)
+    {
+        $this->users = $users;
+    }
+
+
     public function view(): View
     {
         return view('files.excel_file', [
-            'users' => User::all()
+            'users' => $this->users
         ]);
     }
 }

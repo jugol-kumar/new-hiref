@@ -371,5 +371,11 @@ class RecruitersController extends Controller
 
     }
 
+    public function appliendSeekerProfile(){
+        $user = User::findOrFail(\request()->input('user_id'))->load("seeker");
+
+        return view('recruiters.jobs.applicents_details', compact('user'));
+    }
+
 
 }

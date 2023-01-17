@@ -45,7 +45,7 @@
                 </li>-->
                 <!-- Nav item -->
                 <li class="nav-item {{ Route::is('seeker.greetingChat') }}">
-                    <a class="nav-link" href="{{ route('chatify') }}"><i class="fe fe-message-circle nav-icon"></i>Greeting</a>
+                    <a class="nav-link" href="{{ route('start-chat') }}"><i class="fe fe-message-circle nav-icon"></i>Greeting</a>
                 </li>
                 <!-- Nav item -->
                 <li class="nav-item {{ Route::is('client.contactUs') }}">

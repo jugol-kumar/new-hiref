@@ -4,7 +4,8 @@
         <div class="d-flex align-items-center">
             <img src="{{ $user->photo }}" alt="" class="rounded-circle avatar-md me-2" />
             <div class="d-flex align-items-start flex-column">
-                <h5 class="mb-0 text-capitalize">{{ $user->name }}</h5>
+                <h5 class="mb-0 text-capitalize">
+                    <a href="{{ route('recruiter.appliendSeekerProfile', ['user_id' => $user->id]) }}">{{ $user->name }}</a></h5>
                 <small>{{ $user->phone }}</small>
             </div>
         </div>

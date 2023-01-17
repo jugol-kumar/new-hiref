@@ -28,18 +28,20 @@
 </head>
 <body>
 
+<h1>Job Title: {{ $job->title }}</h1>
+
 <table id="customers">
     <thead>
-    <tr>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Apply Date</th>
-    </tr>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Apply Date</th>
+        </tr>
     </thead>
     <tbody>
-    @forelse($users as $user)
+        @forelse($job->appliedUsers as $user)
         <tr>
             <td><img src="{{ public_path($user->photo) }}" width="80" height="100" alt=""></td>
             <td>{{ $user->name }}</td>
@@ -47,8 +49,8 @@
             <td>{{ $user->phone }}</td>
             <td>{{ $user->created_at->format("Y-M-D") }}</td>
         </tr>
-    @empty
-    @endforelse
+        @empty
+        @endforelse
     </tbody>
 </table>
 
