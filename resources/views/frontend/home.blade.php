@@ -13,139 +13,139 @@
         .owl-stage{
             padding: 2.5rem 0;
         }
+
     </style>
 @endpush
 @section('content')
-    <div class="py-lg-14 py-12 bg-cover ">
+    @php($full = true)
+    <div class="{{ $full ? "pt-lg-8 pt-12" : "py-lg-8 py-12"}} main-home-cover ">
         <!-- container -->
-        <div class="container mt-15 position-relative">
-
+        <div class="position-relative">
             <div class="animation-box animate-box-1"></div>
             <div class="animation-box animate-box-2"></div>
             <div class="animation-box animate-box-3"></div>
-
             <!-- row -->
-            <div class="row align-items-center">
-                <div class="col-lg-12 col-12">
-                    <div class=" text-center text-md-start ">
-                        <!-- heading -->
-                        <h1 class="display-1 fw-semibold  mb-3 text-center background-before">Find your dream job <span class="text-success">{{ config('app.name') }}</span>
-                            that you love to do.</h1>
-                        <!-- lead -->
-                        <p class="lead text-center">The largest remote work community in the world. Sign up and post a job
-                            or create your developer profile.</p>
-                    </div>
-                    <div class="mt-8">
-                        <div class="col-md-8 mx-auto">
-                            <!-- card -->
-                            <div class="bg-white rounded-md-pill rounded-3 mb-4 search-shabow">
-                                <!-- card body -->
-                                <div class="p-md-2 p-4">
-                                    <!-- form -->
-                                    <form class="row g-1" action="{{ route('client.searchJObs') }}" method="get">
-                                        <div class="col-12 col-md-5">
+            <div class="row align-items-center {{ $full ? "backdrop-full" : "backdrop-rounded mt-10" }}">
+                <div class="container">
+                    <div class="col-lg-12 col-12">
+                        <div class=" text-center text-md-start">
+                            <!-- heading -->
+                            <h1 class="display-1 fw-semibold  mb-3 text-center background-before text-white header-text">Find your dream job <span class="text-success">{{ config('app.name') }}</span>
+                                that you love to do.</h1>
+                            <!-- lead -->
+                            <p class="lead text-center text-white">The largest remote work community in the world. Sign up and post a job
+                                or create your developer profile.</p>
+                        </div>
+                        <div class="mt-8">
+                            <div class="col-md-8 mx-auto">
+                                <!-- card -->
+                                <div class="bg-white rounded-md-pill rounded-3 mb-4 search-shabow">
+                                    <!-- card body -->
+                                    <div class="p-md-2 p-4">
+                                        <!-- form -->
+                                        <form class="row g-1" action="{{ route('client.searchJObs') }}" method="get">
+                                            <div class="col-12 col-md-5">
 
-                                            <!-- input -->
-                                            <div class="input-group mb-2 mb-md-0 border-md-0 border rounded-pill">
-                                                <!-- input group -->
-                                                <span class="input-group-text bg-transparent border-0 pe-0 ps-md-3 ps-md-0" id="searchJob"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                                        class="bi bi-search text-muted" viewBox="0 0 16 16">
+                                                <!-- input -->
+                                                <div class="input-group mb-2 mb-md-0 border-md-0 border rounded-pill">
+                                                    <!-- input group -->
+                                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-md-3 ps-md-0" id="searchJob"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                                            class="bi bi-search text-muted" viewBox="0 0 16 16">
                                               <path
                                                   d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                             </svg>
                                         </span>
-                                                <!-- search -->
-                                                <input type="text" name="job_type" class="form-control rounded-pill border-0 ps-3 form-focus-none"
-                                                       placeholder="Job Title">
-                                            </div>
+                                                    <!-- search -->
+                                                    <input type="text" name="job_type" class="form-control rounded-pill border-0 ps-3 form-focus-none"
+                                                           placeholder="Job Title">
+                                                </div>
 
-                                        </div>
-                                        <div class="col-12 col-md-4">
-                                            <!-- inpt group -->
-                                            <div class="input-group mb-3 mb-md-0 border-md-0 border rounded-pill">
+                                            </div>
+                                            <div class="col-12 col-md-4">
+                                                <!-- inpt group -->
+                                                <div class="input-group mb-3 mb-md-0 border-md-0 border rounded-pill">
                                                   <span class="input-group-text bg-transparent border-0 pe-0 ps-md-0" id="location">
                                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                          class="bi bi-geo-alt  text-muted" viewBox="0 0 16 16">
+                                                           class="bi bi-geo-alt  text-muted" viewBox="0 0 16 16">
                                                       <path
                                                           d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
                                                       <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                                                     </svg>
                                                   </span>
-                                                <!-- search -->
-                                                <input type="text"
-                                                       name="loacation"
-                                                       class="form-control rounded-pill  border-0 ps-3 form-focus-none"
-                                                       placeholder="Location"
-                                                       id="location_search">
+                                                    <!-- search -->
+                                                    <input type="text"
+                                                           name="loacation"
+                                                           class="form-control rounded-pill  border-0 ps-3 form-focus-none"
+                                                           placeholder="Location"
+                                                           id="location_search">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-3  text-end d-grid">
+                                                <!-- button -->
+                                                <button type="submit" class="btn btn-success rounded-pill">Search</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="countryList">
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-3 col-6">
+                                    <div class="card bg-transparent shadow-none">
+                                        <div class="card-body bg-transparent shadow-none">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <i class="mdi mdi-book-search-outline card-icon-style"></i>
+                                                <h4 class="mt-3 text-white">185k +</h4>
+                                                <p class="fw-semibold text-white">Verified Recruiters</p>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-3  text-end d-grid">
-                                            <!-- button -->
-                                            <button type="submit" class="btn btn-success rounded-pill">Search</button>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="card bg-transparent shadow-none">
+                                        <div class="card-body bg-transparent shadow-none">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <i class="mdi mdi-briefcase-search-outline card-icon-style"></i>
+                                                <h4 class="mt-3 text-white">185k +</h4>
+                                                <p class=" text-white fw-semibold">Jobs Posted</p>
+                                            </div>
 
-                                    </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="card bg-transparent shadow-none">
+                                        <div class="card-body bg-transparent shadow-none">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <i class="mdi mdi-chat-sleep-outline card-icon-style"></i>
+                                                <h4 class="mt-3 text-white">185k +</h4>
+                                                <p class="text-white fw-semibold">Chat Conversations</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="card bg-transparent shadow-none">
+                                        <div class="card-body bg-transparent shadow-none">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <i class="mdi mdi-comment-search-outline card-icon-style"></i>
+                                                <h4 class="mt-3 text-white">25M +</h4>
+                                                <p class="text-white fw-semibold">Job Seekers</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="countryList">
-                            </div>
+
                         </div>
-
-
-                        <div class="row">
-                           <div class="col-md-3 col-6">
-                               <div class="card bg-transparent shadow-none">
-                                   <div class="card-body bg-transparent shadow-none">
-                                       <div class="d-flex flex-column align-items-center">
-                                           <i class="mdi mdi-book-search-outline card-icon-style"></i>
-                                           <h4 class="mt-3">185k +</h4>
-                                           <p class="text-black-50 fw-semibold">Verified Recruiters</p>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                            <div class="col-md-3 col-6">
-                                <div class="card bg-transparent shadow-none">
-                                    <div class="card-body bg-transparent shadow-none">
-                                        <div class="d-flex flex-column align-items-center">
-                                            <i class="mdi mdi-briefcase-search-outline card-icon-style"></i>
-                                            <h4 class="mt-3">185k +</h4>
-                                            <p class="text-black-50 fw-semibold">Jobs Posted</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="card bg-transparent shadow-none">
-                                    <div class="card-body bg-transparent shadow-none">
-                                        <div class="d-flex flex-column align-items-center">
-                                            <i class="mdi mdi-chat-sleep-outline card-icon-style"></i>
-                                            <h4 class="mt-3">185k +</h4>
-                                            <p class="text-black-50 fw-semibold">Chat Conversations</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="card bg-transparent shadow-none">
-                                    <div class="card-body bg-transparent shadow-none">
-                                        <div class="d-flex flex-column align-items-center">
-                                            <i class="mdi mdi-comment-search-outline card-icon-style"></i>
-                                            <h4 class="mt-3">25M +</h4>
-                                            <p class="text-black-50 fw-semibold">Job Seekers</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
-<!--                <div class="offset-lg-1 col-lg-5 col-12 text-center">
+                <!--                <div class="offset-lg-1 col-lg-5 col-12 text-center">
                     <div class="position-relative ">
                         <img src="{{ asset("frontend") }}/assets/images/job/png/job-hero-section.png" class="img-fluid ">
                         <div class="position-absolute top-0 mt-7 ms-n6 ms-md-n6 ms-lg-n12 start-0">
@@ -159,6 +159,7 @@
                         </div>
                     </div>
                 </div>-->
+                </div>
             </div>
         </div>
     </div>

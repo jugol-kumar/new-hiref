@@ -234,7 +234,30 @@ input[type="radio"]:checked + div::before {
 
 
 
+.main-home-cover{
+    background-image: url("https://source.unsplash.com/featured") !important;
+    width: 100%;
+    height: 100%;
+}
+.backdrop-rounded{
+    width: 95%;
+    margin: 4.5rem auto !important;
+    backdrop-filter: blur(25px);
+    box-shadow: 0px 0px 7px 3px rgb(255 255 255 / 36%);
+    border: 2px solid rgb(255 255 255 / 31%);
+    border-radius: 30px;
+}
+.backdrop-full{
+    background: #04040436;
+    width: 100%;
+    margin: auto !important;
+    backdrop-filter: blur(25px);
+}
 
+.backdrop-rounded .header-text, .backdrop-full .header-text{
+    max-width: 80%;
+    margin: 4rem auto;
+}
 
 
 
