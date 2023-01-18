@@ -10,6 +10,26 @@
             background-position: center center;
             min-height: 500px;
         }
+        .glass-text{
+            background-image: url("https://source.unsplash.com/featured") !important;
+            background-repeat: no-repeat;
+            /*background-position: center;*/
+            background-size: cover;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent;
+            color: transparent !important;
+            font-weight: bolder;
+            font-size: 80px;
+        }
+        .header-text{
+            background: #c7e2f13b;
+            backdrop-filter: blur(60px);
+            padding: 30px;
+            border: 1px solid #a79f9f5e;
+            border-radius: 30px;
+            color: #000 !important;
+            box-shadow: 0px 3px 3px 0px #ffffff47;
+        }
         .owl-stage{
             padding: 2.5rem 0;
         }
@@ -18,7 +38,7 @@
 @endpush
 @section('content')
     @php($full = true)
-    <div class="{{ $full ? "pt-lg-8 pt-12" : "py-lg-8 py-12"}} main-home-cover ">
+    <div class="main-home-cover">
         <!-- container -->
         <div class="position-relative">
             <div class="animation-box animate-box-1"></div>
@@ -26,11 +46,11 @@
             <div class="animation-box animate-box-3"></div>
             <!-- row -->
             <div class="row align-items-center {{ $full ? "backdrop-full" : "backdrop-rounded mt-10" }}">
-                <div class="container">
+                <div class="container pt-lg-15 pt-12 py-lg-8 py-12">
                     <div class="col-lg-12 col-12">
                         <div class=" text-center text-md-start">
                             <!-- heading -->
-                            <h1 class="display-1 fw-semibold  mb-3 text-center background-before text-white header-text">Find your dream job <span class="text-success">{{ config('app.name') }}</span>
+                            <h1 class="display-1 fw-semibold  mb-3 text-center background-before header-text">Find your dream job <span class="glass-text">{{ config('app.name') }}</span>
                                 that you love to do.</h1>
                             <!-- lead -->
                             <p class="lead text-center text-white">The largest remote work community in the world. Sign up and post a job

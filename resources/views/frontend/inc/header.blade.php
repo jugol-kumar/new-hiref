@@ -1,7 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-default p-0 px-8 w-100 position-fixed zindex-4" style="z-index: 111; box-shadow: 0 20px 20px 0 #e3e3e340">
+<nav class="navbar navbar-expand-lg navbar-default p-0 px-8 w-100 position-fixed zindex-4 nav-bg-style">
     <div class="container-fluid px-0 py-2 mb-n2">
         <a class="navbar-brand" href="/">
-            <img src="{{ config('app.url')."/storage/".get_setting(\App\Properties::$hLogo) }}" alt="" style="max-width: 150px; min-width: 150px;"/>
+            <span class="logo-make1"></span>
+            <span class="logo-make2"></span>
+
+{{--            <img src="{{ config('app.url')."/storage/".get_setting(\App\Properties::$hLogo) }}" alt="" style="max-width: 150px; min-width: 150px;"/>--}}
 {{--            <img src="{{ asset('frontend/assets/images/blogo/blogo-black.jpg') }}" alt="" style="max-width: 150px; min-width: 150px;"/>--}}
         </a>
         <!-- Button -->

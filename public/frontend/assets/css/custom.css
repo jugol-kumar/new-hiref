@@ -6,7 +6,7 @@
 }
 .left-header .nav-item{
     transition: 0.1s all ease;
-    border-bottom: 3px solid var(--bs-white);
+    border-bottom: inherit;
 }
 .left-header .nav-item:hover{
     border-bottom: 3px solid;
@@ -259,9 +259,33 @@ input[type="radio"]:checked + div::before {
     margin: 4rem auto;
 }
 
+.nav-bg-style{
+    box-shadow: 0 20px 20px 0 #52525240;
+    backdrop-filter: blur(10px);
+    background: #ffffffb0;
+    z-index: 111;
+}
 
+.logo-make1{
+    min-width: 50px !important;
+    min-height: 50px;
+    background: linear-gradient(284deg, #e591f3, #fffad1);
+    position: absolute;
+    border-radius: 0 60px 0px 60px;
+    top: 13px;
+}
 
-
+.logo-make2{
+    min-width: 50px !important;
+    min-height: 50px;
+    background: linear-gradient(57deg, #fffad1, #ffa286);
+    position: absolute;
+    border-radius: 0 60px 0px 60px;
+    top: 5px;
+    box-shadow: -2px 2px 9px -1px rgb(102 102 102 / 50%);
+    left: 71px;
+    rotate: 30deg;
+}
 
 
 

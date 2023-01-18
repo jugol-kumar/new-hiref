@@ -4,7 +4,7 @@
     <div class="col-lg-9 col-md-8 col-12">
         <!-- Page header-->
         <div class="container-fluid p-4">
-            <div class="py-2">
+<!--            <div class="py-2">
                 <div class="row">
                     <div class="col">
                         <div class="card mb-4">
@@ -42,13 +42,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
                 <div class="row">
                     <!-- Page Header -->
                     <div class="col-lg-12 col-md-12 col-12">
-                        <div class="pb-4 mb-4 d-flex justify-content-between align-items-center">
+                        <div class="pb-4 d-flex justify-content-between align-items-center">
                             <div class="mb-2 mb-lg-0">
-                                <h1 class="mb-1 h2 fw-bold">
+                                <h1 class="h2 fw-bold">
                                     Applied Seekers
                                     <span class="fs-5 text-muted">({{ $appliedSeekers->appliedUsers->count() }})</span>
                                 </h1>
