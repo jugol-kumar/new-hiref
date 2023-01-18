@@ -37,6 +37,7 @@ class SeekerController extends Controller
         return view('seekers.dashboard', compact('chatingJobs', 'user', 'saveJobs', 'jobs'));
     }
     public function firstStep(){
+
         $states =  Division::all();
         $categories = Category::all();
         $degrees = EducationLabel::all();

@@ -27,6 +27,9 @@
 .navbar .dropdown-menu {
     position: absolute;
     left: -110px;
+    background: rgb(255 255 255 / 68%)!important;
+    top: 37px !important;
+    backdrop-filter: blur(62px);
 }
 #navbar-default .dropdown-toggle:after{
     content: " " !important;

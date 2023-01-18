@@ -8,6 +8,7 @@ use App\Models\ChildCategory;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\Division;
+use App\Models\Education;
 use App\Models\EducationLabel;
 use App\Models\Job;
 use App\Models\Recruiter;
@@ -361,10 +362,23 @@ class RecruitersController extends Controller
 
     public function appliedSeekers(){
         $jobId = \request()->input('job-id');
+        $types = \request()->input('types');
+        $states =  Division::all();
+        $degrees = EducationLabel::all();
+        $educations = Education::all();
+
         if ($jobId){
-            $appliedSeekers = Job::where('id', $jobId)->first();
-            $appliedSeekers->setRelation('appliedUsers', $appliedSeekers->appliedUsers()->paginate(12)->withQueryString());
-            return view('recruiters.jobs.applied_users', compact('appliedSeekers'));
+            $appliedSeekers = Job::where('id', $jobId)->with(["appliedUsers.seeker"=> function($seeker)use($types){
+                $seeker->where("types", $types);
+            }])->first();
+
+
+            $appliedSeekers->setRelation("appliedUsers", $appliedSeekers->appliedUsers)->paginate(12)->withQueryString();
+
+//            $appliedSeekers->setRelation('appliedUsers', $appliedSeekers->appliedUsers()->paginate(12)->withQueryString());
+
+            return $appliedSeekers;
+            return view('recruiters.jobs.applied_users', compact('appliedSeekers', 'states', 'degrees', 'educations'));
         }
         toast('This Job Not Found...', 'error');
         return back();
@@ -373,7 +387,6 @@ class RecruitersController extends Controller
 
     public function appliendSeekerProfile(){
         $user = User::findOrFail(\request()->input('user_id'))->load("seeker");
-
         return view('recruiters.jobs.applicents_details', compact('user'));
     }
 
