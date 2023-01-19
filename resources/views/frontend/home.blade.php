@@ -34,6 +34,11 @@
             padding: 2.5rem 0;
         }
 
+
+        /*(1) owl-stage box*/
+        .owl-carousel .owl-stage { display: flex !important; }
+        /*(2) the direct div of each element in the owl carousel*/
+        .article-items { height: 100% !important; }
     </style>
 @endpush
 @section('content')
@@ -194,16 +199,19 @@
                 </div>
             </div>
             <div class="position-relative">
-                <div class="owl-carousel owl-theme">
-                    @for($i=0; $i<10; $i++)
-                        <div class="item card">
-                            <img src="{{ asset("assets/img/Woman-riding-a-bike.png") }}" class="card-img-top" alt="">
+                <div class="owl-carousel owl-theme match-height">
+                    @foreach($companies as $item)
+                        <div class="item card h-100">
+                            <img src="{{ Storage::url($item->photos[0]->filename) }}" height="150" class="card-img-top" alt="">
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="{{ route('client.singleCompany', ['id' => $item->id]) }}">
+                                    <h5 class="card-title text-capitalize">{{ $item->name }} ({{ $item->jobs_count }} Jobs)</h5>
+                                </a>
+                                <small>{{ $item->type }}</small>
+                                <p class="card-text">{{ $item->details }}</p>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </div>

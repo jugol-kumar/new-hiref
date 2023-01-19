@@ -35,7 +35,7 @@
                     <div class="d-md-flex align-items-center">
                         <!-- img -->
                         <div class="position-relative mt-n5">
-                            <img src="{{ Storage::url($company->photos[1]->filename) }}" alt="" width="150" height="150"
+                            <img src="{{ Storage::url($company?->photos[1]?->filename) }}" alt="" width="150" height="150"
                                  class="rounded-3 border bg-white">
 
                         </div>
@@ -90,7 +90,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('client.singleCompanyJobs', ['company' => $company?->name, 'id' => $company?->id]) }}"
                                    class="nav-link {{ Route::is("client.singleCompanyJobs") ? 'active' : '' }}">
-                                    Jobs ({{ $company->jobs_count }})</a>
+                                    Jobs ({{ $company?->jobs_count }})</a>
                             </li>
                             <li class="nav-item">
                                 <a href="company-benefits.html" class="nav-link">Benefits</a>

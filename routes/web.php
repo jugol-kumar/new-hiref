@@ -288,14 +288,13 @@ Route::middleware('auth')->group(function () {
 
             Route::view('social-media-url-profile', 'seekers.profile.socal_profile')->name('socialProfile');
             Route::post('update-social-profile', [SeekerProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
-
-
-            Route::post('send-message', [MessangerController::class, 'send'])->name('sendMessage');
         });
     });
 
     Route::get('save-job/{slug}/{id}', [HomeController::class,'saveJob'])->name('save.job');
     Route::delete('remove-save-jobs/{id}', [RecruitersController::class, 'removeSaveJOb'])->name('removeSaveJOb');
+    Route::post('send-message', [MessangerController::class, 'send'])->name('sendMessage');
+
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

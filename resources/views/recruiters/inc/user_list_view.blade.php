@@ -20,11 +20,16 @@
         <span>{{ $user->seeker?->exp_min_sal }} - {{ $user->seeker?->exp_max_sal }} LPA</span>
     </td>
 
-
+    <form method="POST" action="{{ route('sendMessage') }}" class="submitMussage" style="display:none">
+        @csrf
+        <input type="hidden" name="send_id" value="{{ $user->id }}">
+    </form>
 
 
     <td class="align-middle border-top-0">
-        <a href="{{ url("start-chat/".$user->id) }}" class="text-muted" data-bs-toggle="tooltip" data-placement="top" title="Message"><i class="fe fe-mail"></i></a>
+        <button class="text-muted submitMessageBUtton btn btn-icon rounded-circle" data-bs-toggle="tooltip" data-placement="top" title="Message">
+            <i class="fe fe-mail"></i>
+        </button>
     </td>
 {{--    <td class="text-muted px-4 py-3 align-middle border-top-0">--}}
 {{--        <span class="dropdown dropstart">--}}

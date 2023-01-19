@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Company;
 use App\Models\Course;
 use App\Models\District;
 use App\Models\Division;
@@ -19,13 +20,13 @@ class HomeController extends Controller
 {
     public function home()
     {
-
         $jobs = Job::with(['companyDetails', 'user'])
             ->where('is_published', 1)
             ->orderBy('created_at', 'DESC')
             ->paginate(10);
         $categories = Category::latest()->get();
-        return view('frontend.home', compact('jobs', 'categories'));
+        $companies = Company::withCount("jobs")->with("photos")->get();
+        return view('frontend.home', compact('jobs', 'categories', 'companies'));
     }
 
     public function allDistrict(Request $request){
@@ -60,8 +61,8 @@ class HomeController extends Controller
         }
 
         $jobs = Job::query()
-            ->where('is_published', Properties::$true)
-            ->where('lived', Properties::$lived)
+//            ->where('is_published', Properties::$true)
+//            ->where('lived', Properties::$lived)
             ->orderBy('is_featured', Properties::$desc)
             ->with('district')
             ->withCount('messageDetails');

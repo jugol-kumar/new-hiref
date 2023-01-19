@@ -86,7 +86,7 @@ class MessangerController extends MessagesController
             MessageInfo::create([
                'message_id' => $messageID,
                 'recruiter_id' => $request['rec_id'],
-                'seeker_id' => Auth::id(),
+                'seeker_id' => $request['send_id'],
                 'job_id' => $request['job_id']
             ]);
 
@@ -102,6 +102,6 @@ class MessangerController extends MessagesController
             ]);
         }
 
-        return redirect()->route('user', $request->rec_id);
+        return redirect()->route('user', $request->send_id);
     }
 }

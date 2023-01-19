@@ -207,3 +207,11 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(".submitMessageBUtton").on("click", function (){
+            $(".submitMussage").submit();
+        })
+    </script>
+@endpush
