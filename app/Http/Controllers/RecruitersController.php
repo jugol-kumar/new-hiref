@@ -21,6 +21,10 @@ use App\Notifications\VerifyWorkMailNotefication;
 use App\Properties;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -359,26 +363,74 @@ class RecruitersController extends Controller
         toast('Successfully delete job', 'success');
         return redirect()->route('recruiter.allJobs');
     }
+    public function collectionPagination($items,$baseUrl = null, $perPage = 5, $page = null,$options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
 
+        $items = $items instanceof Collection ?
+            $items : Collection::make($items);
+
+        $lap = new LengthAwarePaginator($items->forPage($page, $perPage),
+            $items->count(),
+            $perPage, $page, $options);
+
+        if ($baseUrl) {
+            $lap->setPath($baseUrl);
+        }
+        return $lap;
+    }
     public function appliedSeekers(){
         $jobId = \request()->input('job-id');
         $types = \request()->input('types');
         $states =  Division::all();
         $degrees = EducationLabel::all();
         $educations = Education::all();
-
         if ($jobId){
-            $appliedSeekers = Job::where('id', $jobId)->with(["appliedUsers.seeker"=> function($seeker)use($types){
-                $seeker->where("types", $types);
-            }])->first();
+            $query = Job::query()
+                ->with(['appliedUsers', 'appliedUsers.seeker'])
+                ->when(\request()->input('types') != null, function ($query) use ($types){
+                    $query->withWhereHas("appliedUsers", function ($query) use ($types){
+                       $query->withWhereHas("seeker", function ($query) use ($types){
+                           $query
+                           ->where('types', $types);
+                       });
+                    });
+                })
+                ->when(\request()->input('minSalary') != null, function ($query) {
+                $query->withWhereHas("appliedUsers", function ($query) {
+                    $query->withWhereHas("seeker", function ($query) {
+                            $query->where('exp_min_sal', "<=", \request()->input('minSalary'));
+                        });
+                    });
+                })
+
+//                ->when(\request()->input('maxSalary') != null, function ($query) {
+//                    $query->withWhereHas("appliedUsers", function ($query) {
+//                        $query->withWhereHas("seeker", function ($query) {
+//                            $query->orWhere('exp_min_sal', '<=', request('maxSalary'));
+//                        });
+//                    });
+//                });
+            ;
+
+//            if (\request()->has('start_date') || \request()->has('end_date')){
+//                $query->withWhereHas("appliedUsers", function ($query) {
+//                    $query->whereDate('created_at', '>=', \request()->input('start_date'));
+////                    $query->whereBetween('created_at', array(\request()->input('start_date'), \request()->input('end_date')));
+//                });
+//            }
+
+            $appliedSeekers = $this->collectionPagination($query->first()->appliedUsers ?? [], config('app.url'), 10)->withQueryString();
+
+            $job = Job::find($jobId);
 
 
-            $appliedSeekers->setRelation("appliedUsers", $appliedSeekers->appliedUsers)->paginate(12)->withQueryString();
+//            $appliedSeekers = Job::where('id', $jobId)->with(["appliedUsers.seeker"=> function($seeker)use($types){
+//                $seeker->where("types", $types);
+//            }])->first();
+//            $appliedSeekers->setRelation("appliedUsers", $appliedSeekers->appliedUsers)->paginate(12)->withQueryString();
 
-//            $appliedSeekers->setRelation('appliedUsers', $appliedSeekers->appliedUsers()->paginate(12)->withQueryString());
-
-            return $appliedSeekers;
-            return view('recruiters.jobs.applied_users', compact('appliedSeekers', 'states', 'degrees', 'educations'));
+            return view('recruiters.jobs.applied_users', compact('appliedSeekers', 'job','states', 'degrees', 'educations'));
         }
         toast('This Job Not Found...', 'error');
         return back();

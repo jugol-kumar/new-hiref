@@ -50,7 +50,7 @@
                         <div class="mb-2 mb-lg-0">
                             <h1 class="h2 fw-bold">
                                 Applied Seekers
-                                <span class="fs-5 text-muted">({{ $appliedSeekers->appliedUsers->count() }})</span>
+                                <span class="fs-5 text-muted">({{ $appliedSeekers->total() }})</span>
                             </h1>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                             </p>
                             <div class="collapse" id="collapseExample">
                                 <form action="{{ route('recruiter.appliedSeekers') }}" method="get">
-                                    <input type="hidden" value="{{ $appliedSeekers->id }}" name="job-id">
+                                    <input type="hidden" value="{{ $job->id }}" name="job-id">
                                     <div class="row">
                                         <div class="col">
                                             <div class="mb-3">
@@ -123,12 +123,12 @@
                                         </div>
                                         <div class="row mt-3 align-items-center">
                                             <label class="form-label">Expacted Salary</label>
+{{--                                            <div class="col">--}}
+{{--                                                <input type="number" name="minSalary" class="form-control" placeholder="Min Expected Salary"/>--}}
+{{--                                            </div>--}}
+{{--                                            <-->--}}
                                             <div class="col">
-                                                <input type="number" name="exp_min_sal" class="form-control" placeholder="Min Expected Salary"/>
-                                            </div>
-                                            <-->
-                                            <div class="col">
-                                                <input type="number" name="exp_max_sal" class="form-control" placeholder="Max Expected Salary"/>
+                                                <input type="number" name="maxSalary" class="form-control" placeholder="Salary Up To"/>
                                             </div>
                                         </div>
 
@@ -137,14 +137,14 @@
                                             <div class="col">
                                                 <input class="form-control flatpickr flatpickr-input active"
                                                        type="text" placeholder="Select Date"
-                                                       name="declined_date"
+                                                       name="start_date"
                                                        aria-describedby="basic-addon2" readonly="readonly">
                                             </div>
                                             <-->
                                             <div class="col">
                                                 <input class="form-control flatpickr flatpickr-input active"
                                                        type="text" placeholder="Select Date"
-                                                       name="declined_date"
+                                                       name="end_date"
                                                        aria-describedby="basic-addon2" readonly="readonly">
                                             </div>
                                         </div>
@@ -158,12 +158,12 @@
                 <div class="col-lg-12 col-md-12 col-12 mt-2">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{ route('recruiter.exportPdf', ['job_id' => $appliedSeekers->id]) }}"  data-bs-toggle="tooltip" data-placement="top" title="Download PDF File"
+                            <a href="{{ route('recruiter.exportPdf', ['job_id' => $job->id]) }}"  data-bs-toggle="tooltip" data-placement="top" title="Download PDF File"
                                class="btn btn-light-primary btn-lg btn-label-primary waves-effect">
                                 <span class="fe fe-arrow-down-circle text-primary"></span>Pdf Download
                             </a>
 
-                            <a href="{{ route('recruiter.exportExcel', ['job_id' => $appliedSeekers->id]) }}"  data-bs-toggle="tooltip" data-placement="top" title="Download Excel File"
+                            <a href="{{ route('recruiter.exportExcel', ['job_id' => $job->id]) }}"  data-bs-toggle="tooltip" data-placement="top" title="Download Excel File"
                                class="btn btn-light-info  btn-lg btn-label-primary waves-effect">
                                 <span class="fe fe-arrow-down-circle text-info"></span>Excel Download
                             </a>
@@ -184,12 +184,13 @@
                                     <th scope="col" class="border-0">
                                         Apply Date
                                     </th>
+                                    <th scope="col" class="border-0">Salary Range</th>
                                     <th scope="col" class="border-0"></th>
-                                    <th scope="col" class="border-0"></th>
+{{--                                    <th scope="col" class="border-0"></th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($appliedSeekers->appliedUsers as $user)
+                                @forelse($appliedSeekers as $user)
                                     @include('recruiters.inc.user_list_view', ['user' => $user])
                                 @empty
                                 @endforelse
@@ -197,7 +198,7 @@
                             </table>
                             <!-- Pagination -->
                             <div class="pb-4 pt-4">
-                                @include('frontend.inc.paginations', ['paginators' => $appliedSeekers->appliedUsers])
+                                @include('frontend.inc.paginations', ['paginators' => $appliedSeekers])
                             </div>
                         </div>
                     </div>

@@ -78,7 +78,7 @@
                                         <input type="hidden" name="type" value="recruiter">
                                         <button type="submit" class="btn btn-light-success btn-sm me-1">Apply Now</button>
                                     </form>-->
-                                        @if($applyStatus)
+                                        @if($applyStatus > 0)
                                             <button type="button" id="alreadyApplied" class="btn btn-light-dark btn-sm me-1 btn-disabled">Already Apply</button>
                                         @else
                                             <a href="{{ route('client.applyJob', ['user_id' => auth()->id(), 'job'=> $job->slug, 'job_id' => $job->id]) }}" class="btn btn-light-success">Apply Now</a>
