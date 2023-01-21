@@ -131,7 +131,6 @@ Route::middleware('auth')->group(function () {
         Route::get('resend-verification-code', [VerificationController::class, 'resVCode'])->name('resVCode');
     });
 
-
     Route::prefix('student')->middleware('is_student')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'student'])->name('dashboard');
     });

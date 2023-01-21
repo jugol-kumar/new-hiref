@@ -14,7 +14,7 @@
         {{ $job->title }}
     </td>
     <td class="align-middle text-warning border-top-0">
-        {{ $user->created_at->format("D, m-Y") }}
+        {{ $user->created_at->format("d-m-Y") }}
     </td>
     <td>
         <span>{{ $user->seeker?->exp_min_sal }} - {{ $user->seeker?->exp_max_sal }} LPA</span>

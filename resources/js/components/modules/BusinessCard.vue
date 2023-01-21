@@ -70,7 +70,7 @@
                                 <!-- city -->
                                 <span class="me-2">
                                     <vue-feather type="map" size="18"/>
-                                    <span class="ms-1 ">{{ props.about.city.name }}</span>
+                                    <span class="ms-1 ">{{ props.about?.city?.name }}</span>
                                 </span>
                             </div>
                         </div>

@@ -13,7 +13,6 @@ class FrontendCompanyController extends Controller
 
     public function getAllCompanies(){
         $companies = Company::paginate(12)->withQueryString();
-
         $categories    = Category::withCount('jobs')->get();
         $divisions     = Division::withCount('jobs')->get();
         $cat = null;

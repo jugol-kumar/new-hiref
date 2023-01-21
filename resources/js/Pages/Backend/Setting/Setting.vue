@@ -356,22 +356,22 @@ let createForm = useForm({
     email       : props.bSettings.email ?? '',
     phone       : props.bSettings.phone ?? '',
 
-    facebook_profile: props.bSettings.facebook_profile ?? '',
-    youtube: props.bSettings.youtube ?? '',
-    google_drive: props.bSettings.google_drive ?? '',
-    linkedin_profile: props.bSettings.linkedin_profile ?? '',
-    twitter_profile: props.bSettings.twitter_profile ?? '',
-    instagram_profile: props.bSettings.instagram_profile ?? '',
+    facebook_profile  : props.bSettings.facebook_profile ?? '',
+    youtube           : props.bSettings.youtube ?? '',
+    google_drive      : props.bSettings.google_drive ?? '',
+    linkedin_profile  : props.bSettings.linkedin_profile ?? '',
+    twitter_profile   : props.bSettings.twitter_profile ?? '',
+    instagram_profile : props.bSettings.instagram_profile ?? '',
 
-    api_url: props.bSettings.api_url ?? '',
-    api_user_name: props.bSettings.api_user_name ?? '',
-    api_user_pass: props.bSettings.api_user_pass ?? ''
+    api_url           : props.bSettings.api_url ?? '',
+    api_user_name     : props.bSettings.api_user_name ?? '',
+    api_user_pass     : props.bSettings.api_user_pass ?? ''
 })
 
 let logoForm = useForm({
-    header_logo:'',
-    footer_logo:'',
-    fevicon_logo:'',
+    header_logo     :   '',
+    footer_logo     :   '',
+    fevicon_logo    :   '',
 })
 
 

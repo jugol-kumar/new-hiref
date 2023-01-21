@@ -99,7 +99,6 @@ class RegisterController extends Controller
             'password' => Request::input('password'),
             'role'     => 'seekers',
         ]);
-
         Auth::login($user);
         toast('Registration Successfully done...', 'success');
         return redirect()->route('seeker.dashboard');

@@ -20,13 +20,13 @@
             <span class="navbar-header">Operations</span>
             <ul class="list-unstyled ms-n2 mb-4">
                 <!-- Nav item -->
-                <li class="nav-item {{ Route::is("recruiter.allJobs") || Route::is("recruiter.createJob") ? "active" : '' }}">
-                    <a class="nav-link" href="{{ route("recruiter.allJobs") }}"><i class="fe fe-book nav-icon"></i>My Jobs</a>
-                </li>
-                <!-- Nav item -->
                 <li class="nav-item {{ Route::is("recruiter.allCompanies") ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route("recruiter.allCompanies") }}"><i class="fe fe-cloud nav-icon"></i>My
                         Companies</a>
+                </li>
+                <!-- Nav item -->
+                <li class="nav-item {{ Route::is("recruiter.allJobs") || Route::is("recruiter.createJob") ? "active" : '' }}">
+                    <a class="nav-link" href="{{ route("recruiter.allJobs") }}"><i class="fe fe-book nav-icon"></i>My Jobs</a>
                 </li>
             </ul>
             <!-- Navbar header -->

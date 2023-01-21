@@ -32,7 +32,6 @@ class VerificationController extends Controller
                     'email_verified_at' => now()
                 ]);
                 toast('Your Phone Number Is Verified Now.', 'success');
-
                 if (Auth::user()->role == "admin") {
                     return redirect()->route('admin.dashboard');
                 } elseif (Auth::user()->role == "recruiters") {

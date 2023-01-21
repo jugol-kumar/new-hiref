@@ -202,13 +202,13 @@
                 <div class="owl-carousel owl-theme match-height">
                     @foreach($companies as $item)
                         <div class="item card h-100">
-                            <img src="{{ Storage::url($item->photos[0]->filename) }}" height="150" class="card-img-top" alt="">
                             <div class="card-body">
+                                <img src="{{ Storage::url($item->photos[1]->filename) }}" height="150" class="card-img-top" alt="">
                                 <a href="{{ route('client.singleCompany', ['id' => $item->id]) }}">
                                     <h5 class="card-title text-capitalize">{{ $item->name }} ({{ $item->jobs_count }} Jobs)</h5>
                                 </a>
-                                <small>{{ $item->type }}</small>
-                                <p class="card-text">{{ $item->details }}</p>
+                                <small class="border small-badge">{{ $item->type }}</small>
+                                <p class="card-text">{{ Str::limit($item->details, 50) }}</p>
                             </div>
                         </div>
                     @endforeach

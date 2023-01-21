@@ -5,7 +5,7 @@
             <div class="d-md-flex">
                 <div class="mb-3 mb-md-0">
                     <!-- Img -->
-                    <img src="{{ config("app.url")."/storage/".$value->photos[0]->filename }}"
+                    <img src="{{ config("app.url")."/storage/".$value->photos[1]->filename }}"
                          width="68" height="68"
                          alt="{{ config("app.name") }}" class="icon-shape rounded">
                 </div>

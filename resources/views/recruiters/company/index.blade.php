@@ -191,15 +191,7 @@
                             @enderror
                         </div>
                         <!-- form group -->
-                        <div class="mb-3 col-6">
-                            <label class="form-label">Employee Size<span class="text-danger">*</span></label>
-                            <input name="city" type="text" class="form-control" placeholder="Employee size" required>
-                            @error('city')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <!-- form group -->
-                        <div class="mb-3 col-6">
+                        <div class="mb-3 col">
                             <label class="form-label">Website<span class="text-danger">*</span></label>
                             <input type="text" name="website" class="form-control" placeholder="https://www.example.info" required>
                             @error('website')
@@ -216,16 +208,16 @@
                         </div>
                         <!-- form group -->
                         <div class="mb-3 col-12">
-                            <label class="form-label">Description</label>
+                            <label class="form-label">Description <small>(Max 400)</small></label>
                             <textarea name="details" class="form-control" placeholder="Enter simple descriptions......" rows="3"></textarea>
                             @error('details')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-md-3 col-12 mb-4">
+                        <div class="col-md-4 col-12 mb-4">
                             <div class="logoSection">
                                 <!-- logo -->
-                                <h5 class="mb-3">Company Logo </h5>
+                                <h5 class="mb-3">Company Logo <a href="https://worldvectorlogo.com/" target="_blank"><i class="fe fe-external-link"></i></a></h5>
                                 <div class="icon-shape icon-xxl border rounded position-relative">
                                     <span class="position-absolute imageShow"> <i class="bi bi-image fs-3  text-muted"></i></span>
                                     <input name="logo" class="form-control border-0 opacity-0 uploadFile" type="file" >
@@ -236,7 +228,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-9 col-12 mb-4">
+                        <div class="col-md-8 col-12 mb-4">
                             <div class="logoSection">
                                 <!-- logo -->
                                 <h5 class="mb-3">Background Image </h5>

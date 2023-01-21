@@ -11,6 +11,7 @@ use App\Models\Division;
 use App\Models\Education;
 use App\Models\EducationLabel;
 use App\Models\Job;
+use App\Models\Order;
 use App\Models\Recruiter;
 use App\Models\SaveJob;
 use App\Models\Skill;
@@ -34,40 +35,42 @@ use RealRashid\SweetAlert\Facades\Alert;
 class RecruitersController extends Controller
 {
 
-    public function makeProfile(){
+    public function makeProfile()
+    {
         return view('recruiters.profile.build_profile');
     }
 
-    public function updateBio(Request $request){
+    public function updateBio(Request $request)
+    {
         $request->validate([
             'c_full_name' => 'required',
             'c_short_name' => 'required',
-            'email'        => 'required|email',
-            'employee_size'=> 'required',
-            'first_name'   => 'required',
+            'email' => 'required|email',
+            'employee_size' => 'required',
+            'first_name' => 'required',
             'full_address' => 'nullable',
-            'gender'       => 'required',
+            'gender' => 'required',
             'hot_industry' => 'required',
-            'last_name'    => 'required'
+            'last_name' => 'required'
         ]);
 
 
         $user = Auth::user();
 
-        if ($request->hasFile('profile_pic')){
+        if ($request->hasFile('profile_pic')) {
             $file = $request->file('profile_pic')->store('user', 'public');
             $user->photo = $file;
         }
-        $user->name       = $request->first_name. " ". $request->last_name;
+        $user->name = $request->first_name . " " . $request->last_name;
         $user->first_name = $request->first_name;
-        $user->last_name  = $request->last_name;
-        $user->gender     = $request->gender;
-        $user->email      = $request->email;
+        $user->last_name = $request->last_name;
+        $user->gender = $request->gender;
+        $user->email = $request->email;
         $user->update();
 
 
         $user->recruiter->update([
-           'company_name' => $request->c_full_name,
+            'company_name' => $request->c_full_name,
             'company_sname' => $request->c_short_name,
             'designation' => $request->designation,
             'company_address' => $request->full_address,
@@ -81,13 +84,15 @@ class RecruitersController extends Controller
         ]);
     }
 
-    public function uploadBusinessFile(){
+    public function uploadBusinessFile()
+    {
         return view('recruiters.profile.upload_business_file');
     }
 
-    public function verifyWorkEmail(Request $request){
+    public function verifyWorkEmail(Request $request)
+    {
         $request->validate([
-           'work_mail' => 'required|email',
+            'work_mail' => 'required|email',
         ]);
         $user = User::findOrFail(Auth::id());
         $user->recruiter->work_mail = $request->work_mail;
@@ -98,20 +103,22 @@ class RecruitersController extends Controller
     }
 
 
-    public function showBeforeVerify(){
+    public function showBeforeVerify()
+    {
         return view('recruiters.profile.wait_for_verify');
     }
 
-    public function verificationWorkEmail(){
+    public function verificationWorkEmail()
+    {
         $mail = base64_decode(\request()->input('_token'));
         $rec = Recruiter::where('work_mail', $mail)->first();
-        if ($rec){
+        if ($rec) {
             $rec->work_mail_verified_at = Carbon::now();
             $rec->status = Properties::$waiting;
             $rec->update();
             toast('Now Your Work-Mail Is Verified', 'success');
             return redirect()->route('recruiter.dashboard');
-        }else{
+        } else {
             toast('Verification token is wrong', 'error');
             return redirect()->route('recruiter.dashboard');
         }
@@ -119,7 +126,7 @@ class RecruitersController extends Controller
 
     public function verifyBusinessFile(Request $request): \Illuminate\Http\RedirectResponse
     {
-        if ($request->hasFile('business_files')){
+        if ($request->hasFile('business_files')) {
             $file = $request->file('business_files')->store('user', 'public');
             $user = User::findOrFail(Auth::id());
             $user->recruiter->business_file = $file;
@@ -131,20 +138,24 @@ class RecruitersController extends Controller
     }
 
 
-    public function waitForVerify(){
+    public function waitForVerify()
+    {
         return view('recruiters.profile.wait_for_verify');
     }
 
-    public function cancelVerifyRequest(){
+    public function cancelVerifyRequest()
+    {
         return view('recruiters.profile.cancel_verify');
     }
 
-    public function profileInactive(){
+    public function profileInactive()
+    {
         return view('recruiters.profile.profile_inactive');
     }
 
 
-    public function allJobs(){
+    public function allJobs()
+    {
         $jobs = Job::where('creator', Auth::id())
             ->latest()
 //            ->withCount('messageDetails')
@@ -156,36 +167,40 @@ class RecruitersController extends Controller
         return view('recruiters.jobs.index', compact('jobs'));
     }
 
-    public function saveJobs(){
+    public function saveJobs()
+    {
         $jobs = SaveJob::where('user_id', Auth::id())
             ->latest()
-            ->with(['job','job.category', 'job.companyDetails.photos'])
+            ->with(['job', 'job.category', 'job.companyDetails.photos'])
             ->paginate(10);
 
         $save = true;
-        return view('recruiters.jobs.save_jobs', compact('jobs' , 'save'));
+        return view('recruiters.jobs.save_jobs', compact('jobs', 'save'));
     }
 
 
-    public function removeSaveJOb($id){
+    public function removeSaveJOb($id)
+    {
         SaveJob::findOrFail($id)->delete();
         toast('Successfully remove save job', 'success');
         return back();
     }
 
-    public function createJob(){
+    public function createJob()
+    {
 
-        return view( 'recruiters.jobs.create', with(
-        [
-            'states'     => Division::all(),
-            'categories' => Category::select('id', 'name')->get(),
-            'countries'  => Country::select('currency', 'currency_name', 'currency_symbol', 'name', 'id')->get(),
-            'companies'  => Company::where('user_id', Auth::id())->with('photos')->get(),
+        return view('recruiters.jobs.create', with(
+            [
+                'states' => Division::all(),
+                'categories' => Category::select('id', 'name')->get(),
+                'countries' => Country::select('currency', 'currency_name', 'currency_symbol', 'name', 'id')->get(),
+                'companies' => Company::where('user_id', Auth::id())->with('photos')->get(),
 
-        ]));
+            ]));
     }
 
-    public function updateJobStatus(Request $request){
+    public function updateJobStatus(Request $request)
+    {
         $job = Job::findOrFail($request->job_id);
         $job->lived = $request->job_status;
         $job->save();
@@ -194,34 +209,36 @@ class RecruitersController extends Controller
     }
 
 
-    public function getSubCat($id){
+    public function getSubCat($id)
+    {
         $sub_categories = SubCategory::where('category_id', $id)->get();
         return response()->json(['data' => $sub_categories], 200);
     }
 
-    public function getChildCat($id){
+    public function getChildCat($id)
+    {
         $sub_categories = ChildCategory::where('sub_category_id', $id)->get();
         return response()->json(['data' => $sub_categories], 200);
     }
 
 
-
-    public function storeJob(Request $request){
+    public function storeJob(Request $request)
+    {
 
         $data = \Illuminate\Support\Facades\Request::validate([
             "title" => 'required',
             "types" => 'required',
-            "label" =>  'required',
+            "label" => 'required',
             "category_id" => 'nullable|integer',
-            "sub_category_id" =>  'nullable|integer',
+            "sub_category_id" => 'nullable|integer',
             "child_category_id" => 'nullable|integer',
             "currency" => 'required|integer',
             "min_salary" => 'required|integer',
             "max_salary" => 'required|integer',
             "min_experience" => 'required|integer',
             'max_experience' => 'required|integer',
-            'experience_type'=> 'required',
-            "company" =>'required|integer',
+            'experience_type' => 'required',
+            "company" => 'required|integer',
             "creator" => 'nullable|integer',
             "declined_date" => 'required',
             "web_address" => 'required|url',
@@ -236,13 +253,13 @@ class RecruitersController extends Controller
         ]);
 
 
-        $skills =  array_map(function ($item){
+        $skills = array_map(function ($item) {
             return $item->value;
-        } ,json_decode($request->skills));
+        }, json_decode($request->skills));
 
-        $tags =  array_map(function ($item){
+        $tags = array_map(function ($item) {
             return $item->value;
-        } ,json_decode($request->tags));
+        }, json_decode($request->tags));
 
 
         $data["tags"] = json_encode($tags);
@@ -258,12 +275,12 @@ class RecruitersController extends Controller
 
 
         $data['user_id'] = Auth::id();
-        foreach ($tags as $value){
+        foreach ($tags as $value) {
             Tag::updateOrCreate([
                 'name' => $value
             ]);
         }
-        foreach ($skills as $value){
+        foreach ($skills as $value) {
             Skill::updateOrCreate([
                 'name' => $value
             ]);
@@ -277,7 +294,8 @@ class RecruitersController extends Controller
 
     }
 
-    public function editJob($slug){
+    public function editJob($slug)
+    {
         $job = Job::where('slug', $slug)->with(['company', 'category'])->first();
         $categories = Category::select('id', 'name')->get();
         $subCategories = SubCategory::select('id', 'name')->get();
@@ -289,23 +307,24 @@ class RecruitersController extends Controller
         return view('recruiters.jobs.edit', compact('job', 'categories', 'countries', 'companies', 'subCategories', 'cCategories'));
     }
 
-    public function updateJob(Request $request, $id){
+    public function updateJob(Request $request, $id)
+    {
         $job = Job::findOrFail($id);
 
         $data = \Illuminate\Support\Facades\Request::validate([
             "title" => 'required',
             "types" => 'required',
-            "label" =>  'required',
+            "label" => 'required',
             "category_id" => 'nullable|integer',
-            "sub_category_id" =>  'nullable|integer',
+            "sub_category_id" => 'nullable|integer',
             "child_category_id" => 'nullable|integer',
             "currency" => 'required|integer',
             "min_salary" => 'required|integer',
             "max_salary" => 'required|integer',
             "min_experience" => 'required|integer',
             'max_experience' => 'required|integer',
-            'experience_type'=> 'required',
-            "company" =>'required|integer',
+            'experience_type' => 'required',
+            "company" => 'required|integer',
             "creator" => 'nullable|integer',
             "declined_date" => 'required',
             "web_address" => 'required|url',
@@ -320,14 +339,13 @@ class RecruitersController extends Controller
         ]);
 
 
-        $skills =  array_map(function ($item){
+        $skills = array_map(function ($item) {
             return $item->value;
-        } ,json_decode($request->skills));
+        }, json_decode($request->skills));
 
-        $tags =  array_map(function ($item){
+        $tags = array_map(function ($item) {
             return $item->value;
-        } ,json_decode($request->tags));
-
+        }, json_decode($request->tags));
 
 
         $data["tags"] = json_encode($tags);
@@ -341,12 +359,12 @@ class RecruitersController extends Controller
 
 
         $data['user_id'] = Auth::id();
-        foreach ($tags as $value){
+        foreach ($tags as $value) {
             Tag::updateOrCreate([
                 'name' => $value
             ]);
         }
-        foreach ($skills as $value){
+        foreach ($skills as $value) {
             Skill::updateOrCreate([
                 'name' => $value
             ]);
@@ -358,12 +376,14 @@ class RecruitersController extends Controller
         return redirect()->route('recruiter.allJobs');
     }
 
-    public function deleteJob($id){
+    public function deleteJob($id)
+    {
         Job::findOrFail($id)->update(['lived' => 'deleted']);
         toast('Successfully delete job', 'success');
         return redirect()->route('recruiter.allJobs');
     }
-    public function collectionPagination($items,$baseUrl = null, $perPage = 5, $page = null,$options = [])
+
+    public function collectionPagination($items, $baseUrl = null, $perPage = 5, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
 
@@ -379,31 +399,52 @@ class RecruitersController extends Controller
         }
         return $lap;
     }
-    public function appliedSeekers(){
+
+    public function appliedSeekers()
+    {
         $jobId = \request()->input('job-id');
         $types = \request()->input('types');
-        $states =  Division::all();
+        $states = Division::all();
         $degrees = EducationLabel::all();
         $educations = Education::all();
-        if ($jobId){
+
+//        return \request();
+        if ($jobId) {
             $query = Job::query()
+                ->where("id", $jobId)
                 ->with(['appliedUsers', 'appliedUsers.seeker'])
-                ->when(\request()->input('types') != null, function ($query) use ($types){
-                    $query->withWhereHas("appliedUsers", function ($query) use ($types){
-                       $query->withWhereHas("seeker", function ($query) use ($types){
-                           $query
-                           ->where('types', $types);
-                       });
+                ->when(\request()->input('types') != null, function ($query) use ($types) {
+                    $query->withWhereHas("appliedUsers", function ($query) use ($types) {
+                        $query->withWhereHas("seeker", function ($query) use ($types) {
+                            $query
+                                ->where('types', $types);
+                        });
                     });
                 })
-                ->when(\request()->input('minSalary') != null, function ($query) {
-                $query->withWhereHas("appliedUsers", function ($query) {
-                    $query->withWhereHas("seeker", function ($query) {
-                            $query->where('exp_min_sal', "<=", \request()->input('minSalary'));
+                ->when(\request()->input('maxSalary') != null, function ($query) {
+                    $query->withWhereHas("appliedUsers", function ($query) {
+                        $query->withWhereHas("seeker", function ($query) {
+                            $query->where('exp_min_sal', "<=", \request()->input('maxSalary'));
                         });
                     });
                 })
 
+
+
+//        $content = Content::whereHas('subcategories', function ($query) use($sub_category_id) {
+//            $query->where('sub_category_id', $sub_category_id);
+//        })->whereHas('categories', function($query) use($category_id) {
+//            $query->where('category_id', $category_id);
+//        })->get();
+
+//                ->when(\request()->input('start_date'), function ($query) {
+//                    $query->withWhereHas("appliedUsers", function ($query) {
+//                        $query->withWhereHas("seeker", function ($query) {
+//                            $query->whereDate('created_at', \request()->input('start_date')->format('Y-m-d'));
+////                            $query->whereDate('created_at', \request()->input('start_date'));
+//                        });
+//                    });
+//                })
 //                ->when(\request()->input('maxSalary') != null, function ($query) {
 //                    $query->withWhereHas("appliedUsers", function ($query) {
 //                        $query->withWhereHas("seeker", function ($query) {
@@ -430,16 +471,179 @@ class RecruitersController extends Controller
 //            }])->first();
 //            $appliedSeekers->setRelation("appliedUsers", $appliedSeekers->appliedUsers)->paginate(12)->withQueryString();
 
-            return view('recruiters.jobs.applied_users', compact('appliedSeekers', 'job','states', 'degrees', 'educations'));
+            return view('recruiters.jobs.applied_users', compact('appliedSeekers', 'job', 'states', 'degrees', 'educations'));
         }
         toast('This Job Not Found...', 'error');
         return back();
 
     }
 
-    public function appliendSeekerProfile(){
+    public function appliendSeekerProfile()
+    {
         $user = User::findOrFail(\request()->input('user_id'))->load("seeker");
         return view('recruiters.jobs.applicents_details', compact('user'));
+    }
+
+
+    public function report()
+    {
+
+        $content = Order::whereHas('subcategories', function ($query) use($sub_category_id) {
+                $query->where('sub_category_id', $sub_category_id);
+            })->whereHas('categories', function($query) use($category_id) {
+                    $query->where('category_id', $category_id);
+            })->get();
+
+
+
+
+        // total section =============================================================================================================
+
+        // total sum or rejected product
+        $total_rejected_product = ProductionLog::sum('rejected_product');
+        // total sum of net product
+        $total_net_product = ProductionLog::sum('net_product');
+        // total sum of finising product
+        $total_finishing_product = ProductionLog::where('status', 'fininshing')->sum('net_product');
+        // total sum of swieng product
+        $total_net_swieng_product = ProductionLog::where('status', 'sewing')->sum('net_product');
+        // total rejected form swieng product
+        $total_rejected_swieng_product = ProductionLog::where('status', 'sewing')->sum('rejected_product');
+
+        // total section =============================================================================================================
+
+
+        // today section =============================================================================================================
+
+        // today total rejected product
+        $total_today_rejected_product = ProductionLog::whereDate('created_at', date('Y-m-d'))->sum('rejected_product');
+
+        // today total net product
+        $total_today_net_product = ProductionLog::whereDate('created_at', date('Y-m-d'))->sum('net_product');
+
+        // today finishing product
+        $total_today_finishing_product = ProductionLog::where('status', 'fininshing')->whereDate('created_at', date('Y-m-d'))->sum('net_product');
+
+        // today sum of swieng product
+        $total_today_net_swieng_product = ProductionLog::where('status', 'sewing')->whereDate('created_at', date('Y-m-d'))->sum('net_product');
+
+        // toay rejected form swieng product
+        $total_today_rejected_swieng_product = ProductionLog::where('status', 'sewing')->whereDate('created_at', date('Y-m-d'))->sum('rejected_product');
+
+        // today section =============================================================================================================
+
+
+        // weekly section =============================================================================================================
+
+        // weekly total rejected product
+        $total_weekly_rejected_product = ProductionLog::whereBetween('created_at', [
+            Carbon::parse('last monday')->startOfDay(),
+            Carbon::parse('next friday')->endOfDay(),
+        ])->sum('rejected_product');
+
+        // weekly total net product
+        $total_weekly_net_product = ProductionLog::whereBetween('created_at', [
+            Carbon::parse('last monday')->startOfDay(),
+            Carbon::parse('next friday')->endOfDay(),
+        ])->sum('net_product');
+
+        // weekly total net product
+        $total_weekly_finishing_product = ProductionLog::where('status', 'fininshing')->whereBetween('created_at', [
+            Carbon::parse('last monday')->startOfDay(),
+            Carbon::parse('next friday')->endOfDay(),
+        ])->sum('net_product');
+
+        // weekly total rejected swieng product
+        $total_weekly_rejected_swieng_product = ProductionLog::where('status', 'sewing')->whereBetween('created_at', [
+            Carbon::parse('last monday')->startOfDay(),
+            Carbon::parse('next friday')->endOfDay(),
+        ])->sum('rejected_product');
+
+        // weekly total net swieng product
+        $total_weekly_net_swieng_product = ProductionLog::where('status', 'sewing')->whereBetween('created_at', [
+            Carbon::parse('last monday')->startOfDay(),
+            Carbon::parse('next friday')->endOfDay(),
+        ])->sum('net_product');
+
+        // weekly section =============================================================================================================
+
+
+        // monthly section =============================================================================================================
+
+        // monthly total rejected product
+        $total_monthly_rejected_product = ProductionLog::whereMonth('created_at', date('m'))->sum('rejected_product');
+
+        // monthly total net product
+        $total_monthly_net_product = ProductionLog::whereMonth('created_at', date('m'))->sum('net_product');
+
+        // monthly total finishing product
+        $total_monthly_finishing_product = ProductionLog::where('status', 'fininshing')->whereMonth('created_at', date('m'))->sum('net_product');
+
+        // monthly total net swieng product
+        $total_monthly_rejected_swieng_product = ProductionLog::where('status', 'sewing')->whereMonth('created_at', date('m'))->sum('rejected_product');
+
+        // monthly total rejected swieng product
+        $total_monthly_net_swieng_product = ProductionLog::where('status', 'sewing')->whereMonth('created_at', date('m'))->sum('net_product');
+
+        // monthly section =============================================================================================================
+
+
+        // monthly section =============================================================================================================
+
+        // yearly total rejected product
+        $total_yearly_rejected_product = ProductionLog::whereYear('created_at', date('Y'))->sum('rejected_product');
+
+        // yearly total net product
+        $total_yearly_net_product = ProductionLog::whereYear('created_at', date('Y'))->sum('net_product');
+
+        // yearly total net product
+        $total_yearly_finishing_product = ProductionLog::where('status', 'fininshing')->whereYear('created_at', date('Y'))->sum('net_product');
+
+        // yearly total rejected swieng product
+        $total_yearly_rejected_swieng_product = ProductionLog::where('status', 'sewing')->whereYear('created_at', date('Y'))->sum('rejected_product');
+
+        // yearly total net swieng product
+        $total_yearly_net_swieng_product = ProductionLog::where('status', 'sewing')->whereYear('created_at', date('Y'))->sum('net_product');
+
+        // monthly section =============================================================================================================
+
+
+        $data = [];
+        $data['total_rejected_sum'] = $total_rejected_product;
+        $data['total_net_sum'] = $total_net_product;
+        $data['total_finishing_product'] = $total_finishing_product;
+        $data['total_net_swieng_product'] = $total_net_swieng_product;
+        $data['total_rejected_swieng_product'] = $total_rejected_swieng_product;
+
+        $data['total_today_rejected_product'] = $total_today_rejected_product;
+        $data['total_today_net_product'] = $total_today_net_product;
+        $data['total_today_finishing_product'] = $total_today_finishing_product;
+        $data['total_today_net_swieng_product'] = $total_today_net_swieng_product;
+        $data['total_today_rejected_swieng_product'] = $total_today_rejected_swieng_product;
+
+        $data['total_weekly_rejected_product'] = $total_weekly_rejected_product;
+        $data['total_weekly_net_product'] = $total_weekly_net_product;
+        $data['total_weekly_finishing_product'] = $total_weekly_finishing_product;
+        $data['total_weekly_rejected_swieng_product'] = $total_weekly_rejected_swieng_product;
+        $data['total_weekly_net_swieng_product'] = $total_weekly_net_swieng_product;
+
+        $data['total_monthly_rejected_product'] = $total_monthly_rejected_product;
+        $data['total_monthly_net_product'] = $total_monthly_net_product;
+        $data['total_monthly_finishing_product'] = $total_monthly_finishing_product;
+        $data['total_monthly_rejected_swieng_product'] = $total_monthly_rejected_swieng_product;
+        $data['total_monthly_net_swieng_product'] = $total_monthly_net_swieng_product;
+
+        $data['total_yearly_rejected_product'] = $total_yearly_rejected_product;
+        $data['total_yearly_net_product'] = $total_yearly_net_product;
+        $data['total_yearly_finishing_product'] = $total_yearly_finishing_product;
+        $data['total_yearly_rejected_swieng_product'] = $total_yearly_rejected_swieng_product;
+        $data['total_yearly_net_swieng_product'] = $total_yearly_net_swieng_product;
+
+
+        return $data;
+        exit();
+
+
     }
 
 

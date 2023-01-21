@@ -30,7 +30,6 @@ class RecruitersCompanyController extends Controller
             'logo'          => 'required',
             'starting_date' => 'required',
             'employee_size' => 'required',
-            'city'          => 'required|integer',
             'website'       => 'required|url',
             'address'       => 'required',
             'details'       => 'nullable|max:400',
@@ -39,12 +38,10 @@ class RecruitersCompanyController extends Controller
 
         $data['user_id'] = Auth::id();
         $data['creator'] = Auth::id();
-
+        $data['logo'] = $request->cover;
+        $data['cover'] = $request->logo;
         $company = Company::create($data);
-
         $company->users()->attach(Auth::id());
-
-
         if ($request->hasFile('cover')){
             $exists = Storage::disk('public')->has($company->photos->count() > 0 ? $company->photos[0]->filename : "null");
             if ($exists){
