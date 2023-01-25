@@ -165,6 +165,11 @@
 </script>
 
 <script>
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
     function deleteData(id) {
         Swal.fire({
             title: 'Are you sure?',

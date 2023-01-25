@@ -14,7 +14,7 @@
                     <div class="d-xl-flex ">
                         <div class="mb-3 mb-md-0">
                             <!-- Img -->
-                            <img src="{{ config("app.url")."/storage/".$job->companyDetails->photos[0]->filename }}" alt="" width="78" height="78" class="icon-shape border rounded-circle">
+                            <img src="{{ config("app.url")."/storage/".$job->companyDetails->photos[1]->filename }}" alt="" width="78" height="78" class="icon-shape border rounded-circle">
                         </div>
                         <!-- text -->
                         <div class="ms-xl-3  w-100 mt-3 mt-xl-0">

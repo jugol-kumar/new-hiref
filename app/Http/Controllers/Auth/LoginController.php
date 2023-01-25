@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Recruiter;
 use App\Models\User;
+use App\Properties;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
@@ -58,18 +59,22 @@ class LoginController extends Controller
 
     public function loginOrCreate(Request $request){
         $user = User::where('phone', $request->phone)->first();
-
         if($user){
-            $request->session()->regenerate();
-            Auth::login($user);
-            toast('Successfully Login !', 'success');
-
-            if (Auth::user()->role == "admin") {
-                return redirect()->intended('/panel/admin/dashboard');
-            } elseif (Auth::user()->role == "recruiters") {
+            if ($user->role == Properties::$recruiter && $request->has('role')){
+                $request->session()->regenerate();
+                Auth::login($user);
                 return redirect()->intended('/panel/recruiters/dashboard');
-            } else {
+            }elseif($user->role == Properties::$seeker && !$request->has('role')){
+                $request->session()->regenerate();
+                Auth::login($user);
                 return redirect()->intended('panel/seekers/dashboard');
+            }
+//            elseif($user->role == Properties::$admin){
+//                return redirect()->intended('/panel/admin/dashboard');
+//            }
+            else{
+                toast('This Number Already Exit For Another User...', 'info');
+                return back();
             }
         }else{
             $request->validate([

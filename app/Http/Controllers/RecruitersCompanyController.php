@@ -68,9 +68,10 @@ class RecruitersCompanyController extends Controller
                 'filename' => $file
             ]);
         }
+        return response()->json(['message' => 'Company Updated...'], 200);
 
-        toast('Company Create Successfully Done...', 'success');
-        return redirect()->route('recruiter.allCompanies');
+//        toast('Company Create Successfully Done...', 'success');
+//        return redirect()->route('recruiter.allCompanies');
     }
 
     public function deleteCompany($id)

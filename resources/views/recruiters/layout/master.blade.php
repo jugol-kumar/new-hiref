@@ -3,8 +3,8 @@
 
 @section('content')
 {{--    @include('recruiters.inc.topbar')--}}
-    <div class="pt-5 pb-5">
-        <div class="container">
+    <div class="pt-18 pb-5">
+        <div class="container-fluid px-12">
             <!-- User info -->
 
             @include('recruiters.inc.user_info')

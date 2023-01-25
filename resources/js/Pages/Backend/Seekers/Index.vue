@@ -45,7 +45,8 @@
                     <thead class="table-light">
                     <tr class="">
                         <th class="sorting">About</th>
-                        <th class="sorting">Job Ty0pe</th>
+                        <th class="sorting">Profile Complate</th>
+                        <th class="sorting">Job Type</th>
                         <th class="sorting">Address</th>
                         <th class="sorting">Status</th>
                         <th class="sorting">Join Date</th>
@@ -58,42 +59,62 @@
                             <div class="d-flex justify-content-left align-items-center">
                                 <div class="avatar-wrapper">
                                     <div class="avatar  me-1">
-                                        <img :src="seeker.photo"
-                                             :alt="seeker.name" height="32" width="32">
+                                        <img :src="seeker?.photo"
+                                             :alt="seeker?.name" height="32" width="32">
                                     </div>
                                 </div>
                                 <div class="d-flex flex-column">
                                     <div class="admin_name text-truncate text-body">
-                                        <span class="fw-bolder">{{ seeker.name }}</span>
+                                        <span class="fw-bolder">{{ seeker?.name }}</span>
                                     </div>
-                                    <small class="emp_post text-muted">{{seeker.email }}</small>
-                                    <small class="text-muted">{{ seeker.phone }}</small>
+                                    <small class="emp_post text-muted">{{seeker?.email }}</small>
+                                    <small class="text-muted">{{ seeker?.phone }}</small>
                                 </div>
                             </div>
                         </td>
-                        <td>Looking <strong>{{ seeker.seeker?.types}}</strong> jobs <br><strong>{{ seeker.seeker?.exp_min_sal }} - {{ seeker.seeker?.exp_max_sal}} Alp </strong> per year</td>
-                        <td>{{ seeker.seeker?.district.name }}, {{ seeker.seeker?.division.name }}</td>
+                        <td>
+                            <div class="col mb-2">
+                                <p class="mb-50"> Complate {{ seeker.profile_complete }}%</p>
+                                <div class="progress" :class="{
+                                    'progress-bar-danger'  : seeker.profile_complete <= 25,
+                                    'progress-bar-warning' : seeker.profile_complete <= 50,
+                                    'progress-bar-info'    : seeker.profile_complete <= 75,
+                                    'progress-bar-success' : seeker.profile_complete <= 100
+                                }" style="height: 6px">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        aria-valuenow="50"
+                                        aria-valuemin="50"
+                                        aria-valuemax="100"
+                                        :style="{width: seeker.profile_complete + '%'}"
+                                    ></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Looking <strong>{{ seeker?.seeker?.types}}</strong> jobs <br><strong>{{ seeker?.seeker?.exp_min_sal }} - {{ seeker?.seeker?.exp_max_sal}} L </strong> per year</td>
+                        <td>{{ seeker?.seeker?.district.name }}, {{ seeker?.seeker?.division.name }}</td>
                         <td>
                             <div>
                                 <div class="d-flex align-items-center">
-                                    A/S:
-                                    <div class="form-check form-check-success" v-if="seeker.a_status">
-                                        <input type="radio" :id="`customColorRadio ${seeker.id}`" class="form-check-input" checked="">
-                                        <label class="form-check-label" :for="`customColorRadio${seeker.id}`">Active</label>
+                                    <vue-feather  :class="{'text-info': seeker?.a_status, 'text-danger': !seeker?.a_status, }" type="user-check" size="14"/>
+                                    <div class="form-check form-check-success ms-1" v-if="seeker?.a_status">
+                                        <input type="radio" :id="`customColorRadio ${seeker?.id}`" class="form-check-input" checked="">
+                                        <label class="form-check-label" :for="`customColorRadio${seeker?.id}`">Active</label>
                                     </div>
-                                    <div class="form-check form-check-danger" v-else>
-                                        <input type="radio" :id="`customColorRadio ${seeker.id}`" class="form-check-input" checked="">
-                                        <label class="form-check-label" :for="`customColorRadio${seeker.id}`">Inactive</label>
+                                    <div class="form-check form-check-danger ms-1" v-else>
+                                        <input type="radio" :id="`customColorRadio ${seeker?.id}`" class="form-check-input" checked="">
+                                        <label class="form-check-label" :for="`customColorRadio${seeker?.id}`">Inactive</label>
                                     </div>
                                 </div>
 
                                 <div class="d-flex align-items-center">
-                                    V/S:
-                                    <div class="form-check form-check-primary" v-if="seeker.v_status">
-                                        <input type="radio" :id="`customColorRadio ${seeker.id}`" class="form-check-input" checked="">
-                                        <label class="form-check-label" :for="`customColorRadio${seeker.id}`">Verified</label>
+                                    <vue-feather  :class="{'text-primary': seeker?.v_status, 'text-danger': !seeker?.v_status, }" type="phone" size="14"/>
+                                    <div class="form-check form-check-primary ms-1" v-if="seeker?.v_status">
+                                        <input type="radio" :id="`customColorRadio ${seeker?.id}`" class="form-check-input" checked="">
+                                        <label class="form-check-label" :for="`customColorRadio${seeker?.id}`">Verified</label>
                                     </div>
-                                    <div class="form-check form-check-danger" v-else>
+                                    <div class="form-check form-check-danger ms-1" v-else>
                                         <input type="radio" :id="`customColorRadio ${seeker.id}`" class="form-check-input" checked="">
                                         <label class="form-check-label" :for="`customColorRadio${seeker.id}`">Not-Verified</label>
                                     </div>

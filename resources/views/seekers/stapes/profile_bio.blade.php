@@ -43,7 +43,7 @@
                         @csrf
                         <div class="card mb-3 ">
                             <div class="card-header border-bottom px-4 py-3">
-                                <h4 class="mb-0">Need a job ?</h4>
+                                <h4 class="mb-0">Give your more details.</h4>
                             </div>
                             <!-- Card body -->
                             <div class="card-body">

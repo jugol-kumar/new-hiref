@@ -35,4 +35,23 @@ class Properties
 
     public static $initMessage = "this is initials message";
 
+
+    public static $jobPlaceholder =  "*** N.B: Please Clear This Section Before Write Your Job Descriptions.
+                                                <br>
+                                                <br>
+
+                                                <h2>Suggestion For Writing Job Content</h2>
+                                                <br>
+                                                <p>An accurate job description can help you much with <br>
+                                                    the right candidate. Don't provide your phone number
+                                                or any other contact information.</p>
+                                                <br>
+                                                <ul>
+                                                    <li>Company Introductions</li>
+                                                    <li>Job Type & Location</li>
+                                                    <li>Key Responsibility</li>
+                                                    <li>Candidates Qualifications</li>
+
+                                                </ul>";
+
 }

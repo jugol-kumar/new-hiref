@@ -198,6 +198,7 @@ class User extends Authenticatable
         $this->recruiter?->emp_size        != null ? $staus += 10 : $staus += 0;
         $this->recruiter?->company_address != null ? $staus += 10 : $staus += 0;
         $this->recruiter?->designation     != null ? $staus += 10 : $staus += 0;
+        $this->is_verified ? $staus += 20 : $staus += 0;
 
         return $staus;
     }

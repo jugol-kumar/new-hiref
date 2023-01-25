@@ -13,18 +13,23 @@ class FrontendJobController extends Controller
 
 
     public function singleJob($slug){
+        //return $slug;
         $job = Job::with(['companyDetails', 'user'])->withCount('messageDetails')
             ->where('slug', $slug)->first();
+
         $job->show_count += 1;
         $job->update();
 
+        $applyStatus = 0;
         if (Auth::check() && Auth::user()->role == Properties::$seeker){
             Auth::user()->seeker->view_jobs += 1;
             Auth::user()->seeker->update();
+            $user = User::findOrFail(Auth::id())->load('appliedJobs');
+            $applyStatus = $user->appliedJobs->whereIn("id", $job->id)->count();
         }
 
-        $user = User::findOrFail(Auth::id())->load('appliedJobs');
-        $applyStatus = $user->appliedJobs->whereIn("id", $job->id)->count();
+
+
         return view('frontend.single_job', compact('job', 'applyStatus'));
     }
 

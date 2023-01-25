@@ -7,12 +7,30 @@
                             <div class="d-flex justify-content-between flex-column col-xl-6 col-21">
                                 <div class="d-flex justify-content-start">
                                                 <span class="b-avatar badge-light-danger rounded">
-                                                    <img class="rounded me-2"  style="width: 140px;height: 140px;" :src="seeker.photo" alt="avatar">
+                                                    <img class="rounded me-2"  style="width: 140px;height: 140px;" :src="seeker?.photo" alt="avatar">
                                                 </span>
                                     <div class="d-flex flex-column ml-1">
                                         <div class="mb-1">
-                                            <h4 class="mb-0"> {{ seeker.name }} </h4>
-                                            <span class="card-text">{{ seeker.email }}</span>
+                                            <h4 class="mb-0"> {{ seeker?.name }} </h4>
+                                            <span class="card-text">{{ seeker?.email }}</span>
+                                            <div class="col mt-2">
+                                                <p class="mb-50">Profile Complate {{ seeker?.profile_complete }}%</p>
+                                                <div class="progress" :class="{
+                                                        'progress-bar-danger'  : seeker?.profile_complete <= 25,
+                                                        'progress-bar-warning' : seeker?.profile_complete <= 50,
+                                                        'progress-bar-info'    : seeker?.profile_complete <= 75,
+                                                        'progress-bar-success' : seeker?.profile_complete <= 100
+                                                    }" style="height: 6px">
+                                                    <div
+                                                        class="progress-bar"
+                                                        role="progressbar"
+                                                        aria-valuenow="50"
+                                                        aria-valuemin="50"
+                                                        aria-valuemax="100"
+                                                        :style="{width: seeker?.profile_complete + '%'}"
+                                                    ></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -29,7 +47,7 @@
                                             </svg>
                                             <span class="ms-1 font-weight-bold">Username</span>
                                         </th>
-                                        <td class="pb-50"> {{ seeker.name }} </td>
+                                        <td class="pb-50"> {{ seeker?.name }} </td>
                                     </tr>
                                     <tr>
                                         <th class="pb-50">
@@ -40,7 +58,7 @@
                                             </svg>
                                             <span class="ms-1 font-weight-bold">Activation Status</span>
                                         </th>
-                                        <td class="pb-50 text-capitalize"> <span class="badge" :class="seeker.is_active ? 'bg-success' : 'bg-danger'">{{ seeker.is_active ? "Active" : "Inactive"}}</span> </td>
+                                        <td class="pb-50 text-capitalize"> <span class="badge" :class="seeker?.is_active ? 'bg-success' : 'bg-danger'">{{ seeker?.is_active ? "Active" : "Inactive"}}</span> </td>
                                     </tr>
                                     <tr>
                                         <th class="pb-50">
@@ -51,7 +69,7 @@
                                             </svg>
                                             <span class="ms-1 font-weight-bold">Role</span>
                                         </th>
-                                        <td class="pb-50 text-capitalize"> {{ seeker.role }} </td>
+                                        <td class="pb-50 text-capitalize"> {{ seeker?.role }} </td>
                                     </tr>
                                     <tr>
                                         <th class="pb-50">
@@ -63,7 +81,7 @@
                                             </svg>
                                             <span class="ms-1 font-weight-bold">Address</span>
                                         </th>
-                                        <td class="pb-50"> {{ seeker.seeker.district.name }}, {{ seeker.seeker.division.name }}</td>
+                                        <td class="pb-50"> {{ seeker?.seeker?.district.name }}, {{ seeker?.seeker?.division.name }}</td>
                                     </tr>
                                     <tr>
                                         <th>
@@ -74,7 +92,7 @@
                                             </svg>
                                             <span class="ms-1 font-weight-bold">Contact</span>
                                         </th>
-                                        <td>{{ seeker.phone }}</td>
+                                        <td>{{ seeker?.phone }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -90,7 +108,7 @@
             <div class="card mb-4">
                 <div class="card-body text-center p-0 counter_card">
                     <h4 class="mt-3">Viewed Jobs</h4>
-                    <p>{{ seeker.seeker?.view_jobs ?? 0}}</p>
+                    <p>{{ seeker?.seeker?.view_jobs ?? 0}}</p>
                 </div>
             </div>
         </div>
@@ -127,7 +145,7 @@
             <div class="card bg-gradient-top bg-gradient-success">
                 <div class="card-body">
                     <h2 class="card-title">Date Of Birth</h2>
-                    <p class="ms-2 fw-semibold">{{ date(seeker.seeker?.end_date)+"-"+date(seeker.seeker?.start_date) }} years</p>
+                    <p class="ms-2 fw-semibold">{{ date(seeker?.seeker?.end_date)+"-"+date(seeker?.seeker?.start_date) }} years</p>
                 </div>
             </div>
         </div>
@@ -135,7 +153,7 @@
             <div class="card bg-gradient-top bg-gradient-primary">
                 <div class="card-body">
                     <h2 class="card-title">Date Of Birth</h2>
-                    <p class="ms-2 fw-semibold">{{ date(seeker.seeker?.end_date)+"-"+date(seeker.seeker?.start_date) }} years</p>
+                    <p class="ms-2 fw-semibold">{{ date(seeker?.seeker?.end_date)+"-"+date(seeker?.seeker?.start_date) }} years</p>
                 </div>
             </div>
         </div>
@@ -143,7 +161,7 @@
             <div class="card bg-light-gradient-bottom bg-gradient-info">
                 <div class="card-body">
                     <h2 class="card-title">Date Of Birth</h2>
-                    <p class="ms-2 fw-semibold">{{ date(seeker.seeker?.end_date)+"-"+date(seeker.seeker?.start_date) }} years</p>
+                    <p class="ms-2 fw-semibold">{{ date(seeker?.seeker?.end_date)+"-"+date(seeker?.seeker?.start_date) }} years</p>
                 </div>
             </div>
         </div>
@@ -154,15 +172,15 @@
                 <div class="card-body">
                     <h2 class="d-flex align-items-center text-black-50 mb-1">Job Preference</h2>
                     <div class="d-flex align-items-center justify-content-between">
-                        <h3 class="text-capitalize">{{ seeker.category }}</h3>
-                        <h5>{{ seeker.seeker?.exp_min_sal }} LPA- {{ seeker.seeker?.exp_max_sal }}LPA</h5>
+                        <h3 class="text-capitalize">{{ seeker?.category }}</h3>
+                        <h5>{{ seeker?.seeker?.exp_min_sal }} LPA- {{ seeker?.seeker?.exp_max_sal }}LPA</h5>
                     </div>
-                    <p class="mb-0 pb-0">{{ seeker.seeker?.types }}</p>
-                    <p class="my-0 py-0">{{ seeker.seeker?.division.name }}, {{ seeker.seeker?.district.name }}</p>
+                    <p class="mb-0 pb-0">{{ seeker?.seeker?.types }}</p>
+                    <p class="my-0 py-0">{{ seeker?.seeker?.division.name }}, {{ seeker?.seeker?.district.name }}</p>
                     <hr class="my-1">
                     <div class="d-flex flex-column">
                         <div class="">
-                            Job Category : <span class="badge border-success text-success">{{ seeker.seeker.category.name }}</span>
+                            Job Category : <span class="badge border-success text-success">{{ seeker?.seeker?.category.name }}</span>
                         </div>
                         <div class="">
                             Sub Categories: <span class="badge border-warning text-warning" v-for="cat in subCats">{{ cat.name }}</span>
@@ -179,11 +197,11 @@
                 <div class="card-body">
                     <h2 class="d-flex align-items-center text-black-50 mb-1">Working Experience</h2>
                     <div class="d-flex align-items-center justify-content-start">
-                        <h3 class="text-capitalize">{{ seeker.company_name }}</h3>
-                        <h5>{{ date(seeker.seeker?.start_date) }} - {{ date(seeker.seeker?.end_date) }}</h5>
+                        <h3 class="text-capitalize">{{ seeker?.company_name }}</h3>
+                        <h5>{{ date(seeker?.seeker?.start_date) }} - {{ date(seeker?.seeker?.end_date) }}</h5>
                     </div>
-                    <p class="mb-0 pb-0">{{ seeker.seeker?.designation }}</p>
-                    <p class="mt-1">{{ seeker.seeker?.experience }}</p>
+                    <p class="mb-0 pb-0">{{ seeker?.seeker?.designation }}</p>
+                    <p class="mt-1">{{ seeker?.seeker?.experience }}</p>
                 </div>
             </div>
         </div>
@@ -193,10 +211,10 @@
                 <div class="card-body">
                     <h2 class="d-flex align-items-center text-black-50 mb-1">Education</h2>
                     <div class="d-flex align-items-center justify-content-between">
-                        <h3 class="text-capitalize">{{ seeker.seeker?.university }}</h3>
-                        <h5>{{ date(seeker.seeker?.uni_start_date) }} - {{ date(seeker.seeker?.uni_end_date) }}</h5>
+                        <h3 class="text-capitalize">{{ seeker?.seeker?.university }}</h3>
+                        <h5>{{ date(seeker?.seeker?.uni_start_date) }} - {{ date(seeker?.seeker?.uni_end_date) }}</h5>
                     </div>
-                    <p class="mb-0 pb-0">{{ seeker.seeker?.education_level?.label }} / {{ seeker.seeker?.educaiton?.education_name }}</p>
+                    <p class="mb-0 pb-0">{{ seeker?.seeker?.education_level?.label }} / {{ seeker?.seeker?.educaiton?.education_name }}</p>
                 </div>
             </div>
         </div>
@@ -214,7 +232,7 @@
                                     <vue-feather type="file-text"/>
                                 </a>
                                 <h4 class="list-group-item-heading">
-                                    <a :href="resume" target="_blank">{{ seeker.name+"CV-Resume.PDF" }}</a>
+                                    <a :href="resume" target="_blank">{{ seeker?.name+"CV-Resume.PDF" }}</a>
                                 </h4>
                             </div>
                         </div>
@@ -243,7 +261,7 @@
                     <h2 class="d-flex align-items-center text-black-50 mb-1">
                         Protfollue
                     </h2>
-                    <a :href="seeker.portfolio_url" target="_blank">{{ seeker.portfolio_url }}</a>
+                    <a :href="seeker?.portfolio_url" target="_blank">{{ seeker?.portfolio_url }}</a>
                 </div>
             </div>
         </div>

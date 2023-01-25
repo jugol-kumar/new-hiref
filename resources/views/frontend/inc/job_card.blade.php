@@ -6,7 +6,7 @@
             <div class="d-md-flex">
                 <div class="mb-3 mb-md-0">
                     <!-- Img -->
-                    <img src="{{ config("app.url")."/storage/".$job->companyDetails?->photos[0]?->filename }}"
+                    <img src="{{ config("app.url")."/storage/".$job->companyDetails?->photos[1]?->filename }}"
                          width="68" height="68"
                          alt="{{ config("app.name") }}" class="icon-shape border rounded">
                 </div>
@@ -72,7 +72,7 @@
                             </span>
                             <span class="me-2 d-flex">
                                 <i class="mdi mdi-note-outline"></i>
-                                <span class="ms-1 text-capitalize">
+                                <span class="ms-1 text-capitalize fs-6">
                                     {!! Str::limit($job->job_details, 90) !!}
                                 </span>
                             </span>

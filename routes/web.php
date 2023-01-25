@@ -1,44 +1,37 @@
 <?php
 
-use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Admin\BusinessSettingController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EducationController;
+use App\Http\Controllers\Admin\EducationLavelController;
+use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\RecruiterJobController;
+use App\Http\Controllers\Admin\SeekerJobController;
+use App\Http\Controllers\Admin\SubCategoryController;
+
+use App\Http\Controllers\Recruiters\RecruitersJobController;
+
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DownloadFileController;
-use App\Http\Controllers\EducationController;
-use App\Http\Controllers\EducationLavelController;
 use App\Http\Controllers\FrontendCompanyController;
 use App\Http\Controllers\FrontendJobController;
-use App\Http\Controllers\JobController;
 use App\Http\Controllers\MessangerController;
-use App\Http\Controllers\RecruiterJobController;
+use App\Http\Controllers\Recruiters\RecruitersController;
 use App\Http\Controllers\RecruitersCompanyController;
-use App\Http\Controllers\RecruitersController;
 use App\Http\Controllers\RecruitersProfileController;
 use App\Http\Controllers\SeekerController;
-use App\Http\Controllers\SeekerJobController;
 use App\Http\Controllers\SeekerProfileController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ZoomController;
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\LessonController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MocktestController;
-use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\SubCategoryController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ChildCategoryController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PayPalPaymentController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -161,6 +154,7 @@ Route::middleware('auth')->group(function () {
             Route::get('view-single-recruiters/{id}', [RecruiterJobController::class, 'singleRecruiters'])->name('singleRecruiters');
             Route::get('recruiters/change-activation-status/{id}/{status}', [RecruiterJobController::class, 'changeAStatus'])->name('changeAStatus');
             Route::post('recruiters/change-status', [RecruiterJobController::class, 'changeStatus'])->name('changeStatus');
+            Route::delete('recruiters/delete/{id}', [RecruiterJobController::class, 'deleteRecruiters'])->name('deleteRecruiters');
 
             Route::resource('blogs', BlogController::class);
             Route::post('blogs/update/{id}', [BlogController::class, 'updateBlog'])->name('blogs.update_blog');
@@ -197,13 +191,13 @@ Route::middleware('auth')->group(function () {
 
             Route::get('dashboard', [DashboardController::class, 'recruiters'])->name('dashboard');
 
-            Route::get('jobs', [RecruitersController::class, 'allJobs'])->name('allJobs');
-            Route::get('jobs/create-job', [RecruitersController::class, 'createJob'])->name('createJob');
-            Route::post('jobs/post-new-job', [RecruitersController::class, 'storeJob'])->name('storeJob');
-            Route::delete('jobs/delete-job/{id}', [RecruitersController::class, 'deleteJob'])->name('deleteJob');
-            Route::get('jobs/edit-single-job/{job_slug}', [RecruitersController::class, 'editJob'])->name('editJob');
-            Route::put('jobs/update-single-job/{id}', [RecruitersController::class, 'updateJob'])->name('updateJob');
-            Route::post('change-job-status', [RecruitersController::class, 'updateJobStatus'])->name('updateJobStatus');
+            Route::get('jobs', [RecruitersJobController::class, 'allJobs'])->name('allJobs');
+            Route::get('jobs/create-job', [RecruitersJobController::class, 'createJob'])->name('createJob');
+            Route::post('jobs/post-new-job', [RecruitersJobController::class, 'storeJob'])->name('storeJob');
+            Route::delete('jobs/delete-job/{id}', [RecruitersJobController::class, 'deleteJob'])->name('deleteJob');
+            Route::get('jobs/edit-single-job/{job_slug}', [RecruitersJobController::class, 'editJob'])->name('editJob');
+            Route::put('jobs/update-single-job/{id}', [RecruitersJobController::class, 'updateJob'])->name('updateJob');
+            Route::post('change-job-status', [RecruitersJobController::class, 'updateJobStatus'])->name('updateJobStatus');
 
             Route::get('get-applied-seekers', [RecruitersController::class, 'appliedSeekers'])->name('appliedSeekers');
             Route::get('applicand-profile', [RecruitersController::class, 'appliendSeekerProfile'])->name('appliendSeekerProfile');
@@ -287,6 +281,9 @@ Route::middleware('auth')->group(function () {
 
             Route::view('social-media-url-profile', 'seekers.profile.socal_profile')->name('socialProfile');
             Route::post('update-social-profile', [SeekerProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
+
+            Route::post('send-message', [MessangerController::class, 'send'])->name('sendMessage');
+
         });
     });
 

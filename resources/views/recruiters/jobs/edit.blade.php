@@ -25,6 +25,7 @@
                 </div>
             </div>
         </div>
+        {{ $job }}
         <!-- Page Content -->
         <div class="pb-12">
             <div class="container">
@@ -88,7 +89,7 @@
                                                     <select class="selectpicker" data-width="100%" name="category_id" onchange="subCateory(this)">
                                                         <option selected disabled  value="">Select category</option>
                                                         @foreach($categories as $cat)
-                                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                            <option {{ $cat->id == $job->category_id ? 'selected' : '' }} value="{{ $cat->id }}">{{ $cat->name."/".$cat->id }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('category_id')
@@ -97,7 +98,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="row">
-                                                        <div class="col" id="subCategory-card" style="display: none">
+                                                        <div class="col" id="subCategory-card" style="display: block" }>
                                                             <label class="form-label">Job category</label>
                                                             <select name="sub_category_id" class="selectpicker" data-width="100%"
                                                                     onchange="childCategory(this)"  id="sub_category" >

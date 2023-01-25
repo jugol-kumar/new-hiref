@@ -51,7 +51,7 @@
                                 <div class="d-lg-flex">
                                     <div>
                                         <a href="#" target="_blank">
-                                            <img src="{{ config("app.url")."/storage/".$company->photos[0]->filename}}"
+                                            <img src="{{ config("app.url")."/storage/".$company->photos[1]->filename}}"
                                                  height="70"
                                                  alt="{{ config("app.name") }}" class="rounded img-4by3-lg">
                                         </a>
@@ -129,13 +129,13 @@
             <!-- card body -->
             <div class="container">
                 <!-- form -->
-                <form action="{{ route('recruiter.saveCompany') }}" method="post" enctype="multipart/form-data">
+                <form id="company_details" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row" >
                         <!-- form group -->
                         <div class="mb-3 col-6">
                             <label class="form-label">Company Name<span class="text-danger">*</span></label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter company name" required>
+                            <input type="text" id="name" name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter company name" required>
 
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
@@ -144,7 +144,7 @@
                         <!-- form group -->
                         <div class="mb-3 col-6">
                             <label class="form-label">Company Type<span class="text-danger">*</span></label>
-                            <input type="text" name="type" class="form-control" placeholder="Enter company type" required>
+                            <input type="text" name="type" class="form-control" value="{{ old('type') }}"  placeholder="Enter company type" required>
 
                             @error('type')
                             <span class="text-danger">{{ $message }}</span>
@@ -153,7 +153,7 @@
                         <!-- form group -->
                         <div class="mb-3 col-6">
                             <label class="form-label">Company Email<span class="text-danger">*</span></label>
-                            <input type="email" name="email" class="form-control" placeholder="example@companyname.domain" required>
+                            <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="example@companyname.domain" required>
 
                             @error('email')
                             <span class="text-danger">{{ $message }}</span>
@@ -162,7 +162,7 @@
                         <!-- form group -->
                         <div class="mb-3 col-6">
                             <label class="form-label">Company Phone<span class="text-danger">*</span></label>
-                            <input type="text" name="phone" class="form-control" placeholder="+8801*-********" required>
+                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control" placeholder="+8801*-********" required>
                             @error('phone')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -171,21 +171,19 @@
                         <div class="mb-3 col-md-6 col-12">
                             <label class="form-label">Start Date <span class="text-danger">*</span></label>
                             <div class="input-group me-3">
-                                <input name="starting_date" class="form-control flatpickr" type="text" placeholder="Select Date"
+                                <input name="starting_date" value="{{ old('starting_date') }}" class="form-control flatpickr" type="text" placeholder="Select Date"
                                        aria-describedby="basic-addon2">
-                                @error('starting_date')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-
                                 <span class="input-group-text text-muted" id="basic-addon2"><i
                                         class="fe fe-calendar"></i></span>
-
                             </div>
+                            @error('starting_date')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <!-- form group -->
                         <div class="mb-3 col-6">
                             <label class="form-label">Employee Size<span class="text-danger">*</span></label>
-                            <input type="text" name="employee_size" class="form-control" placeholder="Employee size" required>
+                            <input type="text" name="employee_size" value="{{ old('employee_size') }}"  class="form-control" placeholder="e.g 50-100 / 50 to 100" required>
                             @error('employee_size')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -193,7 +191,7 @@
                         <!-- form group -->
                         <div class="mb-3 col">
                             <label class="form-label">Website<span class="text-danger">*</span></label>
-                            <input type="text" name="website" class="form-control" placeholder="https://www.example.info" required>
+                            <input type="text" name="website" value="{{ old('website') }}" class="form-control" placeholder="{{ config('app.url') }}" required>
                             @error('website')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -201,7 +199,8 @@
                         <div class="mb-3 col-12">
                             <label class="form-label">Address<span class="text-danger">*</span></label>
                             <input type="text" name="address" class="form-control"
-                                   placeholder="The Imperial Irish Kingdom, Mo-03 (3rd Floor), Merul Badda, Dhaka 1212" required>
+                                   value="{{ old('address') }}"
+                                   placeholder="{{ get_setting('address') }}" required>
                             @error('address')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -209,24 +208,28 @@
                         <!-- form group -->
                         <div class="mb-3 col-12">
                             <label class="form-label">Description <small>(Max 400)</small></label>
-                            <textarea name="details" class="form-control" placeholder="Enter simple descriptions......" rows="3"></textarea>
+                            <textarea name="details" class="form-control"
+                                      value="{{ old('details') }}"
+                                      placeholder="Enter simple descriptions......" rows="3"></textarea>
                             @error('details')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-md-4 col-12 mb-4">
-                            <div class="logoSection">
+
+                            <div class="col-md-4 col-12 mb-4 logoSection d-flex flex-column">
                                 <!-- logo -->
                                 <h5 class="mb-3">Company Logo <a href="https://worldvectorlogo.com/" target="_blank"><i class="fe fe-external-link"></i></a></h5>
                                 <div class="icon-shape icon-xxl border rounded position-relative">
                                     <span class="position-absolute imageShow"> <i class="bi bi-image fs-3  text-muted"></i></span>
-                                    <input name="logo" class="form-control border-0 opacity-0 uploadFile" type="file" >
-                                    @error('logo')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    <input name="logo"
+                                           value="{{ old('logo') }}"
+                                           class="form-control border-0 opacity-0 uploadFile" type="file" >
+
                                 </div>
                             </div>
-                        </div>
+                            @error('logo')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
 
                         <div class="col-md-8 col-12 mb-4">
                             <div class="logoSection">
@@ -234,12 +237,14 @@
                                 <h5 class="mb-3">Background Image </h5>
                                 <div class="icon-shape border rounded position-relative h-10rem">
                                     <span class="position-absolute imageShow"> <i class="bi bi-image fs-1  text-muted"></i></span>
-                                    <input name="cover" class="form-control border-0 opacity-0 uploadFile" type="file" >
-                                    @error('cover')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    <input name="cover"
+                                           value="{{ old('cover') }}"
+                                           class="form-control border-0 opacity-0 uploadFile" type="file" >
                                 </div>
                             </div>
+                            @error('cover')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-8"></div>
                         <!-- button -->
@@ -289,5 +294,45 @@
 
             });
         });
+
+        let canvas = new bootstrap.Offcanvas('#offcanvasRight')
+
+        $('#company_details').on('submit', function(event){
+            event.preventDefault();
+            $.ajax({
+                url: `{{ route('recruiter.saveCompany') }}`,
+                method:"POST",
+                data:new FormData(this),
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success:function(res)
+                {
+                    canvas.hide();
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Company Successfully Added....'
+                    })
+                    location.reload();
+                },
+                error:function (res){
+                    Toast.fire({
+                        icon: 'error',
+                        title: res.responseJSON.message,
+                    })
+                    console.log(res)
+                    $.each(res.responseJSON.errors, function (key, value) {
+                        if (key === 'logo' || key === 'cover'){
+                            $(`input[name=${key}]`).parent().parent().append(`<span class="text-danger"> ${value} </span>`);
+                        }else{
+                            $(`input[name=${key}]`).parent().append(`<span class="text-danger"> ${value} </span>`);
+                        }
+                    });
+                }
+            })
+        });
+
+
     </script>
 @endpush

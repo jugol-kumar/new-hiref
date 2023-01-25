@@ -4,7 +4,7 @@
         <div class="mb-3 mb-md-0">
             <!-- Img -->
             <div class="avatar avatar-xl">
-                <img :src="`${this.$page.props.MAIN_URL}/storage/${job.job?.company.photos[0].filename}`" alt="Laravel UI - Bootstrap 5 Template" class="icon-shape border rounded-circle">
+                <img :src="`${this.$page.props.MAIN_URL}/storage/${job.job?.company.photos[1].filename}`" alt="Laravel UI - Bootstrap 5 Template" class="icon-shape border rounded-circle">
             </div>
         </div>
         <!-- text -->

@@ -47,6 +47,7 @@
                         <th class="sorting">About</th>
                         <th class="sorting">Status</th>
                         <th class="sorting">Profile Status</th>
+                        <th class="sorting">Profile Compate</th>
                         <th class="sorting">Join Date</th>
                         <th class="sorting">Actions</th>
                     </tr>
@@ -73,27 +74,47 @@
                         <td>
                             <div>
                                 <div class="d-flex align-items-center">
-                                    A/S:
-                                    <div class="form-check form-check-success" v-if="recruiter.a_status">
+                                    <vue-feather :class="{'text-success': recruiter.a_status, 'text-warning': !recruiter.a_status, }" type="user-check" size="14"/>
+                                    <div class="form-check form-check-success ms-1" v-if="recruiter.a_status">
                                         <input type="radio" :id="`customColorRadio ${recruiter.id}`" class="form-check-input" checked="">
                                         <label class="form-check-label" :for="`customColorRadio${recruiter.id}`">Active</label>
                                     </div>
-                                    <div class="form-check form-check-danger" v-else>
+                                    <div class="form-check form-check-danger ms-1" v-else>
                                         <input type="radio" :id="`customColorRadio ${recruiter.id}`" class="form-check-input" checked="">
                                         <label class="form-check-label" :for="`customColorRadio${recruiter.id}`">Inactive</label>
                                     </div>
                                 </div>
 
                                 <div class="d-flex align-items-center">
-                                    V/S:
-                                    <div class="form-check form-check-primary" v-if="recruiter.v_status">
+                                    <vue-feather  :class="{'text-info': recruiter.v_status, 'text-danger': !recruiter.v_status, }" type="phone" size="14"/>
+                                    <div class="form-check form-check-primary ms-1" v-if="recruiter.v_status">
                                         <input type="radio" :id="`customColorRadio ${recruiter.id}`" class="form-check-input" checked="">
                                         <label class="form-check-label" :for="`customColorRadio${recruiter.id}`">Verified</label>
                                     </div>
-                                    <div class="form-check form-check-danger" v-else>
+                                    <div class="form-check form-check-danger ms-1" v-else>
                                         <input type="radio" :id="`customColorRadio ${recruiter.id}`" class="form-check-input" checked="">
                                         <label class="form-check-label" :for="`customColorRadio${recruiter.id}`">Not-Verified</label>
                                     </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col mb-2">
+                                <p class="mb-50"> Complate {{ recruiter?.profile_complete }}%</p>
+                                <div class="progress" :class="{
+                                    'progress-bar-danger'  : recruiter?.profile_complete <= 25,
+                                    'progress-bar-warning' : recruiter?.profile_complete <= 50,
+                                    'progress-bar-info'    : recruiter?.profile_complete <= 75,
+                                    'progress-bar-success' : recruiter?.profile_complete <= 100
+                                }" style="height: 6px">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        aria-valuenow="50"
+                                        aria-valuemin="50"
+                                        aria-valuemax="100"
+                                        :style="{width: recruiter?.profile_complete + '%'}"
+                                    ></div>
                                 </div>
                             </div>
                         </td>

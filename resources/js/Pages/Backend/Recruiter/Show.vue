@@ -13,6 +13,24 @@
                                         <div class="mb-1">
                                             <h4 class="mb-0"> {{ recruiter.name }} </h4>
                                             <span class="card-text">{{ recruiter.email }}</span>
+                                            <div class="col mt-2">
+                                                <p class="mb-50">Profile Complate {{ recruiter?.profile_complete }}%</p>
+                                                <div class="progress" :class="{
+                                                        'progress-bar-danger'  : recruiter?.profile_complete <= 25,
+                                                        'progress-bar-warning' : recruiter?.profile_complete <= 50,
+                                                        'progress-bar-info'    : recruiter?.profile_complete <= 75,
+                                                        'progress-bar-success' : recruiter?.profile_complete <= 100
+                                                    }" style="height: 6px">
+                                                    <div
+                                                        class="progress-bar"
+                                                        role="progressbar"
+                                                        aria-valuenow="50"
+                                                        aria-valuemin="50"
+                                                        aria-valuemax="100"
+                                                        :style="{width: recruiter?.profile_complete + '%'}"
+                                                    ></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

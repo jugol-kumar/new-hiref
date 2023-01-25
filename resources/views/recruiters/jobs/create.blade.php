@@ -1,5 +1,12 @@
 @extends('recruiters.layout.master')
 @section('title', get_setting('name')." Recruiters Job Create")
+@push('css')
+    <style>
+        .ql-container{
+            min-height: 300px !important;
+        }
+    </style>
+@endpush
 @section('recruiter_content')
 
     <div class="col-lg-9 col-md-8 col-12">
@@ -75,21 +82,27 @@
                                             <!-- Card body -->
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="courseTitle" class="form-label">Job Title</label>
-                                                    <input name="title" id="courseTitle" class="form-control" type="text" placeholder="Enter Job Title" />
+                                                    <label for="courseTitle" class="form-label">Job Title <span class="text-danger">*</span></label>
+                                                    <input name="title" id="courseTitle"
+                                                           class="form-control" type="text"
+                                                           placeholder="e.g full time digital marketing jobs"
+                                                           value="{{ old('title') }}"
+                                                           required
+                                                    />
 
                                                     @error('title')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label class="form-label">Job category</label>
+                                                    <label class="form-label">Category <small class="text-info">(Change category for see sub-categories)</small></label>
                                                     <select class="selectpicker" data-width="100%" name="category_id" onchange="subCateory(this)">
                                                         <option selected disabled  value="">Select category</option>
                                                         @foreach($categories as $cat)
-                                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                            <option value="{{ $cat->id }}" {{ (collect(old('category_id'))->contains($cat->id)) ? 'selected':'' }}>{{ $cat->name }}</option>
                                                         @endforeach
                                                     </select>
+
                                                     @error('category_id')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -97,7 +110,7 @@
                                                 <div class="mb-3">
                                                     <div class="row">
                                                         <div class="col" id="subCategory-card" style="display: none">
-                                                            <label class="form-label">Job category</label>
+                                                            <label class="form-label">Sub category <small class="text-info">(Change category for see child-categories)</small></label>
                                                             <select name="sub_category_id" class="selectpicker" data-width="100%"
                                                                     onchange="childCategory(this)"  id="sub_category" >
                                                                 <option selected disabled  value="">Select category</option>
@@ -123,31 +136,31 @@
                                                 <div class="mb-3">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <label class="form-label">Job Type</label>
-                                                            <select name="types" class="selectpicker" data-width="100%">
+                                                            <label class="form-label">Job Type <span class="text-danger">*</span></label>
+                                                            <select name="types" class="selectpicker" required data-width="100%">
                                                                 <option value="">Select Type</option>
-                                                                <option value="Full Time">Full Time</option>
-                                                                <option value="Part Time">Part Time</option>
-                                                                <option value="Freelance">Freelance</option>
-                                                                <option value="Internship">Internship</option>
-                                                                <option value="Temporary">Temporary</option>
-                                                                <option value="Contract">Contract</option>
-                                                                <option value="Seasonal">Seasonal</option>
+                                                                <option value="Full Time" {{ old('types') == "Full Time" ? 'selected':'' }}>Full Time</option>
+                                                                <option value="Part Time" {{ old('types') == "Part Time" ? 'selected':'' }}>Part Time</option>
+                                                                <option value="Freelance" {{ old('types') == "Freelance" ? 'selected':'' }}>Freelance</option>
+                                                                <option value="Internship" {{ old('types') == "Internship" ? 'selected':'' }}>Internship</option>
+                                                                <option value="Temporary" {{ old('types') == "Temporary" ? 'selected':'' }}>Temporary</option>
+                                                                <option value="Contract" {{ old('types') == "Contract" ? 'selected':'' }}>Contract</option>
+                                                                <option value="Seasonal" {{ old('types') == "Seasonal" ? 'selected':'' }}>Seasonal</option>
                                                             </select>
                                                             @error('types')
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                         <div class="col">
-                                                            <label class="form-label">Label</label>
-                                                            <select name="label" class="selectpicker" data-width="100%">
+                                                            <label class="form-label">Label <span class="text-danger">*</span></label>
+                                                            <select name="label" class="selectpicker" required data-width="100%">
                                                                 <option value="" selected disabled>Select level</option>
-                                                                <option value="Beginner">Beginner</option>
-                                                                <option value="Junior">Junior</option>
-                                                                <option value="Mid-level">Mid-level</option>
-                                                                <option value="Senior">Senior</option>
-                                                                <option value="Lead">Lead</option>
-                                                                <option value="Manager">Manager</option>
+                                                                <option value="Beginner" {{ old('label') == "Beginner" ? 'selected':'' }}>Beginner</option>
+                                                                <option value="Junior" {{ old('label') == "Junior" ? 'selected':'' }}>Junior</option>
+                                                                <option value="Mid-level" {{ old('label') == "Mid-level" ? 'selected':'' }}>Mid-level</option>
+                                                                <option value="Senior" {{ old('label') == "Senior" ? 'selected':'' }}>Senior</option>
+                                                                <option value="Lead" {{ old('label') == "Lead" ? 'selected':'' }}>Lead</option>
+                                                                <option value="Manager" {{ old('label') == "Manager" ? 'selected':'' }}>Manager</option>
                                                             </select>
                                                             @error('label')
                                                             <span class="text-danger">{{ $message }}</span>
@@ -172,21 +185,21 @@
                                             </div>
                                             <!-- Card body -->
                                             <div class="card-body">
-
-
                                                 <div class="mb-3">
-                                                    <label class="form-label">Job Description</label>
-                                                    <textarea name="input" placeholder="Textarea" class="form-control"></textarea>
-                                                    @error('input')
-                                                    <span class="text-danger">{{ $message }}</span>
+                                                    <label class="form-label">Job Short Description <small class="text-info" style="font-size: 10px">(Max 200 Char. Describe Main Role About This Job.)</small></label>
+                                                    <textarea name="job_disc" id="job_disc" rows="8" placeholder="e.g simple about this job" class="form-control" >{{ old('job_disc') }}</textarea>
+
+                                                    Remanings <small id="remaining" class="text-danger">600</small> Characters Of / <small class="text-success"> 600</small>
+                                                    <br>
+                                                    @error('job_disc')
+                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-
-
                                                 <div class="mb-3">
-                                                    <label class="form-label">Job</label>
-                                                    <textarea name="job_details" placeholder="Textarea" class="form-control quill-editor"></textarea>
-
+                                                    <label class="form-label">Job Full Details  <small class="text-info" style="font-size: 10px">(Min 200 Char. Describe Complete Details About This Job.)</small></label>
+                                                    <textarea name="job_details"
+                                                              class="form-control quill-editor"
+                                                              rows="20">{!! old('job_details') ?? \App\Properties::$jobPlaceholder !!}</textarea>
                                                 </div>
                                                 @error('job_details')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -208,16 +221,16 @@
                                         <!-- Card -->
                                         <div class="card mb-3  border-0">
                                             <div class="card-header border-bottom px-4 py-3">
-                                                <h4 class="mb-0">Company Details</h4>
+                                                <h4 class="mb-0">Company Details </h4>
                                             </div>
                                             <!-- Card body -->
                                             <div class="card-body ">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Select Your Company</label>
+                                                    <label class="form-label">Select Your Company <small class="text-info">(Get Here Your All Added Companies)</small></label>
                                                     <select class="selectpicker" data-width="100%" name="company">
                                                         <option selected disabled  value="">Select Company</option>
                                                         @foreach($companies as $com)
-                                                            <option value="{{ $com->id }}">{{ $com->name }}</option>
+                                                            <option value="{{ $com->id }}" {{ (collect(old('company'))->contains($com->id)) ? 'selected':'' }}>{{ $com->name }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('selectpicker')
@@ -227,47 +240,50 @@
                                                 <div class="mb-3">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <label class="form-label">Start Date <span class="text-danger">*</span></label>
+                                                            <label class="form-label">Declined Date <span class="text-danger">*</span></label>
                                                             <div class="input-group me-3">
                                                                 <input class="form-control flatpickr flatpickr-input active"
                                                                        type="text" placeholder="Select Date"
                                                                        name="declined_date"
+                                                                       value="{{ old('declined_date') }}"
                                                                        aria-describedby="basic-addon2" readonly="readonly">
                                                                 <span class="input-group-text text-muted" id="basic-addon2"><i class="fe fe-calendar"></i></span>
-
-                                                                @error('declined_date')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                                @enderror
                                                             </div>
+
+                                                            @error('declined_date')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="col">
-                                                            <label class="form-label">Application target</label>
-                                                            <input name="web_address" type="text" class="form-control" placeholder="https://creativetechpark.com">
+                                                            <label class="form-label">Application target<span class="text-danger">*</span><small class="text-info">(Provide This Company Full Address)</small></label>
+                                                            <input name="web_address"
+                                                                   value="{{ old('web_address') }}"
+                                                                   type="text" class="form-control" placeholder="https://creativetechpark.com">
 
                                                             @error('web_address')
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
 
-                                                        <div class="row">
+                                                        <div class="row mt-2">
                                                             <div class="col">
-                                                                <label class="form-label">Preferred State</label>
+                                                                <label class="form-label">Preferred State <small class="text-info">(Select State For Batter Response)</small></label>
                                                                 <select class="selectpicker"
                                                                         data-live-search="true"
                                                                         name="division_id"
                                                                         onchange="getCityByState(this)" data-width="100%">
                                                                     <option value="">Select Preferred State</option>
                                                                     @foreach($states as $state)
-                                                                        <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                                        <option value="{{ $state->id }}" {{ (collect(old('division_id'))->contains($state->id)) ? 'selected':'' }}>{{ $state->name }}</option>
                                                                     @endforeach
                                                                 </select>
-                                                                @error('types')
+                                                                @error('division_id')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
 
                                                             <div class="col" id="city-card" style="display: none">
-                                                                <label class="form-label">Preferred City</label>
+                                                                <label class="form-label">Preferred City <small class="text-info">(Select City Where You Want To Employee)</small></label>
                                                                 <select name="district_id" class="selectpicker"
                                                                         data-live-search="true"
                                                                         data-width="100%"  id="city_id" >
@@ -281,8 +297,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="" class="form-label">Full Address</label>
-                                                    <textarea name="location" class="form-control" rows="5" placeholder="full address"></textarea>
+                                                    <label for="" class="form-label">Full Address <small class="text-info">(Given full address that users will see it.)</small></label>
+                                                    <textarea name="location" class="form-control" rows="5" placeholder="e.g {{ get_setting('address') }}">{{ old('location') }}</textarea>
 
                                                     @error('location')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -290,8 +306,14 @@
                                                 </div>
 
                                                 <div class="mb-3 d-flex justify-content-between">
-                                                    <div class="form-check form-switch">
-                                                        <input name="is_remote" class="form-check-input" type="checkbox" role="switch">
+                                                    <div class="form-check form-switch"
+                                                         data-toggle="tooltip"
+                                                         data-placement="top"
+                                                         title="If this job is remote position. Then Checked This Option">
+                                                        <input name="is_remote"
+                                                               {{ old('is_remote') ? 'checked' : '' }}
+                                                               class="form-check-input"
+                                                               type="checkbox" role="switch">
                                                         <label class="form-check-label">Is Remote</label>
 
                                                         @error('is_remote')
@@ -299,8 +321,13 @@
                                                         @enderror
                                                     </div>
 
-                                                    <div class="form-check form-switch">
-                                                        <input name="fultime_remote" class="form-check-input" type="checkbox" role="switch">
+                                                    <div class="form-check form-switch"
+                                                         data-toggle="tooltip"
+                                                         data-placement="top"
+                                                         title="If this job is full time position. Then Checked This Option">
+                                                        <input name="fultime_remote"
+                                                               {{ old('fultime_remote') ? 'checked' : '' }}
+                                                               class="form-check-input" type="checkbox" role="switch">
                                                         <label class="form-check-label">Is Full-time Remote</label>
 
                                                         @error('fultime_remote')
@@ -308,16 +335,26 @@
                                                         @enderror
                                                     </div>
 
-                                                    <div class="form-check form-switch">
-                                                        <input name="is_published" class="form-check-input" type="checkbox" role="switch">
+                                                    <div class="form-check form-switch"
+                                                         data-toggle="tooltip"
+                                                         data-placement="top"
+                                                         title="If this job published for publickly then chek this option...">
+                                                        <input name="is_published"
+                                                               {{ old('is_published') ? 'checked' : '' }}
+                                                               class="form-check-input" type="checkbox" role="switch">
                                                         <label class="form-check-label">Publication Status</label>
 
                                                         @error('is_published')
                                                         <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
-                                                    <div class="form-check form-switch">
-                                                        <input name="is_featured" class="form-check-input" type="checkbox" role="switch">
+                                                    <div class="form-check form-switch"
+                                                         data-toggle="tooltip"
+                                                         data-placement="top"
+                                                         title="Check this option for featured request this job... ">
+                                                        <input name="is_featured"
+                                                               {{ old('is_featured') ? 'checked' : '' }}
+                                                               class="form-check-input" type="checkbox" role="switch">
                                                         <label class="form-check-label">Featured Status</label>
 
                                                         @error('is_featured')
@@ -348,68 +385,84 @@
                                             <div class="card-body">
 
                                                 <div class="mb-3">
-                                                    <label>Experience</label>
+                                                    <label>Experience <small class="text-info">(Are you experienced or not ?.)</small></label>
                                                     <fieldset>
                                                         <div class="input-group">
                                                             <input type="number" class="form-control"
                                                                    name="min_experience"
+                                                                   value="{{ old('min_experience') }}"
                                                                    placeholder="Minimum Work Exprience" aria-label="Amount">
                                                             <input type="number" class="form-control"
                                                                    name="max_experience"
+                                                                   value="{{ old('max_experience') }}"
                                                                    placeholder="Maximum Work Exprience" aria-label="Amount">
-                                                            <select name="experience_type" class="selectpicker" placeholder="Chose Exprience Type">
+                                                            <select name="experience_type"
+                                                                    value="{{ old('experience_type') }}"
+                                                                    class="selectpicker" placeholder="Chose Exprience Type">
                                                                 <option selected value="" disabled>~~ Chose Experience Type ~~</option>
-                                                                <option value="year">Year</option>
-                                                                <option value="month">Month</option>
-                                                                <option value="days">Days</option>
+                                                                <option value="year" {{ old('experience_type') == "year" ? 'selected':'' }}>Year</option>
+                                                                <option value="month" {{ old('experience_type') == "month" ? 'selected':'' }}>Month</option>
+                                                                <option value="days" {{ old('experience_type') == "days" ? 'selected':'' }}>Days</option>
                                                             </select>
                                                         </div>
                                                     </fieldset>
-
-                                                    @error('experience_type')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                    <div class="d-flex flex-column">
+                                                        @error('min_experience')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                        @error('max_experience')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                        @error('experience_type')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
 
 
                                                 <div class="mb-3">
-                                                    <label>Experience</label>
+                                                    <label>Expected Salary <small class="text-info">(Change currency for other country job's. It's default bangladesh "TK")</small></label>
                                                     <fieldset>
                                                         <div class="input-group">
                                                             <select name="currency" class="selectpicker" placeholder="Select Currency">
                                                                 <option selected value="" disabled>~~ Select Currency ~~</option>
                                                                 @foreach($countries as $country)
-                                                                    <option value="{{ $country->id }}">{{ $country->name ."/" . $country->currency_symbol  }}</option>
+                                                                    <option value="{{ $country->id }}"
+                                                                            {{ $country->id == 19 ? 'selected' : '' }}
+                                                                        {{ (collect(old('currency'))->contains($country->id)) ? 'selected':'' }}>{{ $country->name ."/" . $country->currency_symbol  }}</option>
                                                                 @endforeach
                                                             </select>
-
-                                                            @error('currency')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
                                                             <input type="number" class="form-control"
                                                                    name="min_salary"
+                                                                   value="{{ old('min_salary') }}"
                                                                    placeholder="Minimum Work Salary" aria-label="Amount">
-
-                                                            @error('min_salary')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
                                                             <input type="number" class="form-control"
                                                                    name="max_salary"
+                                                                   value="{{ old('max_salary') }}"
                                                                    placeholder="Maximum Work Salary" aria-label="Amount">
-
-                                                            @error('max_salary')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-
                                                         </div>
                                                     </fieldset>
+
+                                                    <div class="d-flex flex-column">
+                                                        @error('currency')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+
+                                                        @error('min_salary')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+
+                                                        @error('max_salary')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <div class="row">
                                                        <div class="col">
-                                                           <label class="form-label">Hash Tag</label>
-                                                           <input name='tags' placeholder="Add has Tags" autofocus>
+                                                           <label class="form-label">Hash Tag <small class="text-info">(Enter Job Related Tag's. It's multiple)</small></label>
+                                                           <input name='tags' value="{{ old('tags') }}" placeholder="Add has Tags" autofocus>
 
                                                            @error('tags')
                                                            <span class="text-danger">{{ $message }}</span>
@@ -417,22 +470,23 @@
                                                        </div>
 
                                                        <div class="col">
-                                                           <label class="form-label">Required Skills</label>
-                                                           <input name='skills' placeholder="Required Skills" autofocus>
+                                                           <label class="form-label">Required Skills <small class="text-info">(Add some skills for required this job. It's multiple)</small></label>
+                                                           <input name='skills' value="{{ old('skills') }}" placeholder="Required Skills" autofocus>
 
                                                            @error('skills')
-                                                           <span class="text-danger">{{ $message }}</span>
+                                                            <span class="text-danger">{{ $message }}</span>
                                                            @enderror
                                                        </div>
                                                     </div>
+
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="recipient-name" class="col-form-label">Job Status</label>
+                                                    <label for="recipient-name" class="col-form-label">Job Status <small class="text-info">(Select this job status.)</small></label>
                                                     <select class="selectpicker" data-width="100%" name="job_status">
-                                                        <option value="lived" selected>Lived</option>
-                                                        <option value="joined">Joined</option>
-                                                        <option value="draft">Draft</option>
-                                                        <option value="pending">Pending</option>
+                                                        <option value="lived" selected {{ old('job_status') == "lived" ? 'selected':'' }}>Lived</option>
+                                                        <option value="joined" {{ old('job_status') == "joined" ? 'selected':'' }}>Joined</option>
+                                                        <option value="draft" {{ old('job_status') == "draft" ? 'selected':'' }}>Draft</option>
+                                                        <option value="pending" {{ old('job_status') == "pending" ? 'selected':'' }}>Pending</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -539,8 +593,6 @@
             var quill = new Quill('#' + id, {
                 modules: { toolbar: true },
                 theme: 'snow',
-
-
             });
             quill.on('text-change', function() {
                 var comment = document.querySelector('textarea[name=job_details]');
@@ -582,7 +634,9 @@
             }
         }
 
-
+        $("#job_disc").keyup(function(){
+            $("#remaining").text(600 - $(this).val().length);
+        });
     </script>
 
 

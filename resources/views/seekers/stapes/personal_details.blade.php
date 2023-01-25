@@ -628,6 +628,9 @@
                         icon: 'error',
                         title: response.responseJSON.message,
                     })
+
+
+
                     $(".print-error-msg").find("ul").empty();
                     $.each(response.responseJSON.errors,function(field_name,error){
                         $(".print-error-msg").find("ul").append('<li>'+error+'</li>');

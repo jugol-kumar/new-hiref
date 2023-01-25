@@ -19,7 +19,7 @@ class BusinessSetting extends Model
 
 
     protected $guarded = ['id'];
-
+    protected $fillable = ['type','value'];
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();

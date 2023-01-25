@@ -262,7 +262,6 @@
                     </a>
                 </div>
                 @empty
-                    <h2>no have category</h2>
                 @endforelse
                 <div class="col-md-3 col-6 mb-5">
                     <a href="{{  route('client.allCategories')  }}">
@@ -353,17 +352,18 @@
                 <div class="row mt-3">
                     <div class="col-md-12 col-12">
                         <!-- row -->
-                        <div class="row">
+                        <div class="row match-height">
                             <!-- col -->
-                            @for($i=0; $i<18; $i++)
-                            <div class="col-2 mb-5">
+                            @forelse($companies->take(30) as $company)
+                            <div class="col-2 mb-5" data-toggle="tooltip" data-placement="top" title="{{ $company->name }}">
                                 <div class="card category-card-shadow">
                                     <div class="card-body">
-                                        <img src="{{ asset("frontend") }}/assets/images/brand/gray-logo-airbnb.svg" alt="">
+                                        <img src="{{ config("app.url")."/storage/".$company?->photos[1]?->filename}}" width="100%" height="100%" alt="">
                                     </div>
                                 </div>
                             </div>
-                            @endfor
+                            @empty
+                            @endforelse
                         </div>
                     </div>
                 </div>
