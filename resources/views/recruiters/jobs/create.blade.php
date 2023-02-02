@@ -385,7 +385,7 @@
                                             <div class="card-body">
 
                                                 <div class="mb-3">
-                                                    <label>Experience <small class="text-info">(Are you experienced or not ?.)</small></label>
+                                                    <label>Experience <small class="text-info">(Are you find experienced or not ?.)</small></label>
                                                     <fieldset>
                                                         <div class="input-group">
                                                             <input type="number" class="form-control"
@@ -497,7 +497,7 @@
                                                 Previous
                                             </button>
                                             <button type="button" class="btn btn-danger mt-5 submitButton">
-                                                Submit For Review
+                                                Save This Job
                                             </button>
                                         </div>
                                     </div>

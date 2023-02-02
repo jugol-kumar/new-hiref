@@ -82,8 +82,7 @@
                                             </svg>
                                         </span>
                                                     <!-- search -->
-                                                    <input type="text" name="job_type" class="form-control rounded-pill border-0 ps-3 form-focus-none"
-                                                           placeholder="Job Title">
+                                                    <input type="text" name="job_type" class="form-control rounded-pill border-0 ps-3 form-focus-none" placeholder="Job Title">
                                                 </div>
 
                                             </div>
@@ -103,7 +102,7 @@
                                                            name="loacation"
                                                            class="form-control rounded-pill  border-0 ps-3 form-focus-none"
                                                            placeholder="Location"
-                                                           id="location_search">
+                                                           id="location_search"/>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-3  text-end d-grid">
