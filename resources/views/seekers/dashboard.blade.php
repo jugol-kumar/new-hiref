@@ -58,10 +58,10 @@
             </div>
             <!-- Table -->
             <div class="table-responsive border-0">
-                <table class="table mb-0 text-nowrap">
+                <table class="table table-striped">
                     <thead class="table-light">
                     <tr>
-                        <th scope="col" class="border-0">Jobs</th>
+                        <th  class="sorting border-0" width="50%">Jobs</th>
                         <th scope="col" class="border-0">Students</th>
                         <th scope="col" class="border-0">Applied</th>
                         <th scope="col" class="border-0" title="Publication Status">P_status</th>

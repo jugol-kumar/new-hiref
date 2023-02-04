@@ -6,9 +6,8 @@
         .before-footer{
             background-image: url("{{ asset('frontend/assets/images/footer_banner.png') }}") !important;
             height: 100%;
-            background-size: cover;
-            background-position: center center;
             min-height: 500px;
+            background-attachment: fixed !important;
         }
         .glass-text{
             background-image: url("https://source.unsplash.com/featured") !important;
@@ -35,6 +34,7 @@
         }
 
 
+
         /*(1) owl-stage box*/
         .owl-carousel .owl-stage { display: flex !important; }
         /*(2) the direct div of each element in the owl carousel*/
@@ -55,7 +55,9 @@
                     <div class="col-lg-12 col-12">
                         <div class=" text-center text-md-start">
                             <!-- heading -->
-                            <h1 class="display-1 fw-semibold  mb-3 text-center background-before header-text">Find your dream job <span class="glass-text">{{ config('app.name') }}</span>
+                            <h1 class="display-1 fw-semibold  mb-3 text-center background-before header-text">
+                                Find your dream job
+                                <p class="glass-text animate-charcter d-block mb-0">{{ config('app.name') }}</p>
                                 that you love to do.</h1>
                             <!-- lead -->
                             <p class="lead text-center text-white">The largest remote work community in the world. Sign up and post a job
@@ -234,7 +236,8 @@
 
                 </div>
                 <div class="col-md-6 col-12 h-100">
-                    <img class="float-end w-65" src="{{ asset('frontend/assets/images/home-phone.png') }}" alt="">
+                    {{--                    <img class="float-end w-65 message-pic" src="{{  asset('frontend/assets/images/model/anm-message.gif') }}" alt="">--}}
+                    <img class="float-end w-65 message-pic" src="{{ asset('frontend/assets/images/model/woman-laptop.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -248,18 +251,18 @@
             <h1 class="text-center display-3">Trending Job Categories</h1>
             <div class="row mt-5 match-height">
                 @forelse($categories->take(5) as $cat)
-                <div class="col-md-3 col-6 mb-5">
-                    <a href="">
-                        <div class="card category-card-shadow rounded-5 category-card-hover">
-                            <div class="card-body py-6">
-                                <div class="d-flex align-items-center justify-content-center flex-column">
-                                    <p class="fw-semibold fs-4 text-capitalize text-black">{{ $cat->name }}</p>
-                                    <p class="text-black-50">{{ $cat->jobs->count() }}+ jobs</p>
+                    <div class="col-md-3 col-6 mb-5">
+                        <a href="">
+                            <div class="card category-card-shadow rounded-5 category-card-hover">
+                                <div class="card-body py-6">
+                                    <div class="d-flex align-items-center justify-content-center flex-column">
+                                        <p class="fw-semibold fs-4 text-capitalize text-black">{{ $cat->name }}</p>
+                                        <p class="text-black-50">{{ $cat->jobs->count() }}+ jobs</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
                 @empty
                 @endforelse
                 <div class="col-md-3 col-6 mb-5">
@@ -291,7 +294,7 @@
                     <a href="javascript:void(0)" class="btn btn-success rounded-5 btn-sm mt-2 text-black px-5 py-2">Get Hired</a>
                 </div>
                 <div class="col-md-6 col-12 h-100">
-                    <img class="ms-10 w-65" src="{{ asset('frontend/assets/images/home-phone.png') }}" alt="">
+                    <img class="ms-10 w-65" src="{{ asset('frontend/assets/images/model/model3.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -305,7 +308,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-12 h-100">
-                    <img class="float-start w-65" src="{{ asset('frontend/assets/images/home-phone.png') }}" alt="">
+                    <img class="float-start w-65" src="{{ asset('frontend/assets/images/model/model2.png') }}" alt="">
                 </div>
                 <div class="col-md-6 col-12 d-flex align-items-start justify-content-center flex-column">
                     <h1 class="display-3">Hire Directly with {{ config('app.name') }}</h1>
@@ -354,13 +357,13 @@
                         <div class="row match-height">
                             <!-- col -->
                             @forelse($companies->take(30) as $company)
-                            <div class="col-2 mb-5" data-toggle="tooltip" data-placement="top" title="{{ $company->name }}">
-                                <div class="card category-card-shadow">
-                                    <div class="card-body">
-                                        <img src="{{ config("app.url")."/storage/".$company?->photos[1]?->filename}}" width="100%" height="100%" alt="">
+                                <div class="col-2 mb-5" data-toggle="tooltip" data-placement="top" title="{{ $company->name }}">
+                                    <div class="card category-card-shadow">
+                                        <div class="card-body">
+                                            <img src="{{ config("app.url")."/storage/".$company?->photos[1]?->filename}}" width="100%" height="100%" alt="">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @empty
                             @endforelse
                         </div>
@@ -390,81 +393,27 @@
                         </li>
                     </ul>
                     <div class="my-slider">
-                        <div class="slider-item">
-                            <div class="card category-card-shadow m-10">
-                                <div class="row g-0">
-                                    <!-- Image -->
-                                    <div class="col-lg-4 col-md-12 col-12 bg-cover img-left-rounded">
-                                        <img src="https://www.hirect.in/_nuxt/img/ranveer.7126872.jpg" class="img-fluid review-image" alt="">
-                                    </div>
-                                    <div class="col-lg-8 col-md-12 col-12">
-                                        <div class="card-body">
-                                            <h1 class="mb-2 mb-lg-4">Jugo Kumar</h1>
-                                            <p>Full Stuck Web Application Developer</p>
-                                            <p class="mt-6">Our features, journey, tips and us being us. Lorem ipsum dolor sit amet,
-                                                accumsan
-                                                in, tempor dictum neque.lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ea eius facilis magnam mollitia perspiciatis quibusdam rem, rerum. Accusantium cumque debitis distinctio dolorum fugit hic molestias numquam obcaecati rem voluptas.</p>
+                        @forelse(\App\Models\Review::all() as $rev)
+                            <div class="slider-item">
+                                <div class="card category-card-shadow m-10">
+                                    <div class="row g-0">
+                                        <!-- Image -->
+                                        <div class="col-lg-4 col-md-12 col-12 bg-cover img-left-rounded">
+                                            <img src="{{ $rev?->photo }}" class="img-fluid review-image" style="object-fit: cover" alt="">
+                                        </div>
+                                        <div class="col-lg-8 col-md-12 col-12">
+                                            <div class="card-body">
+                                                <h1 class="mb-2 mb-lg-4 text-capitalize">{{ $rev?->name }}</h1>
+                                                <p class="text-capitalize">{{ $rev?->designations }}</p>
+                                                <p class="mt-6">{!! $rev?->message !!}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="slider-item">
-                            <div class="card category-card-shadow m-10">
-                                <div class="row g-0">
-                                    <!-- Image -->
-                                    <div class="col-lg-4 col-md-12 col-12 bg-cover img-left-rounded">
-                                        <img src="https://www.hirect.in/_nuxt/img/Mithila.d9db4b0.png" class="img-fluid review-image" alt="">
-                                    </div>
-                                    <div class="col-lg-8 col-md-12 col-12">
-                                        <div class="card-body">
-                                            <h1 class="mb-2 mb-lg-4">Jugo Kumar</h1>
-                                            <p>Full Stuck Web Application Developer</p>
-                                            <p class="mt-6">Our features, journey, tips and us being us. Lorem ipsum dolor sit amet,
-                                                accumsan
-                                                in, tempor dictum neque.lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ea eius facilis magnam mollitia perspiciatis quibusdam rem, rerum. Accusantium cumque debitis distinctio dolorum fugit hic molestias numquam obcaecati rem voluptas.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slider-item">
-                            <div class="card category-card-shadow m-10">
-                                <div class="row g-0">
-                                    <!-- Image -->
-                                    <div class="col-lg-4 col-md-12 col-12 bg-cover img-left-rounded">
-                                        <img src="https://www.hirect.in/_nuxt/img/ranveer.7126872.jpg" class="img-fluid review-image" alt="">
-                                    </div>
-                                    <div class="col-lg-8 col-md-12 col-12">
-                                        <div class="card-body">
-                                            <h1 class="mb-2 mb-lg-4">Jugo Kumar</h1>
-                                            <p>Full Stuck Web Application Developer</p>
-                                            <p class="mt-6">Our features, journey, tips and us being us. Lorem ipsum dolor sit amet,
-                                                accumsan
-                                                in, tempor dictum neque.lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ea eius facilis magnam mollitia perspiciatis quibusdam rem, rerum. Accusantium cumque debitis distinctio dolorum fugit hic molestias numquam obcaecati rem voluptas.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slider-item">
-                            <div class="card category-card-shadow m-10">
-                                <div class="row g-0">
-                                    <!-- Image -->
-                                    <div class="col-lg-4 col-md-12 col-12 bg-cover img-left-rounded">
-                                        <img src="https://www.hirect.in/_nuxt/img/ranveer.7126872.jpg" class="img-fluid review-image" alt="">
-                                    </div>
-                                    <div class="col-lg-8 col-md-12 col-12">
-                                        <div class="card-body">
-                                            <h1 class="mb-2 mb-lg-4">Jugo Kumar</h1>
-                                            <p>Full Stuck Web Application Developer</p>
-                                            <p class="mt-6">Our features, journey, tips and us being us. Lorem ipsum dolor sit amet,
-                                                accumsan
-                                                in, tempor dictum neque.lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ea eius facilis magnam mollitia perspiciatis quibusdam rem, rerum. Accusantium cumque debitis distinctio dolorum fugit hic molestias numquam obcaecati rem voluptas.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        @empty
+
+                        @endforelse
                         </div>
                     </div>
                 </div>
@@ -474,18 +423,7 @@
 
 
 
-    <div class="pt-lg-5 pt-5 bg-cover before-footer d-flex align-items-center justify-content-end">
-        <div class="container">
-            <div class="offset-6 col-6 d-flex align-items-center justify-content-center flex-column">
-                <h1 class="display-2 text-white">Get the <span class="text-success">{{ config('app.name') }}</span> App</h1>
-                <p class="text-white">We will send you a link via SMS. To download the app, simply open it.</p>
-                <form action="" class="d-flex align-items-center">
-                    <input type="text" class="form-control rounded-5 w-100 me-3" placeholder="+8801*-********">
-                    <button type="submit" class="btn btn-success rounded-5 text-black">Registration</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('frontend.inc.before_footer')
 
 
 

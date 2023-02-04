@@ -11,7 +11,7 @@
             </div>
             <div class="ms-lg-3 mt-2 mt-lg-0">
                 <h4 class="mb-1 h5">
-                    <a href="{{ route('client.single_job', $value->slug) }}" class="text-inherit" target="_blank">{{ $value->title }}</a>
+                    <a href="{{ route('client.single_job', $value->slug) }}" class="text-inherit" target="_blank">{{ Str::limit($value->title, 20) }}</a>
                 </h4>
                 <span class="badge bg-light-primary text-primary">{{ $value->category->name }}</span>
                 <!--                                        <ul class="list-inline fs-6 mb-0">

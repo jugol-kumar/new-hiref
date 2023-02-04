@@ -224,6 +224,13 @@
 
 
                 <li class="nav-item" v-if="this.$page.props.auth.user.role === 'admin'">
+                    <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/review`">
+                        <vue-feather type="users" />
+                        <span class="menu-title text-truncate">Reviews</span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" v-if="this.$page.props.auth.user.role === 'admin'">
                     <Link preserve-scroll class="d-flex align-items-center" :href="`${this.$page.props.ADMIN_URL}/settings`">
                         <vue-feather type="settings" />
                         <span class="menu-title text-truncate">Settings</span>

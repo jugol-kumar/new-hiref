@@ -13,10 +13,9 @@
         }
         .before-footer{
             background-image: url("{{ asset('frontend/assets/images/footer_banner.png') }}") !important;
-            height: 100%;
-            background-size: cover;
-            background-position: center center;
+            height: 100% !important;
             min-height: 500px;
+            background-attachment: fixed !important;
         }
         .step-img-card{
             padding: 50px;
@@ -52,14 +51,14 @@
 
 @section('content')
 
-    <div class="pt-8 pt-lg-18 bg-cover section-bg">
+    <div class="pt-8 pt-lg-18 bg-cover">
         <!-- container -->
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-12 h-100">
-                    <img class="float-start w-65" src="{{ asset('frontend/assets/images/home-phone.png') }}" alt="">
+                <div class="col-md-7 col-12 h-100">
+                    <img class="w-65" src="{{ asset('frontend/assets/images/man-right.png') }}" alt="">
                 </div>
-                <div class="col-md-6 mt-5 col-12 d-flex align-items-start justify-content-start flex-column">
+                <div class="col-md-5 mt-5 col-12 d-flex align-items-start justify-content-start flex-column">
                     <h1 class="display-3">Get the <span class="text-success">{{ config('app.name') }}</span> App</h1>
                     <p>We will send you a link via SMS. To download the app, simply open it.</p>
 
@@ -88,7 +87,7 @@
 
 
 
-    <div class="pt-lg-14 pg-12 bg-cover mb-4">
+    <div class="pt-lg-14 pg-12 bg-cover mb-4 section-bg">
         <!-- container -->
         <div class="container">
             <div class="row">
@@ -99,7 +98,7 @@
 
                 </div>
                 <div class="offset-1 col-md-6 col-12 h-100">
-                    <img class="float-end w-100" src="{{ asset('frontend/assets/images/india_s-first-job.png') }}" alt="">
+                    <img class="float-end w-75" src="{{ asset('frontend/assets/images/model/worman-left-2.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -120,8 +119,8 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="d-md-flex mb-4 flex-column align-items-center card-border-right">
                         <strong class="fs-3 mb-3 text-black">Stape 1</strong>
-                        <div class="bg-light step-img-card">
-                            <img src="{{ asset('frontend/assets/images/profile.svg') }}" alt="" height="80">
+                        <div class="step-img-card">
+                            <img src="{{ asset('frontend/assets/images/stapes/icon-2.gif') }}" alt="" height="140">
                         </div>
                         <p class="fs-4 fw-semibold mt-2 text-black">Build a Profile</p>
                     </div>
@@ -129,8 +128,8 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="d-md-flex mb-4 flex-column align-items-center card-border-right">
                         <strong class="fs-3 mb-3 text-black">Step 2</strong>
-                        <div class="bg-light step-img-card">
-                            <img src="{{ asset('frontend/assets/images/briefcase.svg') }}" alt="" height="80">
+                        <div class="step-img-card">
+                            <img src="{{ asset('frontend/assets/images/stapes/icon-1.gif') }}" alt="" height="140">
                         </div>
                         <p class="fs-4 fw-semibold mt-2 text-black">Post a Job in 5 Minutes</p>
                     </div>
@@ -138,35 +137,34 @@
                 <div class="col-lg-4 col-md-12 col-12 mt-4">
                     <div class="d-md-flex mb-4 flex-column align-items-center">
                         <strong class="fs-3 mb-3 text-black">Step 3</strong>
-                        <div class="bg-light step-img-card">
-                            <img src="{{ asset('frontend/assets/images/messages.svg') }}" alt="" height="80">
+                        <div class="step-img-card">
+                            <img src="{{ asset('frontend/assets/images/stapes/icon-4.gif') }}" alt="" height="140">
                         </div>
                         <p class="fs-4 fw-semibold mt-2 text-black">Chat Directly with Relevant Candidates</p>
                     </div>
                 </div>
             </div>
-
             <a class="btn btn-outline-dark rounded-5 mt-6 py-2 px-5" width="100">View More</a>
         </div>
     </div>
 
 
 
-    <div class="pb-12 pg-12 bg-cover section-bg mb-4">
+    <div class="pt-12 bg-cover section-bg mb-4">
         <!-- container -->
         <div class="container pe-0 ps-0">
             <div class="row">
                 <div class="col-md-5 col-12 h-100">
-                    <img class="float-end w-100" src="{{ asset('frontend/assets/images/hiring-process.png') }}" alt="">
+                    <img class="float-end w-75" src="{{ asset('frontend/assets/images/man-hand.png') }}" alt="">
                 </div>
                 <div class="offset-1 col-md-6 col-12 d-flex align-items-start justify-content-start flex-column">
                     <h1 class="display-4 fw-semibold"><span class="text-success">{{ config("app.name") }} </span> - Simplifying the Hiring Process</h1>
 
                     <p class="text-justify my-5">
-                        Hirect, a direct hiring platform for founders and hiring managers, is committed to meeting its users' definitions of success. This chat-based platform is created to help high-growth startups meet their hiring needs in absence of middlemen.
+                        {{ config('app.name') }}, a direct hiring platform for founders and hiring managers, is committed to meeting its users' definitions of success. This chat-based platform is created to help high-growth startups meet their hiring needs in absence of middlemen.
                     </p>
                     <p class="text-justify">
-                        Hirect caters to the hiring needs of 190K+ verified recruiters. The AI algorithm's ability to correctly match recruiters to relevant candidates based on skills, experience, profile activity, location preferences, etc. makes hiring simple and effective.
+                         caters to the hiring needs of 190K+ verified recruiters. The AI algorithm's ability to correctly match recruiters to relevant candidates based on skills, experience, profile activity, location preferences, etc. makes hiring simple and effective.
                     </p>
                     <a href="javascript:void(0)" class="btn btn-success rounded-5 btn-sm mt-2 text-black px-5 py-2">Hire Now</a>
                 </div>
@@ -306,18 +304,7 @@
     </div>
 
     <!-- Page Content -->
-    <div class="pt-lg-5 pt-5 bg-cover before-footer d-flex align-items-center justify-content-end">
-        <div class="container">
-            <div class="offset-6 col-6 d-flex align-items-center justify-content-center flex-column">
-                <h1 class="display-2 text-white">Get the {{ config('app.name') }} App</h1>
-                <p class="text-white">Click the button below to download the {{ config('app.name') }} app.</p>
-                <form action="" class="d-flex align-items-center">
-                    <input type="text" class="form-control rounded-5 w-100 me-3" placeholder="+8801*-********">
-                    <button type="submit" class="btn btn-success rounded-5 text-black">Registration</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('frontend.inc.before_footer')
 
 
 @endsection

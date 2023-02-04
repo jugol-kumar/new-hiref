@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\EducationController;
 use App\Http\Controllers\Admin\EducationLavelController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\RecruiterJobController;
+use App\Http\Controllers\admin\ReviewController;
 use App\Http\Controllers\Admin\SeekerJobController;
 use App\Http\Controllers\Admin\SubCategoryController;
 
@@ -168,6 +169,8 @@ Route::middleware('auth')->group(function () {
 
             Route::get('admin-profile', [UserController::class, 'profile'])->name('adminProfile');
             Route::post('admin-profile', [UserController::class, 'profile_update'])->name('settingUpdate');
+
+            Route::resource('review', ReviewController::class);
         });
 
         Route::prefix('recruiters')->name('recruiter.')->middleware('recruiters')->group(function(){

@@ -48,7 +48,6 @@ class BusinessSettingController extends Controller
     public function updateSetting()
     {
 
-
             foreach (Request::all() as $type => $value){
                 $business_settings = BusinessSetting::where('type', $type)->first();
 
@@ -62,6 +61,10 @@ class BusinessSettingController extends Controller
 
                 if ($type == 'country' && $value != null && gettype($value) != 'array'){
                     $value = $business_settings->country;
+                }
+
+                if ($type == 'timezone' && gettype($value) == 'array'){
+                    overWriteEnvFile("TEXT_COLOR", $value['tz']);
                 }
 
                 if ($type == 'header_logo' && Request::hasFile('header_logo')){
@@ -123,6 +126,11 @@ class BusinessSettingController extends Controller
     }
 
     public function logoUpdate(){
+
+
+        return Request::all();
+
+
 
         if (Request::hasFile('header_logo')){
             $business_settings = BusinessSetting::where('type', 'header_logo')->first();

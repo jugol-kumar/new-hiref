@@ -127,6 +127,29 @@ input[type="radio"]:checked + div::before {
     background: white;
     overflow-y: scroll;
 }
+#countryList ul li{
+    padding: 10px;
+    background: #d7f8ff70;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--bs-success);
+    border-radius: 15px;
+}
+
+
 
 .employee-card img{
     filter: grayscale(1);
@@ -294,6 +317,34 @@ input[type="radio"]:checked + div::before {
 
 
 
+.animate-charcter
+{
+    text-transform: uppercase;
+    background-image: linear-gradient(
+        -225deg,
+        #231557 0%,
+        #44107a 29%,
+        #ff1361 67%,
+        #fff800 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 10s linear infinite;
+    display: inline-block;
+    font-size: 90px;
+}
+
+@keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
+}
 
 
 

@@ -27,18 +27,18 @@
                             <div class="d-flex align-items-start justify-content-between">
                                 <div class="d-flex align-items-baseline">
                                     <i class="mdi mdi-briefcase-check fs-2 fw-bold text-black-50"></i>
-                                    <p class="ms-2 fw-semibold">{{ $user->seeker?->end_date->format('y') - $user->seeker?->start_date->format('y') }} years</p>
+                                    <p class="ms-2 fw-semibold">{{ $user->seeker?->end_date?->format('y') - $user->seeker?->start_date?->format('y') }} years</p>
                                 </div>
                                 <div class="d-flex align-items-baseline">
                                     <i class="mdi mdi-school fs-2 fw-bold text-black-50"></i>
-                                    <p class="ms-2 fw-semibold">{{ $user->seeker?->end_date->format('y') - $user->seeker?->start_date->format('y') }} years</p>
+                                    <p class="ms-2 fw-semibold">{{ $user->seeker?->end_date?->format('y') - $user->seeker?->start_date?->format('y') }} years</p>
                                 </div>
                                 <div class="d-flex align-items-baseline">
                                     <i class="mdi mdi-cake-layered fs-2 fw-bold text-black-50"></i>
-                                    <p class="ms-2 fw-semibold">{{ $user->seeker?->end_date->format('y') - $user->seeker?->start_date->format('y') }} years</p>
+                                    <p class="ms-2 fw-semibold">{{ $user->seeker?->end_date?->format('y') - $user->seeker?->start_date?->format('y') }} years</p>
                                 </div>
                             </div>
-                            <p class="">{{ $user->about }}</p>
+                            <p class="">{{ $user?->about }}</p>
                         </div>
                         <hr class="my-4">
 
@@ -46,11 +46,11 @@
                             <h2 class="d-flex align-items-center text-black-50 mb-5"><span class="badge-dot bg-success me-3"></span>Job Preference</h2>
 
                             <div class="d-flex align-items-center justify-content-between">
-                                <h3 class="text-capitalize">{{ $user->seeker?->category->name }}</h3>
+                                <h3 class="text-capitalize">{{ $user->seeker?->category?->name }}</h3>
                                 <h5>{{ $user->seeker?->exp_min_sal }} LPA- {{ $user->seeker?->exp_max_sal }}LPA</h5>
                             </div>
                             <p class="mb-0 pb-0">{{ $user->seeker?->types }}</p>
-                            <p class="my-0 py-0">{{ $user->seeker?->division->name }}, {{ $user->seeker?->district->name }}</p>
+                            <p class="my-0 py-0">{{ $user->seeker?->division?->name }}, {{ $user->seeker?->district?->name }}</p>
                         </div>
                         <hr class="my-4">
 
@@ -59,7 +59,7 @@
 
                             <div class="d-flex align-items-center justify-content-between">
                                 <h3 class="text-capitalize">{{ $user->seeker?->company_name }}</h3>
-                                <h5>{{ $user->seeker?->start_date->format("M, Y") }} - {{ $user->seeker?->end_date->format("M, Y") }}</h5>
+                                <h5>{{ $user->seeker?->start_date?->format("M, Y") }} - {{ $user->seeker?->end_date?->format("M, Y") }}</h5>
                             </div>
                             <p class="mb-0 pb-0">{{ $user->seeker?->designation }}</p>
 
@@ -72,9 +72,9 @@
 
                             <div class="d-flex align-items-center justify-content-between">
                                 <h3 class="text-capitalize">{{ $user->seeker?->university }}</h3>
-                                <h5>{{ $user->seeker?->uni_start_date->format("M, Y") }} - {{ $user->seeker?->uni_end_date->format("M, Y") }}</h5>
+                                <h5>{{ $user->seeker?->uni_start_date?->format("M, Y") }} - {{ $user->seeker?->uni_end_date?->format("M, Y") }}</h5>
                             </div>
-                            <p class="mb-0 pb-0">{{ $user->seeker?->education_level->label }} / {{ $user->seeker?->educaiton->education_name }}</p>
+                            <p class="mb-0 pb-0">{{ $user->seeker?->education_level?->label }} / {{ $user->seeker?->educaiton?->education_name }}</p>
                         </div>
                         <hr class="my-4">
                         <div>
@@ -91,7 +91,7 @@
 
                             @if(json_decode(json_decode($user->seeker?->skills)) != null)
                                 @forelse(json_decode(json_decode($user->seeker?->skills)) as $skill)
-                                    <span class="badge bg-light-secondary text-black-50">{{ $skill->value }}</span>
+                                    <span class="badge bg-light-secondary text-black-50">{{ $skill?->value }}</span>
                                 @empty
                                 @endforelse
                             @endif
@@ -108,7 +108,7 @@
                                 </a>
                             </div>
                             <i class="fe fe-globe"></i>
-                            <a class="text-decoration-underline" href="{{ $user->portfolio_url }}" target="_blank">{{ $user->portfolio_url }}</a>
+                            <a class="text-decoration-underline" href="{{ $user?->portfolio_url }}" target="_blank">{{ $user?->portfolio_url }}</a>
 
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                             <form id="protfolioForm">
                                 <div class="form-group">
                                     <label class="form-label">Website Link</label>
-                                    <input name='portfolio_url' class="form-control" value="{{ $user->portfolio_url }}"/>
+                                    <input name='portfolio_url' class="form-control" value="{{ $user?->portfolio_url }}"/>
                                     <button type="submit" class="btn btn-sm btn-primary mt-2">Save Now</button>
                                 </div>
                             </form>

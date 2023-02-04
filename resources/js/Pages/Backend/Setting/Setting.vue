@@ -204,6 +204,22 @@
                                                         <div class="col-12">
                                                             <Image v-model="logoForm.fevicon_logo" :showFile="props.bSettings.fevicon_logo" label="Favicon"/>
                                                         </div>
+
+<!--                                                        <div class="row">
+                                                            <div class="col">
+                                                                <label>Text Color</label> <small class="text-info">(Must Be HEXA Color. like #fefefe)</small>
+                                                                 <Text type="color" v-model="logoForm.textColor" class="form-control form-control-color"/>
+                                                            </div>
+                                                            <div class="col">
+                                                                <label>Main Color</label> <small class="text-info">(This is rgb color code rgb(255,255,255))</small>
+                                                                <Text type="color" v-model="logoForm.mainColor" class="form-control form-control-color"/>
+                                                            </div>
+                                                            <div class="col">
+                                                                <label>Light Color</label> <small class="text-info">(This is rgb color code rgb(255,255,255))</small>
+                                                                <Text type="color" v-model="logoForm.lightColor"  class="form-control form-control-color"/>
+                                                            </div>
+                                                        </div>-->
+
                                                         <div class="col-12 mt-2 d-inline-flex align-item-center">
                                                             <button v-if="!isLoding" type="submit" disabled class="btn btn-primary me-1 waves-effect waves-float waves-light">
                                                                 <div class="spinner-border text-white me-1"  role="status"></div>
@@ -212,8 +228,6 @@
                                                             <button v-else class="btn btn-primary me-1 waves-effect waves-float waves-light">
                                                                 Submit
                                                             </button>
-
-
                                                             <button type="reset" class="btn btn-outline-secondary waves-effect">Reset</button>
                                                         </div>
                                                     </div>
@@ -372,6 +386,10 @@ let logoForm = useForm({
     header_logo     :   '',
     footer_logo     :   '',
     fevicon_logo    :   '',
+    lightColor      : null,
+    mainColor       : null,
+    textColor       : null
+
 })
 
 

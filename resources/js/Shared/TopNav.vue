@@ -23,6 +23,12 @@
                     </li>
                 </ul>
             </div>
+            <a href="/" class="btn btn-sm bg-light-primary d-flex align-items-center">
+                <vue-feather type="globe" size="15"/>
+                <span style="margin-left:5px">
+                Visit Site
+                </span>
+            </a>
             <ul class="nav navbar-nav align-items-center ms-auto">
                 <dark-toggle />
 

@@ -73,7 +73,7 @@
                             <span class="me-2 d-flex">
                                 <i class="mdi mdi-note-outline"></i>
                                 <span class="ms-1 text-capitalize fs-6">
-                                    {!! Str::limit($job->job_details, 90) !!}
+                                    {!! Str::limit($job->job_disc, 90) !!}
                                 </span>
                             </span>
                         </div>

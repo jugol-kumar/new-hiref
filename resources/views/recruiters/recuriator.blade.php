@@ -2,12 +2,19 @@
 @section('title', get_setting('name')." Recruiters")
 @push('css')
     <style>
+        .rec-header{
+            background-image: url(http://127.0.0.1:8000/frontend/assets/images/bg-rec.gif) !important;
+            height: 100%;
+            min-height: 500px;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+        }
         .before-footer{
             background-image: url("{{ asset('frontend/assets/images/footer_banner.png') }}") !important;
             height: 100%;
-            background-size: cover;
-            background-position: center center;
             min-height: 500px;
+            background-attachment: fixed !important;
         }
         .step-img-card{
             padding: 50px;
@@ -39,21 +46,25 @@
 @endpush
 @section('content')
     <!-- Page Content -->
-        <div class="pt-lg-5 pt-5 bg-cover before-footer d-flex align-items-center justify-content-end">
-            <div class="container">
-                <div class="offset-6 col-6 d-flex align-items-start justify-content-center flex-column">
-                    <h1 class="display-2 text-white">Get the {{ config('app.name') }} App</h1>
-                    <p class="text-white">Click the button below to download the {{ config('app.name') }} app.</p>
-                    <form action="{{ route('loginOrCreate') }}" class="d-flex align-items-start" method="post">
-                        @csrf
-                        <input type="hidden" name="role" value="true">
-                        <input type="text" class="form-control rounded-5 w-100 me-3" name="phone" placeholder="+8801*-********">
-                        <button type="submit" class="btn btn-success rounded-5 text-black">Registration</button>
-                    </form>
+        <div class="pt-lg-5 pt-5 bg-cover rec-header backdrop-full d-flex align-items-center justify-content-end">
+            <div class="backdrop-full">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <img style="width: 80%" src="{{ asset('frontend/assets/images/man-hand.png') }}" alt="">
+                        </div>
+                        <div class="col-6">
+                            <h1 class="display-2 text-white">Get the {{ config('app.name') }} App</h1>
+                            <p class="text-white">Click the button below to download the {{ config('app.name') }} app.</p>
+                            <form  action="{{ route('loginOrCreate') }}" method="post" class="d-flex align-items-center">
+                                @csrf
+                                <input type="hidden" name="role" value="true">
 
-                    @error('phone')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                                <input type="text" class="form-control rounded-5 w-100 me-3" name="phone" placeholder="+8801*-********">
+                                <button type="submit" class="btn btn-success rounded-5 text-black">Registration</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,11 +77,13 @@
                         <h1 class="display-4 fw-semibold"><span class="text-success">{{ config("app.name") }} </span>App for Founders and Hiring Managers</h1>
 
                         <p class="text-justify my-5">A targeted job portal for SMEs and Startups - {{ config('app.name') }} is a mobile-first chat-based platform that fulfills the hiring requirements of 190K+ verified recruiters. Hirect as a direct hiring app connects recruiters to 3.8M+ verified candidates who are searching for jobs in Indian startups. Moreover, Hirect allows for direct and private communication without the interference of consultants.</p>
+
+                        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium delectus deleniti deserunt error iste laudantium magni maiores minus nesciunt obcaecati officiis optio porro provident quae quod saepe vel, voluptas!</p>
                         <a href="javascript:void(0)" class="btn btn-success rounded-5 btn-sm mt-2 text-black px-5 py-2">Get Hired</a>
 
                     </div>
                     <div class="col-md-6 col-12 h-100">
-                        <img class="float-end w-75" src="{{ asset('frontend/assets/images/recruiter-about.png') }}" alt="">
+                        <img class="float-end w-65" src="{{ asset('frontend/assets/images/model/woman-left.png') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -90,8 +103,8 @@
                     <div class="col-lg-4 col-md-12 col-12">
                         <div class="d-md-flex mb-4 flex-column align-items-center card-border-right">
                             <strong class="fs-3 mb-3 text-black">Stape 1</strong>
-                            <div class="bg-light step-img-card">
-                                <img src="{{ asset('frontend/assets/images/profile.svg') }}" alt="" height="80">
+                            <div class="step-img-card">
+                                <img src="{{ asset('frontend/assets/images/stapes/icon--1.gif') }}" alt="" height="140">
                             </div>
                             <p class="fs-4 fw-semibold mt-2 text-black">Build a Profile</p>
                         </div>
@@ -99,8 +112,8 @@
                     <div class="col-lg-4 col-md-12 col-12">
                         <div class="d-md-flex mb-4 flex-column align-items-center card-border-right">
                             <strong class="fs-3 mb-3 text-black">Step 2</strong>
-                            <div class="bg-light step-img-card">
-                                <img src="{{ asset('frontend/assets/images/briefcase.svg') }}" alt="" height="80">
+                            <div class="step-img-card">
+                                <img src="{{ asset('frontend/assets/images/stapes/icon--2.gif') }}" alt="" height="200">
                             </div>
                             <p class="fs-4 fw-semibold mt-2 text-black">Post a Job in 5 Minutes</p>
                         </div>
@@ -108,8 +121,8 @@
                     <div class="col-lg-4 col-md-12 col-12 mt-4">
                         <div class="d-md-flex mb-4 flex-column align-items-center">
                             <strong class="fs-3 mb-3 text-black">Step 3</strong>
-                            <div class="bg-light step-img-card">
-                                <img src="{{ asset('frontend/assets/images/messages.svg') }}" alt="" height="80">
+                            <div class="step-img-card">
+                                <img src="{{ asset('frontend/assets/images/stapes/icon--3.gif') }}" alt="" height="140">
                             </div>
                             <p class="fs-4 fw-semibold mt-2 text-black">Chat Directly with Relevant Candidates</p>
                         </div>
@@ -124,12 +137,12 @@
 
 
 
-        <div class="pb-12 pg-12 bg-cover section-bg mb-4">
+        <div class="pt-12 bg-cover section-bg mb-4">
             <!-- container -->
             <div class="container pe-0 ps-0">
                 <div class="row">
                     <div class="col-md-5 col-12 h-100">
-                        <img class="float-end w-100" src="{{ asset('frontend/assets/images/hiring-process.png') }}" alt="">
+                        <img class="float-end" style="width: 90%" src="{{ asset('frontend/assets/images/model/man-laptop-right.png') }}" alt="">
                     </div>
                     <div class="offset-1 col-md-6 col-12 d-flex align-items-start justify-content-start flex-column">
                         <h1 class="display-4 fw-semibold"><span class="text-success">{{ config("app.name") }} </span> - Simplifying the Hiring Process</h1>
@@ -275,20 +288,9 @@
             </div>
         </div>
 
-        <!-- Page Content -->
-        <div class="pt-lg-5 pt-5 bg-cover before-footer d-flex align-items-center justify-content-end">
-            <div class="container">
-                <div class="offset-6 col-6 d-flex align-items-center justify-content-center flex-column">
-                    <h1 class="display-2 text-white">Get the {{ config('app.name') }} App</h1>
-                    <p class="text-white">Click the button below to download the {{ config('app.name') }} app.</p>
-                    <form action="" class="d-flex align-items-center">
-                        <input type="text" class="form-control rounded-5 w-100 me-3" placeholder="+8801*-********">
-                        <button type="submit" class="btn btn-success rounded-5 text-black">Registration</button>
-                    </form>
-                </div>
-            </div>
-        </div>
 
+
+    @include('frontend.inc.before_footer')
 
 @endsection
 

@@ -41,7 +41,11 @@
                         <a class="nav-link p-4" href="{{ route('client.seekers') }}">Job Seekers</a>
                     </li>
                     <div class="ms-2 mt-3 mt-lg-0 d-flex align-items-end">
-                        <a href="{{ route('login') }}" class="bg-success rounded-pill px-5 py-2 text-black fw-bold me-3">Download app</a>
+                        @if(Auth::check() && Auth::user()->role == \App\Properties::$admin)
+                            <a href="{{ route('admin.dashboard') }}" class="bg-success rounded-pill px-5 py-2 text-black fw-bold me-3">{{ Auth::user()->name }}</a>
+                        @else
+                            <a href="{{ route('login') }}" class="bg-success rounded-pill px-5 py-2 text-black fw-bold me-3">Download app</a>
+                        @endif
                         <div class="nav-item dropdown">
                             <a
                                 class="nav-link dropdown-toggle"
@@ -383,6 +387,38 @@
                                             </ul>
                                         </li>
                                         --}}
+                                        {{--
+                                            <li class="dropdown-submenu dropstart-lg">
+                                            <a
+                                                class="dropdown-item dropdown-list-group-item dropdown-toggle"
+                                                href="#"
+                                            >
+                                                <i class="fe fe-circle me-2"></i>Status
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <span class="badge-dot bg-success me-2"></span>Online
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <span class="badge-dot bg-secondary me-2"></span>Offline
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <span class="badge-dot bg-warning me-2"></span>Away
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">
+                                                        <span class="badge-dot bg-danger me-2"></span>Busy
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        --}}
                                         <li>
                                             <a href="{{ route('admin.dashboard') }}" class="dropdown-item">
                                                 <i class="fe fe-user me-2"></i>Profile
@@ -424,11 +460,11 @@
                                                 <i class="fe fe-user me-2"></i>Profile
                                             </a>
                                         </li>
-                                        <li>
+<!--                                        <li>
                                             <a class="dropdown-item" href="{{ route('seeker.security') }}">
                                                 <i class="fe fe-settings me-2"></i>Settings
                                             </a>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                 @endif
 
